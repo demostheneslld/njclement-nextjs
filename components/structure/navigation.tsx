@@ -1,5 +1,5 @@
 import { ReactElement } from "react"
-import { navigationPages } from "../config/constants";
+import { navigationPages } from "../../config/constants";
 import { Router, withRouter } from 'next/router';
 
 function classNames(...classes) {
@@ -34,7 +34,7 @@ const Navigation = ({ router }): ReactElement => {
                 <select
                 id="tabs"
                 name="tabs"
-                className="block w-full focus:ring-gray-500 focus:border-gray-500 border-gray-300 rounded-md"
+                className="block w-full bg-gray-100 p-4 focus:ring-gray-500 focus:border-gray-500 border-gray-300 rounded-md"
                 defaultValue={navigationPages.find((tab) => tab.current || {name: 'unknown'}).name}
                 >
                 {navigationPages.map((tab) => (

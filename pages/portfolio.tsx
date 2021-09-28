@@ -1,5 +1,12 @@
 import Head from 'next/head'
 import { ReactElement } from 'react'
+import PortfolioItem from '../components/portfolioItem'
+import { portfolioItems } from '../config/constants'
+
+const portfolioMessage = `
+Most of my best work is done for private companies, and I am unable to share those projects publicly.
+That being said, I have created a few projects in my spare time that I am able to list here!
+`
 
 const Portfolio = (): ReactElement => {
   return (
@@ -7,7 +14,12 @@ const Portfolio = (): ReactElement => {
       <Head>
         <title>Portfolio | Nathaniel J. Clement</title>
       </Head>
-      PORTFOLIO
+      <div>{portfolioMessage}</div>
+      <div className='grid grid-cols-3 gap-4 mt-4'>
+        {portfolioItems.map((item) => (
+          <PortfolioItem name={item.name} description={item.description} link={item.link} backgroundImageUrl={item.imageUrl} />
+        ))}
+      </div>
     </div>
   )
 }

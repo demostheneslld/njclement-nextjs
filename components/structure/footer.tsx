@@ -1,4 +1,4 @@
-import { socialLinks } from "../config/constants";
+import { socialLinks } from "../../config/constants";
 
 const socialLinksJsx = socialLinks.map(socialLink => (
     <a key={socialLink.name} target='_blank' className='hover:underline' href={socialLink.href}>{socialLink.name}</a>

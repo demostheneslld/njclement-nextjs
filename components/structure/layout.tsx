@@ -6,7 +6,7 @@ export default function Layout({ children }) {
   return (
     <>
         <Meta />
-        <div className='flex flex-col items-center justify-center min-h-screen gap-y-8 text-gray-700'>
+        <div className='flex flex-col items-center justify-center min-h-screen gap-y-8 text-gray-700 mt-0 lg:mt-8'>
             <img src='/logo.png' className='p-4 w-full max-w-xl'/>
             <div className='w-full max-w-3xl'>
                 <Navigation></Navigation>
