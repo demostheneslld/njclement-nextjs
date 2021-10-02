@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 
 const FadeInLogo = (props): ReactElement => {
     return (
-      <div className='p-4 bg-gray-100 rounded filter grayscale hover:filter-none transition-all duration-500'>
+      <div className='p-4 bg-gray-100 rounded filter grayscale hover:filter-none hover:bg-gray-200 transition-all duration-500'>
         <div 
           key={props.name} 
           className='h-20'
