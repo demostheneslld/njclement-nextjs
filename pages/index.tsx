@@ -16,7 +16,7 @@ export default function Home() {
           <div className='max-w-sm w-full text-gray-400 px-8 pb-8 italic text-center m-auto'>The Measure of a Man is not who he is, nor is it who he ought to be. It is the percentage of who he ought to be that he is.</div>
           <div className='bg-gray-100 w-full p-2 text-center rounded-b'>Nathaniel J. Clement</div>
         </div>
-        <div className='max-w-3xl w-full text-justify'>
+        <div className='max-w-3xl w-full'>
           <h1 className='underline text-gray-900 mb-4'>Biography</h1>
           <div>{biography}</div>
         </div>
@@ -32,7 +32,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className='max-w-3xl w-full text-justify'>
+        <div className='max-w-3xl w-full'>
           <h1 className='underline text-gray-900 mb-4'>Career</h1>
           <div className='mb-4'>Over the years, I have had the privilege of working for incredible organizations, including the following...</div>
           <div className='grid grid-cols-3 gap-4'>
@@ -41,7 +41,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className='max-w-3xl w-full text-justify'>
+        <div className='max-w-3xl w-full'>
           <h1 className='underline text-gray-900 mb-4'>Technical Proficiencies</h1>
           {Object.keys(technicalProficiencies).map((category) => (
             <div key={`tech_category_${category}`}>
