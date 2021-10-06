@@ -37,21 +37,21 @@ export default function Home() {
           <div className='mb-4'>Over the years, I have had the privilege of working for incredible organizations, including the following...</div>
           <div className='grid grid-cols-3 gap-4'>
             {careerItems.map((item) => (
-              <FadeInLogo name={item.name} backgroundImageUrl={item.href} />
+              <FadeInLogo key={`career_${item.name}`} name={item.name} backgroundImageUrl={item.href} />
             ))}
           </div>
         </div>
         <div className='max-w-3xl w-full text-justify'>
           <h1 className='underline text-gray-900 mb-4'>Technical Proficiencies</h1>
           {Object.keys(technicalProficiencies).map((category) => (
-            <>
+            <div key={`tech_category_${category}`}>
               <h2 className='mb-4 mt-8'>{category}</h2>
               <div className='grid grid-cols-3 gap-4'>
                 {technicalProficiencies[category].map((item) => (
-                  <FadeInLogo name={item.name} backgroundImageUrl={item.href} />
+                  <FadeInLogo key={`tech_item_${item.name}`} name={item.name} backgroundImageUrl={item.href} />
                 ))}
               </div>
-            </>
+            </div>
           ))}
         </div>
       </div>

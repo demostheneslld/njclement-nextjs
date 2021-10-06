@@ -15,9 +15,9 @@ const Portfolio = (): ReactElement => {
         <title>Portfolio | Nathaniel J. Clement</title>
       </Head>
       <div>{portfolioMessage}</div>
-      <div className='grid grid-cols-3 gap-4 mt-4'>
+      <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4'>
         {portfolioItems.map((item) => (
-          <PortfolioItem name={item.name} description={item.description} link={item.link} backgroundImageUrl={item.imageUrl} />
+          <PortfolioItem key={`portfolio_${item.name}`} name={item.name} description={item.description} link={item.link} backgroundImageUrl={item.imageUrl} />
         ))}
       </div>
     </div>

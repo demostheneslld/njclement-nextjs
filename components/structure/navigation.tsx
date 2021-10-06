@@ -1,17 +1,15 @@
 import { ReactElement } from "react"
 import { navigationPages } from "../../config/constants";
-import { Router, withRouter } from 'next/router';
+import { withRouter } from 'next/router';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-
-const setCurrentPath = (router: Router) => {
-    const currentPath = router.pathname;
+const setCurrentPath = (pathName: string) => {
+    const currentPath = pathName;
     console.log(`currentPath ${currentPath}`);
     for (const tab of navigationPages) {
-        console.log(tab.href)
         if (tab.href === currentPath) {
             tab.current = true;
         } else {
@@ -20,10 +18,15 @@ const setCurrentPath = (router: Router) => {
     }
 }
 
-
 const Navigation = ({ router }): ReactElement => {
-    setCurrentPath(router);
-    console.log(navigationPages);
+    setCurrentPath(router.pathname);
+
+    function handleTabChange() {
+        const tabElement = document.getElementById('tabs') as HTMLSelectElement;
+        const selectedPath =  tabElement.value;
+        document.location = selectedPath;
+    }
+
     return (
         <div>
             <div className="sm:hidden">
@@ -35,10 +38,11 @@ const Navigation = ({ router }): ReactElement => {
                 id="tabs"
                 name="tabs"
                 className="block w-full bg-gray-100 p-4 focus:ring-gray-500 focus:border-gray-500 border-gray-300 rounded-md"
-                defaultValue={navigationPages.find((tab) => tab.current || {name: 'unknown'}).name}
+                defaultValue={navigationPages.find((tab) => tab.current).href}
+                onChange={handleTabChange}
                 >
                 {navigationPages.map((tab) => (
-                    <option key={tab.name}>{tab.name}</option>
+                    <option key={`tab_${tab.name}`} value={tab.href}>{tab.name}</option>
                 ))}
                 </select>
             </div>
