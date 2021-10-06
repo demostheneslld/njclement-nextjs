@@ -20,7 +20,6 @@ const setCurrentPath = (pathName: string) => {
 
 const Navigation = ({ router }): ReactElement => {
     setCurrentPath(router.pathname);
-
     function handleTabChange() {
         const tabElement = document.getElementById('tabs') as HTMLSelectElement;
         const selectedPath =  tabElement.value;
@@ -38,7 +37,7 @@ const Navigation = ({ router }): ReactElement => {
                 id="tabs"
                 name="tabs"
                 className="block w-full bg-gray-100 p-4 focus:ring-gray-500 focus:border-gray-500 border-gray-300 rounded-md"
-                defaultValue={navigationPages.find((tab) => tab.current).href}
+                defaultValue={(navigationPages.find((tab) => tab.current) || { href: 'unknown' }).href}
                 onChange={handleTabChange}
                 >
                 {navigationPages.map((tab) => (
