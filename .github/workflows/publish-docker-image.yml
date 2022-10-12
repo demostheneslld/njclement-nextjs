@@ -1,0 +1,27 @@
+name: Publish Docker Image
+
+on:
+  push:
+    branches: [ production, staging ]
+  pull_request:
+    branches: [ production, staging ]
+
+jobs:
+
+  build-docker:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+    - name: Login to Docker
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GH_PAT }}
+    - name: Build the Docker image
+      run: ./scripts/docker_build.sh ${{ github.ref_name }}
+    - name: Publish the Docker image
+      run: ./scripts/docker_push.sh ${{ github.ref_name }}
