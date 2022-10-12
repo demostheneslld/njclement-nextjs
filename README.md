@@ -1,6 +1,4 @@
-# Simple NextJS + Netlify Brochure App for NJC Enterprises
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/ba98339e-6a4a-4a4d-bfa8-1c834041de9c/deploy-status)](https://app.netlify.com/sites/vibrant-swanson-5ff44f/deploys)
+# Simple NextJS + Docker Brochure App for NJC Enterprises
 
 Personal Site for Nathan Clement
 
