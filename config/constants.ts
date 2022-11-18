@@ -10,6 +10,8 @@ export const navigationPages: NavigationPage[] = [
   { name: "Contact", href: "/contact", current: null },
 ];
 
+export const biography = `I love solving problems. During college, I discovered the power of automation during a final project for a class in Government. I had spent hours building a giant Excel spreadsheet with hundreds of members of congress and their social media pages, and was getting sick of clicking, copying, and pasting. I knew there must be a better way, and after a couple Google searches, discovered how to build my first macro. I've spent the years since learning to code from the ground up, one project at a time. These days, I enjoy building web applications, automating data processes, and creating interactive visualizations of information.`
+
 interface SocialLink {
   name: string;
   href: string;
