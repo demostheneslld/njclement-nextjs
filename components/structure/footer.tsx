@@ -1,7 +1,7 @@
 import { socialLinks } from "../../config/constants";
 
 const socialLinksJsx = socialLinks.map(socialLink => (
-    <a key={socialLink.name} target='_blank' className='hover:underline' href={socialLink.href}>{socialLink.name}</a>
+    <a key={socialLink.name} target='_blank' className='hover:underline' href={socialLink.href} rel="noreferrer">{socialLink.name}</a>
 ));
 
 const Footer = () => {
