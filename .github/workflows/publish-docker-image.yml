@@ -2,9 +2,9 @@ name: Publish Docker Image
 
 on:
   push:
-    branches: [ production, staging ]
+    branches: [ deploy/production, deploy/staging ]
   pull_request:
-    branches: [ production, staging ]
+    branches: [ deploy/production, deploy/staging ]
 
 jobs:
 
