@@ -1,19 +1,23 @@
 import Head from 'next/head'
 import FadeInLogo from '../components/fadeInLogo'
 import SocialIcon from '../components/socialIcon'
-import { biography, careerItems, technicalProficiencies, socialLinks } from '../config/constants'
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
-import Image from 'next/image';
+import { careerItems, technicalProficiencies, socialLinks } from '../config/constants'
+import matter from 'gray-matter';
+import ReactMarkdown from 'react-markdown';
 
 export async function getStaticProps() {
-  // MDX text - can be from a local file, database, anywhere
-  const source = 'Some **mdx** text, with a component <Heading />';
-  const mdxSource = await serialize(source);
-  return { props: { source: mdxSource } };
+  const bioMarkdown = await import(`../config/markdown/bio.md`);
+  const bioMarkdownData = matter(bioMarkdown.default);
+  const props = {
+    biography: {
+      frontmatter: bioMarkdownData.data,
+      markdownBody: bioMarkdownData.content,
+    }
+  };
+  return {props};
 }
 
-export default function Home() {
+export default function Home(props) {
   return (
     <>
       <Head>
@@ -21,7 +25,7 @@ export default function Home() {
       </Head>
       <div className='flex flex-col items-center gap-y-6'>
         <div className='max-w-3xl w-full rounded flex flex-col gap-y-8'>
-          <Image alt='Profile Image' className='max-w-xs w-full rounded-full m-auto' src='/profile.png' />
+          <img alt='Profile Image' className='max-w-xs w-full rounded-full m-auto' src='/profile.png' />
           <div className='max-w-sm w-full text-gray-400 px-8 italic text-center m-auto'>The Measure of a Man is not who he is, nor is it who he ought to be. It is the percentage of who he ought to be that he is.</div>
           <div className='bg-gray-100 text-gray-600 w-full p-2 text-center rounded-b flex flex-col gap-2'>
             <div className='text-4xl'>Nathaniel J. Clement</div>
@@ -41,7 +45,8 @@ export default function Home() {
         </div>
         <div className='max-w-3xl w-full'>
           <h1 className='underline text-gray-900 mb-4'>Biography</h1>
-          <div>{biography}</div>
+          
+          <ReactMarkdown>{props.biography.markdownBody}</ReactMarkdown>
         </div>
         <div className='max-w-3xl w-full filter grayscale hover:filter-none transition-all duration-500'>
           <h1 className='underline text-gray-900 mb-4'>Education</h1>
