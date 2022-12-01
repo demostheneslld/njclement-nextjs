@@ -1,3 +1,6 @@
+import { ContentItem } from "../types/pdf/ContentItem";
+import { ContentRenderers, ContentRendererTypes } from "./pdfSetup";
+
 interface NavigationPage {
   name: string;
   href: string;
@@ -127,5 +130,107 @@ export const portfolioItems: PortfolioItem[] = [
       "A simpler version of the Hodl Calculator. Uses market-cap to estimate max values for different cryptos",
     link: `https://njclement.blob.core.windows.net/main/cryptocurrency_value.html?${srcString}`,
     imageUrl: "/portfolio/crypto-value.png",
+  },
+];
+
+export const defaultResumeItems: ContentItem[] = [
+  { 
+    content: {
+      name: 'Nathaniel J. Clement',
+      email: 'resume@njclement.com',
+      website: 'njclement.com',
+      address: 'Portland, OR | Vancouver, WA | Remote | Hybrid',
+      phone: 'phone upon request',
+      summary: 'Experienced Software Engineer, Architect, and Leader',
+    }, rendererKey: ContentRendererTypes.TITLE 
+  },
+  { content: 'Academic History', rendererKey: ContentRendererTypes.SECTION },
+  { 
+      content: {
+      title: 'Harvard University',
+      subtitle: 'A.B. in Government and Psychology: 3.56/4.00 GPA.',
+      location: 'Cambridge, MA',
+      dateRange: '2010 - 2014',
+      items: [
+        'Coursework: Data Science, Computer Science, Statistics, Cyberpolitics, Economics, Polling, and Psychology',
+        'Varsity Men\'s Water Polo. Dedicated 10-30+ hours weekly to the team as a utility player for three seasons',
+      ]
+    }, rendererKey: ContentRendererTypes.EXPERIENCE
+  },
+  { content: 'Relevant Career Experience', rendererKey: ContentRendererTypes.SECTION },
+  { 
+    content: {
+      title: 'Printforia',
+      subtitle: 'Print on Demand as a Service',
+      description: 'Roles: Software Engineering Manager << Software Engineer',
+      location: 'Vancouver, WA',
+      dateRange: 'Started 2020',
+      items: [
+        'Led a team of Full Time and Contractor Engineers as we developed internal and external tools',
+      ]
+    }, rendererKey: ContentRendererTypes.EXPERIENCE
+  },
+  { 
+    content: {
+      title: 'NJC Enterprises',
+      subtitle: 'Software Consulting',
+      description: 'Roles: Founder',
+      location: 'Portland, OR',
+      dateRange: 'Started 2015',
+      items: [
+        
+      ]
+    }, rendererKey: ContentRendererTypes.EXPERIENCE
+  },
+  { 
+    content: {
+      title: 'LifePort',
+      subtitle: 'Aerospace Manufacturing in Medical, Defense, and VIP Markets',
+      description: 'Roles: Software Architect << Full Stack Developer << Senior Analyst',
+      location: 'Woodland, WA',
+      dateRange: '2015 - 2020',
+      items: [
+        
+      ]
+    }, rendererKey: ContentRendererTypes.EXPERIENCE
+  },
+  { 
+    content: {
+      title: 'Facebook',
+      subtitle: 'Government and Politics Team',
+      description: 'Roles: Summer Extern via ZeroChaos',
+      location: 'Washington, DC',
+      dateRange: '2013 - 2014',
+      items: [
+        'Reduced time required to pull data, analyze trends, and prepare page insight publications by 5+ hours per client',
+        'Certified over 3k official pages for domestic and international politicians during verified political pages rollout'
+      ]
+    }, rendererKey: ContentRendererTypes.EXPERIENCE
+  },
+  { content: 'ADDITIONAL EXPERIENCE', rendererKey: ContentRendererTypes.SECTION },
+  { 
+    content: {
+      title: 'Travels',
+      subtitle: 'Canada, Egypt, England, Ethiopia, Kenya, Mexico, Namibia, Scotland, South Africa, Tanzania, Zambia.',
+    }, rendererKey: ContentRendererTypes.EXPERIENCE
+  },
+  { content: 'Favorite Frameworks and Tools', rendererKey: ContentRendererTypes.SECTION },
+  { 
+    content: {
+      title: 'Backend',
+      subtitle: 'Node.js, Express.js, TypeORM, Relational Data, Document Data, Django, Flask, .NET Core, Shell, Cron',
+    }, rendererKey: ContentRendererTypes.EXPERIENCE
+  },
+  { 
+    content: {
+      title: 'Frontend',
+      subtitle: 'Tailwind, Vue3, Angular, React, AmCharts, AgGrid, Next.js',
+    }, rendererKey: ContentRendererTypes.EXPERIENCE
+  },
+  { 
+    content: {
+      title: 'DevOps',
+      subtitle: 'Agile Principles, Docker, Kubernetes, GitHub Actions, CircleCI, Azure, Jest, Postman',
+    }, rendererKey: ContentRendererTypes.EXPERIENCE
   },
 ];

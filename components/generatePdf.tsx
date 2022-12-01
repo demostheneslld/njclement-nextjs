@@ -1,37 +1,62 @@
-import React, { useCallback, useEffect } from "react";
+import React, { Ref, useCallback, useEffect, useRef, useState } from "react";
 import { jsPDF } from "jspdf";
-import { ContentRenderer } from "../types/pdf/ContentRenderer";
 import { ContentItem } from "../types/pdf/ContentItem";
-import { PDF_SETUP } from "../config/pdfSetup";
+import { ContentRenderers, PDF_SETUP } from "../config/pdfSetup";
 
 type props = {
 
-  items?: ContentItem[];
+  currentItems?: string;
+  isPendingUpdates?: boolean;
+  errorMessage?: string;
+  setErrorMessage?: React.Dispatch<React.SetStateAction<string>>;
 
 };
 
-const GeneratePdf: React.FC<props> = ({ items }) => {
+const GeneratePdf: React.FC<props> = ({ currentItems, isPendingUpdates, errorMessage, setErrorMessage }) => {
+
+  const [pdfDataUri, setPdfDataUri] = useState<string>();
+
   const generatePdf = useCallback(() => {
-    const pdf = new jsPDF({
-      unit: PDF_SETUP.unit,
-    });
-    console.log(pdf.getFontList());
-    let cursor = { x: PDF_SETUP.margin, y: PDF_SETUP.margin }
-    items.forEach((item) => {
-      item.renderer(item.content, pdf, cursor);
-    });
-    const pdfString = pdf.output("datauristring", {filename: `Clement_Resume_FULL_${new Date().toISOString().substring(0, 10)}`});
-    (document.getElementById('pdf_preview') as HTMLIFrameElement).src = pdfString;
-  }, [items]);
+    try {
+      const pdf = new jsPDF({
+        unit: PDF_SETUP.unit,
+      });
+      const filename = `Clement_Resume_FULL_${new Date().toISOString().substring(0, 10)}`;
+      pdf.setProperties({ title: filename})
+      console.log(pdf.getFontList());
+      let cursor = { x: PDF_SETUP.margin, y: PDF_SETUP.margin };
+      if (currentItems) {
+        const items = JSON.parse(currentItems) as ContentItem[];
+        items.forEach((item) => {
+          ContentRenderers[item.rendererKey](item.content, pdf, cursor);
+        });
+        setPdfDataUri(pdf.output("datauristring", {filename: filename}));
+      }
+    } catch (err) {
+      setErrorMessage(err.message);
+    }
+  }, [currentItems, setErrorMessage]);
 
   useEffect(() => { generatePdf() }, [generatePdf]);
 
   return (
+    
     <div className="flex flex-col gap-2">
-      <button className='p-2 bg-gray-100 hover:bg-primary-200 rounded' onClick={generatePdf}>
-        Update PDF
-      </button>
-      <iframe id="pdf_preview" itemType="application/pdf" src="" width="800" height="745"></iframe>
+      { 
+        isPendingUpdates === false && !errorMessage &&
+        <object className='rounded' data={pdfDataUri} type="application/pdf" width="800" height="745"></object>
+      }
+      { 
+        (isPendingUpdates || errorMessage) &&
+        <div className='transition-all bg-gray-200 rounded flex items-center' style={{
+          width: 800, height: 745
+        }}>
+          <div className='m-auto text-center'>
+            <div className='text-bad-500'>{(!isPendingUpdates && errorMessage) ? 'Something went wrong generating this PDF!' : ''}</div>
+            <div className='text-sm text-gray-500 font-mono'>{(!isPendingUpdates && errorMessage) ? errorMessage : 'Pending Updates...'}</div>
+          </div> 
+        </div>
+      }
     </div>
   );
 };

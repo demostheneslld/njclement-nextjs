@@ -1,3 +1,3 @@
-import { ContentRenderer } from "./ContentRenderer";
+import { ContentRendererTypes } from "../../config/pdfSetup";
 
-export type ContentItem = {content: any, renderer: ContentRenderer};
+export type ContentItem = {content: any, rendererKey: ContentRendererTypes};
