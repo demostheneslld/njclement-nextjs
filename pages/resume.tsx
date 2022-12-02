@@ -36,7 +36,8 @@ const Resume =()=>{
         <textarea
           className='font-mono text-[.65rem] w-[600px] h-[704px] p-2 bg-gray-100 text-gray-600'
           defaultValue={currentItems}
-          onChange={e => updateContentItems(e.target.value)} 
+          onChange={e => updateContentItems(e.target.value)}
+          spellCheck="false"
         />
       </div>
       <GeneratePDF currentItems={currentItems} isPendingUpdates={isPendingUpdates} errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>
