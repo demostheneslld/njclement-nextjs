@@ -1,6 +1,7 @@
 import jsPDF, { jsPDFOptions } from "jspdf";
 import { ContentRenderer } from "../types/pdf/ContentRenderer";
 import { Cursor } from "../types/pdf/Cursor";
+import { ExperienceItem } from "../types/pdf/ExperienceItem";
 
 const pageWidth = 8.5;
 const lineHeight = 1.2;
@@ -31,7 +32,7 @@ const addSpacer = (size: SpacerSize, cursor: Cursor) => {
   };
   cursor.x = PDF_SETUP.margin;
   cursor.y += PDF_SETUP.oneLineHeight * multiplierMap[size];
-  console.log(`Adding Spacer: ${size}`)
+  // console.log(`Adding Spacer: ${size}`)
 }
 
 const addText = (text: string, pdf: jsPDF, cursor: Cursor, options?: {
@@ -60,13 +61,16 @@ const addText = (text: string, pdf: jsPDF, cursor: Cursor, options?: {
   let indent = 0;
   let textArray = [text];
   if (textWidth > PDF_SETUP.maxLineWidth) {
-    console.info(`★·.·\´¯\`·.·★ Splitting long text into lines ${text}`);
+    // console.info(`★·.·\´¯\`·.·★ Splitting long text into lines ${text}`);
     textArray = pdf.splitTextToSize(text, PDF_SETUP.maxLineWidth);
   }
   textArray.forEach((textArrayItem: string, index: number) => {
     const textArrayItemWidth = pdf.getStringUnitWidth(textArrayItem + ' ') * fontSize / 72;
+    // Remove Period at end of Text
+    if (textArrayItem.endsWith('.')) textArrayItem = textArrayItem.slice(0, -1);
+    // Add the Text
     pdf.setFont(fontFace, fontStyle).setFontSize(fontSize).text(textArrayItem, startX + offset + indent, cursor.y, null, align);
-    console.log(`📖 Added Text "${textArrayItem}" @ (${cursor.x}, ${cursor.y}) with offset ${offset}`);
+    // console.log(`📖 Added Text "${textArrayItem}" @ (${cursor.x}, ${cursor.y}) with offset ${offset}`);
     // last item in array
     if (index + 1 === textArray.length) {
       let endX = startX + textArrayItemWidth;
@@ -76,7 +80,7 @@ const addText = (text: string, pdf: jsPDF, cursor: Cursor, options?: {
       indent = 0;
     } else {
       // not last item
-      console.log('🔜 Continuing with more lines...');
+      // console.log('🔜 Continuing with more lines...');
       addSpacer('line', cursor);
       const minIndentTextWidth = pdf.getStringUnitWidth(minIndentText) * fontSize / 72;
       indent = minIndentTextWidth;
@@ -104,7 +108,7 @@ export const ContentRenderers: Record<ContentRendererTypes, ContentRenderer> = {
     addText(content.toLocaleUpperCase(), pdf, cursor, { fontStyle: 'bold' })
     addSpacer('small', cursor);
   },
-  [ContentRendererTypes.EXPERIENCE]: (content: {title: string, subtitle?: string, description?: string, location?: string, dateRange?: string, items?: string[]}, pdf: jsPDF, cursor: Cursor) => {
+  [ContentRendererTypes.EXPERIENCE]: (content: {title: string, subtitle?: string, description?: string, location?: string, dateRange?: string, items?: ExperienceItem[]}, pdf: jsPDF, cursor: Cursor) => {
     addText(content.title, pdf, cursor, { fontStyle: 'bold', goToNextLine: false });
     if (content.subtitle) addText(` — ${content.subtitle}`, pdf, cursor, { fontStyle: 'italic', goToNextLine: false});
     cursor.x = PDF_SETUP.margin;
@@ -115,8 +119,8 @@ export const ContentRenderers: Record<ContentRendererTypes, ContentRenderer> = {
       addSpacer('medium', cursor);
     }
     if (content.description) addText(content.description, pdf, cursor, { fontStyle: 'italic' });
-    (content.items || []).forEach((item: string) => {
-      addText(`» ${item}`, pdf, cursor, { minIndentText: '» '});
+    (content.items || []).forEach((item: ExperienceItem) => {
+      if (item.visible) addText(`» ${item.content}`, pdf, cursor, { minIndentText: '» '});
     });
     addSpacer('medium', cursor);
   },

@@ -5,7 +5,7 @@ import { ContentRenderers, PDF_SETUP } from "../config/pdfSetup";
 
 type props = {
 
-  currentItems?: string;
+  currentItems?: ContentItem[];
   isPendingUpdates?: boolean;
   errorMessage?: string;
   setErrorMessage?: React.Dispatch<React.SetStateAction<string>>;
@@ -23,12 +23,12 @@ const GeneratePdf: React.FC<props> = ({ currentItems, isPendingUpdates, errorMes
       });
       const filename = `Clement_Resume_FULL_${new Date().toISOString().substring(0, 10)}`;
       pdf.setProperties({ title: filename})
-      console.log(pdf.getFontList());
+      // console.log(pdf.getFontList());
       let cursor = { x: PDF_SETUP.margin, y: PDF_SETUP.margin };
       if (currentItems) {
-        const items = JSON.parse(currentItems) as ContentItem[];
+        const items = currentItems;
         items.forEach((item) => {
-          ContentRenderers[item.rendererKey](item.content, pdf, cursor);
+          if (item.isVisible) ContentRenderers[item.rendererKey](item.content, pdf, cursor);
         });
         setPdfDataUri(pdf.output("datauristring", {filename: filename}));
       }
