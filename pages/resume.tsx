@@ -19,6 +19,13 @@ const Resume =()=>{
   const [exportTrigger, setExportTrigger] = useState<number>(0);
   const [isPendingUpdates, setIsPendingUpdates] = useState<boolean>(false);
 
+  const triggerExport = () => {
+    setExportTrigger(1);
+    setTimeout(() => {
+      setExportTrigger(0);
+    }, 5000);
+  }
+
   const toggleEditMode: MouseEventHandler<HTMLAnchorElement> = (event: MouseEvent) => {
     const modeToUse = editMode === 'on' ? 'off' : 'on';
     setEditMode(modeToUse);
@@ -109,7 +116,7 @@ const Resume =()=>{
             <div>Toggle Edit Mode (currently: {editMode.toLocaleUpperCase()})</div>
           </div>
         </Button>
-        <Button variants={[ButtonVariants.PRIMARY]} onClick={e => setExportTrigger(exportTrigger + 1)}>
+        <Button variants={[ButtonVariants.PRIMARY]} onClick={e => triggerExport()}>
           <div className='flex gap-2'>
             <ArrowDownTrayIcon className='w-6 h-6'></ArrowDownTrayIcon>
             <div>Export as PDF</div>
