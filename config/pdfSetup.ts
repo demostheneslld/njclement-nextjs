@@ -138,7 +138,7 @@ export const ContentRenderers: Record<ContentRendererTypes, ContentRenderer> = {
   ) => {
     addText(content.name, pdf, cursor, { fontSize: 24, align: 'center' });
     addSpacer('medium', cursor);
-    if (content.summary) addText(content.summary, pdf, cursor, { align: 'center', fontStyle: 'italic' });
+    // if (content.summary) addText(content.summary, pdf, cursor, { align: 'center', fontStyle: 'italic' });
     addText(content.address, pdf, cursor, { align: 'center' });
     addText(`${content.email} | ${content.website} | ${content.phone}`, pdf, cursor, { align: 'center' });
     addSpacer('medium', cursor);
