@@ -42,6 +42,7 @@ const addText = (text: string, pdf: jsPDF, cursor: Cursor, options?: {
     fontSize?: number,
     goToNextLine?: boolean,
     minIndentText?: string,
+    underline?: boolean,
   }) => {
   // Set up option defaults
   const align = options?.align || 'left';
@@ -49,6 +50,7 @@ const addText = (text: string, pdf: jsPDF, cursor: Cursor, options?: {
   const fontStyle = options?.fontStyle || 'normal';
   const fontSize = options?.fontSize || 10;
   const goToNextLine = options?.goToNextLine !== undefined ? options?.goToNextLine : true;
+  const underline = options?.underline !== undefined ? options?.underline : false;
   const minIndentText = options?.minIndentText || '';
   // Calculations
   let offset = 0;
@@ -70,6 +72,10 @@ const addText = (text: string, pdf: jsPDF, cursor: Cursor, options?: {
     if (textArrayItem.endsWith('.')) textArrayItem = textArrayItem.slice(0, -1);
     // Add the Text
     pdf.setFont(fontFace, fontStyle).setFontSize(fontSize).text(textArrayItem, startX + offset + indent, cursor.y, null, align);
+    if (underline) {
+      pdf.setLineWidth(0.02);
+      pdf.line(cursor.x, cursor.y + 0.02, cursor.x + textWidth, cursor.y + 0.02)
+    }
     // console.log(`📖 Added Text "${textArrayItem}" @ (${cursor.x}, ${cursor.y}) with offset ${offset}`);
     // last item in array
     if (index + 1 === textArray.length) {
@@ -105,7 +111,8 @@ export const ContentRenderers: Record<ContentRendererTypes, ContentRenderer> = {
   },
   [ContentRendererTypes.SECTION]: (content: string, pdf: jsPDF, cursor: Cursor) => {
     addSpacer('small', cursor);
-    addText(content.toLocaleUpperCase(), pdf, cursor, { fontStyle: 'bold' })
+    addText(content.toLocaleUpperCase(), pdf, cursor, { fontStyle: 'bold', underline: true })
+    pdf.setLineWidth(0.02); 
     addSpacer('small', cursor);
   },
   [ContentRendererTypes.EXPERIENCE]: (content: {title: string, subtitle?: string, description?: string, location?: string, dateRange?: string, items?: ExperienceItem[]}, pdf: jsPDF, cursor: Cursor) => {

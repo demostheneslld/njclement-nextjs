@@ -21,7 +21,7 @@ const GeneratePdf: React.FC<props> = ({ currentItems, isPendingUpdates, errorMes
       const pdf = new jsPDF({
         unit: PDF_SETUP.unit,
       });
-      const filename = `Clement_Resume_FULL_${new Date().toISOString().substring(0, 10)}`;
+      const filename = `Clement_Resume_${new Date().toISOString().substring(0, 10)}`;
       pdf.setProperties({ title: filename})
       // console.log(pdf.getFontList());
       let cursor = { x: PDF_SETUP.margin, y: PDF_SETUP.margin };
