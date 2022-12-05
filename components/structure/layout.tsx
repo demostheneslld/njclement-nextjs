@@ -31,7 +31,7 @@ export default function Layout({ children }) {
             <div className='w-full max-w-3xl'>
                 <Navigation></Navigation>
             </div>
-            <div className='p-6'>
+            <div className='px-2 sm:p-6'>
                 <main>{children}</main>
             </div>
         </div>

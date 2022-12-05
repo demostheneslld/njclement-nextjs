@@ -1,21 +1,25 @@
 import dynamic from "next/dynamic";
-import React, { ChangeEvent, ChangeEventHandler, EventHandler, MouseEvent, MouseEventHandler, useRef, useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, MouseEvent, MouseEventHandler, useRef, useState } from "react";
 import { defaultResumeItems } from "../config/constants";
-import { ContentRendererTypes } from "../config/pdfSetup";
 import { ContentItem } from "../types/pdf/ContentItem";
 
 const GeneratePDF = dynamic(()=>import("../components/generatePdf"),{ssr:false});
 const Resume =()=>{
 
   const debounceMillis = 2000;
-
-  const checkboxClassName = 'form-check-input appearance-none h-4 w-4 border border-bad-800 rounded-sm bg-bad-700 checked:bg-good-700 checked:border-good-800 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-right ml-2 cursor-pointer';
-
   const debounceLatest = useRef<number>(0);
+
+  type EditModes = 'on' | 'off';
+  const [editMode, setEditMode] = useState<EditModes>('off');
   const [editableItems, setEditableItems] = useState<number[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [currentItems, setCurrentItems] = useState<ContentItem[]>(defaultResumeItems);
   const [isPendingUpdates, setIsPendingUpdates] = useState<boolean>(false);
+
+  const toggleEditMode: MouseEventHandler<HTMLAnchorElement> = (event: MouseEvent) => {
+    const modeToUse = editMode === 'on' ? 'off' : 'on';
+    setEditMode(modeToUse);
+  }
 
   const updateContentItems = (value: ContentItem[]) => {
     setIsPendingUpdates(true);
@@ -98,8 +102,10 @@ const Resume =()=>{
   return(
   <div className="main">
     
-    <div className='flex gap-2'>
-      <div className='bg-gray-100 rounded mb-2 flex flex-col gap-2 overflow-auto w-[600px] h-[745px]'>
+    <div className='flex flex-col gap-2'>
+      <a href='#' className='text-accent-500 hover:text-accent-700' onClick={toggleEditMode}>Edit Resume</a>
+      { editMode === 'on' && 
+      <div className='bg-gray-100 rounded mb-2 flex flex-col gap-2 overflow-auto w-full'>
         <div className='w-full bg-gray-300 rounded-t p-2'>Resume Data - Modify to update PDF</div>
         { currentItems.map((item, i) => {
           return(
@@ -244,6 +250,7 @@ const Resume =()=>{
           )
         })}
       </div>
+      }
       <GeneratePDF currentItems={currentItems} isPendingUpdates={isPendingUpdates} errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>
     </div>
   </div>);

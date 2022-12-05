@@ -23,7 +23,7 @@ const GeneratePdf: React.FC<props> = ({ currentItems, isPendingUpdates, errorMes
       });
       const filename = `Clement_Resume_${new Date().toISOString().substring(0, 10)}`;
       pdf.setProperties({ title: filename})
-      // console.log(pdf.getFontList());
+      console.log(pdf.getFontList());
       let cursor = { x: PDF_SETUP.margin, y: PDF_SETUP.margin };
       if (currentItems) {
         const items = currentItems;
@@ -44,13 +44,11 @@ const GeneratePdf: React.FC<props> = ({ currentItems, isPendingUpdates, errorMes
     <div className="flex flex-col gap-2">
       { 
         isPendingUpdates === false && !errorMessage &&
-        <object className='rounded' data={pdfDataUri} type="application/pdf" width="800" height="745"></object>
+        <object className='rounded w-full sm:w-[800px] sm:h-[745px]' data={pdfDataUri} type="application/pdf"></object>
       }
       { 
         (isPendingUpdates || errorMessage) &&
-        <div className='transition-all bg-gray-200 rounded flex items-center' style={{
-          width: 800, height: 745
-        }}>
+        <div className='transition-all bg-gray-200 rounded flex items-center w-full sm:w-[600px] sm:h-[745px]'>
           <div className='m-auto text-center'>
             <div className='text-bad-500'>{(!isPendingUpdates && errorMessage) ? 'Something went wrong generating this PDF!' : ''}</div>
             <div className='text-sm text-gray-500 font-mono'>{(!isPendingUpdates && errorMessage) ? errorMessage : 'Pending Updates...'}</div>
