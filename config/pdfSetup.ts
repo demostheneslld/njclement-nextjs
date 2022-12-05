@@ -76,7 +76,7 @@ const addText = (text: string, pdf: jsPDF, cursor: Cursor, options?: {
       pdf.setLineWidth(0.02);
       pdf.line(cursor.x, cursor.y + 0.02, cursor.x + textWidth, cursor.y + 0.02)
     }
-    // console.log(`📖 Added Text "${textArrayItem}" @ (${cursor.x}, ${cursor.y}) with offset ${offset}`);
+    console.log(`📖 Added Text "${textArrayItem}" @ (${cursor.x}, ${cursor.y}) with offset ${offset}`);
     // last item in array
     if (index + 1 === textArray.length) {
       let endX = startX + textArrayItemWidth;
