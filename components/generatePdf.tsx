@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import { ContentItem } from "../types/pdf/ContentItem";
 import { ContentRenderers, PDF_SETUP } from "../config/pdfSetup";
-import { ArrowDownTrayIcon, EyeIcon, EyeSlashIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
-import Button, { ButtonVariants } from "./Button";
 
 type props = {
 
