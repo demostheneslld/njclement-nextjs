@@ -106,26 +106,25 @@ const Resume =()=>{
   }
 
   return(
-  <div className="main">
-    
-    <div className='flex flex-col gap-2'>
-      <div className='flex flex-col sm:flex-row gap-2'>
-        <Button variants={[ButtonVariants.PRIMARY]} onClick={toggleEditMode}>
-          <div className="flex gap-2">
-            <PencilSquareIcon className='w-6 h-6'></PencilSquareIcon>
-            <div>Toggle Edit Mode (currently: {editMode.toLocaleUpperCase()})</div>
-          </div>
-        </Button>
-        <Button variants={[ButtonVariants.PRIMARY]} onClick={e => triggerExport()}>
-          <div className='flex gap-2'>
-            <ArrowDownTrayIcon className='w-6 h-6'></ArrowDownTrayIcon>
-            <div>Export as PDF</div>
-          </div>
-        </Button>
-      </div>
+  <div className="main flex flex-col gap-2">
+    <div className='flex flex-col sm:flex-row gap-2'>
+      <Button variants={[ButtonVariants.PRIMARY]} onClick={toggleEditMode}>
+        <div className="flex gap-2">
+          <PencilSquareIcon className='w-6 h-6'></PencilSquareIcon>
+          <div>Toggle Edit Mode (currently: {editMode.toLocaleUpperCase()})</div>
+        </div>
+      </Button>
+      <Button variants={[ButtonVariants.PRIMARY]} onClick={e => triggerExport()}>
+        <div className='flex gap-2'>
+          <ArrowDownTrayIcon className='w-6 h-6'></ArrowDownTrayIcon>
+          <div>Export as PDF</div>
+        </div>
+      </Button>
+    </div>
+    <div className='flex flex-col sm:flex-row gap-2'>
       { /* EDIT MODE */ }
       { editMode === 'on' && 
-      <div className='bg-gray-100 rounded flex flex-col gap-2 overflow-auto p-2 w-full'>
+      <div className='bg-gray-100 max-h-[745px] rounded flex flex-col gap-2 overflow-auto p-2 w-full'>
         { currentItems.map((item, i) => {
           return(
             <div className='rounded bg-gray-200' key={i}>
