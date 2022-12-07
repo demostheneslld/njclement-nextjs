@@ -1,6 +1,6 @@
 import { ContentItem } from "../types/pdf/ContentItem";
 import { ExperienceItem } from "../types/pdf/ExperienceItem";
-import { ContentRenderers, ContentRendererTypes } from "./pdfSetup";
+import { ContentRendererTypes } from "./pdfSetup";
 
 interface NavigationPage {
   name: string;
@@ -10,6 +10,7 @@ interface NavigationPage {
 
 export const navigationPages: NavigationPage[] = [
   { name: "About", href: "/", current: null },
+  { name: "Resume", href: "/resume", current: null },
   { name: "Portfolio", href: "/portfolio", current: null },
   { name: "Contact", href: "/contact", current: null },
 ];

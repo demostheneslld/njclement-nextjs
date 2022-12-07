@@ -76,7 +76,7 @@ const addText = (text: string, pdf: jsPDF, cursor: Cursor, options?: {
       pdf.setLineWidth(0.02);
       pdf.line(cursor.x, cursor.y + 0.02, cursor.x + textWidth, cursor.y + 0.02)
     }
-    // console.log(`📖 Added Text "${textArrayItem}" @ (${cursor.x}, ${cursor.y}) with offset ${offset}`);
+    console.log(`📖 Added Text "${textArrayItem}" @ (${cursor.x}, ${cursor.y}) with offset ${offset}`);
     // last item in array
     if (index + 1 === textArray.length) {
       let endX = startX + textArrayItemWidth;
@@ -138,7 +138,7 @@ export const ContentRenderers: Record<ContentRendererTypes, ContentRenderer> = {
   ) => {
     addText(content.name, pdf, cursor, { fontSize: 24, align: 'center' });
     addSpacer('medium', cursor);
-    if (content.summary) addText(content.summary, pdf, cursor, { align: 'center', fontStyle: 'italic' });
+    // if (content.summary) addText(content.summary, pdf, cursor, { align: 'center', fontStyle: 'italic' });
     addText(content.address, pdf, cursor, { align: 'center' });
     addText(`${content.email} | ${content.website} | ${content.phone}`, pdf, cursor, { align: 'center' });
     addSpacer('medium', cursor);
