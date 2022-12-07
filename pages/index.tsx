@@ -45,7 +45,6 @@ export default function Home(props) {
         </div>
         <div className='max-w-3xl w-full'>
           <h1 className='underline text-gray-900 mb-4'>Biography</h1>
-          
           <ReactMarkdown>{props.biography.markdownBody}</ReactMarkdown>
         </div>
         <div className='max-w-3xl w-full filter grayscale hover:filter-none transition-all duration-500'>
