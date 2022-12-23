@@ -52,6 +52,7 @@ const Navigation = ({ router }): ReactElement => {
                 <a
                 key={tab.name}
                 href={tab.href}
+                target={tab.target}
                 className={classNames(
                     tab.current ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700',
                     tabIdx === 0 ? 'rounded-l-lg' : '',
