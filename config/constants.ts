@@ -11,7 +11,7 @@ interface NavigationPage {
 
 export const navigationPages: NavigationPage[] = [
   { name: "About", href: "/", current: null },
-  { name: "Articles", href: "https://posts.njclement.com", current: null, target: '_blank' },
+  { name: "Articles", href: "https://articles.njclement.com/", current: null, target: '_blank' },
   { name: "Resume", href: "/resume", current: null },
   { name: "Portfolio", href: "/portfolio", current: null },
   { name: "Contact", href: "/contact", current: null },
