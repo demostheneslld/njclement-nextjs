@@ -1,8 +1,8 @@
 import { ReactElement } from "react"
 import { navigationPages } from "../../config/constants";
-import { withRouter } from 'next/router';
+import { NextRouter, withRouter } from 'next/router';
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
@@ -18,7 +18,7 @@ const setCurrentPath = (pathName: string) => {
     }
 }
 
-const Navigation = ({ router }): ReactElement => {
+const Navigation = ({ router }: { router: NextRouter }): ReactElement => {
     setCurrentPath(router.pathname);
     function handleTabChange() {
         const tabElement = document.getElementById('tabs') as HTMLSelectElement;

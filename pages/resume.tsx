@@ -15,7 +15,7 @@ const Resume =()=>{
   type EditModes = 'on' | 'off';
   const [editMode, setEditMode] = useState<EditModes>('off');
   const [editableItems, setEditableItems] = useState<number[]>([]);
-  const [errorMessage, setErrorMessage] = useState<string>();
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [currentItems, setCurrentItems] = useState<ContentItem[]>(defaultResumeItems);
   const [exportTrigger, setExportTrigger] = useState<number>(0);
   const [isPendingUpdates, setIsPendingUpdates] = useState<boolean>(false);
@@ -27,14 +27,14 @@ const Resume =()=>{
     }, 5000);
   }
 
-  const toggleEditMode: MouseEventHandler<HTMLAnchorElement> = (event: MouseEvent) => {
+  const toggleEditMode: MouseEventHandler<HTMLButtonElement> = (event: MouseEvent) => {
     const modeToUse = editMode === 'on' ? 'off' : 'on';
     setEditMode(modeToUse);
   }
 
   const updateContentItems = (value: ContentItem[]) => {
     setIsPendingUpdates(true);
-    setErrorMessage(null);
+    setErrorMessage(undefined);
     debounceLatest.current += 1;
     setTimeout((args) => {
       console.log(`Debounce Timer Complete (Current ${args[0]}) (Latest ${debounceLatest.current})`);
@@ -86,7 +86,7 @@ const Resume =()=>{
     const newValue = event.target.value;
     const contentItemIndex = Number(event.target.dataset.contentItemIndex);
     const contentItemKey = event.target.dataset.contentItemKey;
-    if (!isNaN(contentItemIndex) && updatedContentItems[contentItemIndex]) {
+    if (!isNaN(contentItemIndex) && contentItemKey !== undefined && updatedContentItems[contentItemIndex]) {
       updatedContentItems[contentItemIndex].content[contentItemKey] = newValue;
     }
     updateContentItems(updatedContentItems);
@@ -98,7 +98,7 @@ const Resume =()=>{
     const contentItemIndex = Number(event.target.dataset.contentItemIndex);
     const contentItemSubIndex = Number(event.target.dataset.contentItemSubIndex);
     const contentItemKey = event.target.dataset.contentItemKey;
-    if (isNaN(contentItemIndex) || isNaN(contentItemSubIndex)) return;
+    if (isNaN(contentItemIndex) || isNaN(contentItemSubIndex) || contentItemKey === undefined ) return;
     const currentValue = updatedContentItems[contentItemIndex].content[contentItemKey][contentItemSubIndex].content;
     if (!isNaN(contentItemIndex) && !isNaN(contentItemSubIndex) && currentValue) {
       updatedContentItems[contentItemIndex].content[contentItemKey][contentItemSubIndex].content = newValue;
@@ -112,13 +112,13 @@ const Resume =()=>{
       <title>Resume | Nathaniel J. Clement</title>
     </Head>
     <div className='flex flex-col sm:flex-row gap-2'>
-      <Button variants={[ButtonVariants.PRIMARY]} onClick={toggleEditMode}>
+      <Button variants={[ButtonVariants.PRIMARY]} onClick={toggleEditMode} onClickData={null}>
         <div className="flex gap-2">
           <PencilSquareIcon className='w-6 h-6'></PencilSquareIcon>
           <div>Toggle Edit Mode (currently: {editMode.toLocaleUpperCase()})</div>
         </div>
       </Button>
-      <Button variants={[ButtonVariants.PRIMARY]} onClick={e => triggerExport()}>
+      <Button variants={[ButtonVariants.PRIMARY]} onClick={e => triggerExport()} onClickData={null}>
         <div className='flex gap-2'>
           <ArrowDownTrayIcon className='w-6 h-6'></ArrowDownTrayIcon>
           <div>Export as PDF</div>
@@ -204,7 +204,7 @@ const Resume =()=>{
                           return (
                             <div className='flex flex-col gap-2 text-sm' key={`content-item-${i}-array`}>
                               { 
-                                item.content[key].map((subItem, si) => {
+                                item.content[key].map((subItem: { content: string | number | readonly string[] | undefined; visible: any; }, si: number) => {
                                   if (typeof subItem.content === 'string') {
                                     return (
                                       <div className='flex justify-between items-center gap-2' key={`content-item-${i}-content-${key}-${si}-content`}>

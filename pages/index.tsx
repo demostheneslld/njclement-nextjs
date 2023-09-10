@@ -17,7 +17,7 @@ export async function getStaticProps() {
   return {props};
 }
 
-export default function Home(props) {
+export default function Home(props: { biography: { markdownBody: string; }; }) {
   return (
     <>
       <Head>
@@ -35,7 +35,6 @@ export default function Home(props) {
                 <SocialIcon 
                   key={`portfolio_${item.name}`} 
                   name={item.name} 
-                  description={null} 
                   link={item.href} 
                   backgroundImageUrl={item.imageUrl}
                 />

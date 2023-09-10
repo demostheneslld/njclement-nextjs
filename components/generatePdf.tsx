@@ -1,13 +1,13 @@
+/// <reference lib="dom" />
 import React, { useCallback, useEffect, useState } from "react";
 import { ContentItem } from "../types/pdf/ContentItem";
-import { URL } from "url";
 
 type props = {
 
   currentItems?: ContentItem[];
   isPendingUpdates?: boolean;
   errorMessage?: string;
-  setErrorMessage?: React.Dispatch<React.SetStateAction<string>>;
+  setErrorMessage?: React.Dispatch<React.SetStateAction<string | undefined>>;
   exportTrigger?: number;
 
 };
@@ -38,8 +38,10 @@ const GeneratePdf: React.FC<props> = ({ exportTrigger, currentItems, isPendingUp
     try {
       const { dataUriString } = await handleBuildPdf();
       setPdfDataUri(dataUriString);
-    } catch (err) {
-      setErrorMessage(err.message);
+    } catch (err: any) {
+      if (setErrorMessage) {
+        setErrorMessage(err?.message ?? "Unknown Error");
+      }
     }
   }, [handleBuildPdf, setErrorMessage]);
 
@@ -52,14 +54,16 @@ const GeneratePdf: React.FC<props> = ({ exportTrigger, currentItems, isPendingUp
       link.href = dataUriString;
       link.download = fileName;
       document.body.appendChild(link);
-      document.getElementById(link.id).click();
-    } catch (err) {
-      setErrorMessage(err.message);
+      document?.getElementById(link.id)?.click();
+    } catch (err: any) {
+      if (setErrorMessage) {
+        setErrorMessage(err?.message ?? "Unknown Error");
+      }
     }
   }, [handleBuildPdf, setErrorMessage]);
 
   useEffect(() => { generatePdf() }, [generatePdf]);
-  useEffect(() => { if (exportTrigger > 0) { exportPdf() } }, [exportTrigger, exportPdf]);
+  useEffect(() => { if (exportTrigger ?? 0 > 0) { exportPdf() } }, [exportTrigger, exportPdf]);
 
   return (
     <div className="flex flex-col gap-2 mb-2">

@@ -18,8 +18,8 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     });
     responseData.dataUriString = pdf.output('datauristring');
     res.status(200).json(responseData);
-  } catch (err) {
-    responseData.message = err.message;
+  } catch (err: any) {
+    responseData.message = err?.message;
     res.status(500).send(responseData);
   }
   

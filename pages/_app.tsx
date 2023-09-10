@@ -1,9 +1,11 @@
 import Script from 'next/script'
 import 'tailwindcss/tailwind.css'
-import Layout from '../components/structure/layout'
 import '../public/globals.scss'
 
-function MyApp({ Component, pageProps }) {
+import type { AppProps } from 'next/app';
+import Layout from '../components/structure/layout';
+
+function MyApp({ Component, pageProps }: AppProps) {
   const googleAnalyticsId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
   return (
     <>

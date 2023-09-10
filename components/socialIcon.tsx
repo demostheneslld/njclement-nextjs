@@ -1,6 +1,6 @@
-import { ReactElement } from "react";
+import { Key, ReactElement } from "react";
 
-const SocialIcon = (props): ReactElement => {
+const SocialIcon = (props: { link: string | URL | undefined; name: string | undefined; backgroundImageUrl: any; }): ReactElement => {
 
   function openLinkInNewTab() {
     window.open(props.link, '_blank');

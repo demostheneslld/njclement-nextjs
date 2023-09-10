@@ -71,7 +71,7 @@ const addText = (text: string, pdf: jsPDF, cursor: Cursor, options?: {
     // Remove Period at end of Text
     if (textArrayItem.endsWith('.')) textArrayItem = textArrayItem.slice(0, -1);
     // Add the Text
-    pdf.setFont(fontFace, fontStyle).setFontSize(fontSize).text(textArrayItem, startX + offset + indent, cursor.y, null, align);
+    pdf.setFont(fontFace, fontStyle).setFontSize(fontSize).text(textArrayItem, startX + offset + indent, cursor.y, undefined, align);
     if (underline) {
       pdf.setLineWidth(0.02);
       pdf.line(cursor.x, cursor.y + 0.02, cursor.x + textWidth, cursor.y + 0.02)

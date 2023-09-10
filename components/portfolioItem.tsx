@@ -1,6 +1,6 @@
-import { ReactElement } from "react";
+import { ReactChild, ReactElement, ReactFragment, ReactPortal } from "react";
 
-const PortfolioItem = (props): ReactElement => {
+const PortfolioItem = (props: { link: string | URL | undefined; name: string | undefined; description: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined; backgroundImageUrl: any; }): ReactElement => {
 
   function openLinkInNewTab() {
     window.open(props.link, '_blank');

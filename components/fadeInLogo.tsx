@@ -1,6 +1,6 @@
-import { ReactElement } from "react";
+import { Key, ReactElement } from "react";
 
-const FadeInLogo = (props): ReactElement => {
+const FadeInLogo = (props: { name: string | undefined; backgroundImageUrl: any; }): ReactElement => {
     return (
       <div className='p-4 bg-gray-100 rounded filter grayscale hover:filter-none hover:bg-gray-200 transition-all duration-500'>
         <div 
