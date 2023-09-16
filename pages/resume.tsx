@@ -4,8 +4,10 @@ import React, { ChangeEvent, ChangeEventHandler, MouseEvent, MouseEventHandler, 
 import { defaultResumeItems } from "../config/constants";
 import { ContentItem } from "../types/pdf/ContentItem";
 import { ArrowDownTrayIcon, EyeIcon, EyeSlashIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
-import Button, { ButtonVariants } from "../components/Button";
+import Button, { ButtonVariants } from "../components/reusable/Button";
+import { FileExtension, FileName } from "../types/FileName";
 
+const fileName = new FileName(`Clement_Resume_${new Date().toISOString().substring(0, 10)}`, FileExtension.PDF);
 const GeneratePDF = dynamic(()=>import("../components/generatePdf"),{ssr:false});
 const Resume =()=>{
 
@@ -13,7 +15,7 @@ const Resume =()=>{
   const debounceLatest = useRef<number>(0);
 
   type EditModes = 'on' | 'off';
-  const [editMode, setEditMode] = useState<EditModes>('off');
+  const [editMode, setEditMode] = useState<EditModes>('on');
   const [editableItems, setEditableItems] = useState<number[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [currentItems, setCurrentItems] = useState<ContentItem[]>(defaultResumeItems);
@@ -256,7 +258,7 @@ const Resume =()=>{
         })}
       </div>
       }
-      <GeneratePDF currentItems={currentItems} exportTrigger={exportTrigger} isPendingUpdates={isPendingUpdates} errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>
+      <GeneratePDF fileName={fileName} currentItems={currentItems} exportTrigger={exportTrigger} isPendingUpdates={isPendingUpdates} errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>
     </div>
   </div>);
 }

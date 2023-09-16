@@ -1,27 +1,25 @@
 /// <reference lib="dom" />
 import React, { useCallback, useEffect, useState } from "react";
 import { ContentItem } from "../types/pdf/ContentItem";
+import { FileExtension, FileName } from "../types/FileName";
 
 type props = {
-
+  fileName: FileName;
   currentItems?: ContentItem[];
   isPendingUpdates?: boolean;
   errorMessage?: string;
   setErrorMessage?: React.Dispatch<React.SetStateAction<string | undefined>>;
   exportTrigger?: number;
-
 };
 
-const fileName = `Clement_Resume_${new Date().toISOString().substring(0, 10)}`;
-
-const GeneratePdf: React.FC<props> = ({ exportTrigger, currentItems, isPendingUpdates, errorMessage, setErrorMessage }) => {
+const GeneratePdf: React.FC<props> = ({ fileName, exportTrigger, currentItems, isPendingUpdates, errorMessage, setErrorMessage }) => {
 
   const [pdfDataUri, setPdfDataUri] = useState<string>();
 
   const handleBuildPdf = useCallback(async () => {
     const data = {
       currentItems,
-      fileName,
+      fileName: fileName.toString(),
     }
     const response = await fetch("/api/build-pdf", {
       method: "POST",
@@ -52,7 +50,7 @@ const GeneratePdf: React.FC<props> = ({ exportTrigger, currentItems, isPendingUp
       const link = document.createElement('a');
       link.id = 'exportedPdfLink';
       link.href = dataUriString;
-      link.download = fileName;
+      link.download = fileName.toString();
       document.body.appendChild(link);
       document?.getElementById(link.id)?.click();
     } catch (err: any) {
