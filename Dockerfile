@@ -1,19 +1,20 @@
 # Install dependencies only when needed
-FROM node:16 AS deps
+FROM oven/bun AS deps
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* bun.lockb* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f bun.lockb ]; then bun install; \
   elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
   else echo "Lockfile not found." && exit 1; \
   fi
 
 
 # Rebuild the source code only when needed
-FROM node:16 AS builder
+FROM oven/bun AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -23,13 +24,11 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-# RUN yarn build
-
-# If using npm comment out above and use below instead
-RUN npm run build
+# build
+RUN bun run build
 
 # Production image, copy all the files and run next
-FROM node:16 AS runner
+FROM oven/bun AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
