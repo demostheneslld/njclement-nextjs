@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { ReactElement } from 'react'
-import PortfolioItem from '../components/portfolioItem'
+import PortfolioItem from '../components/pages/portfolio/PortfolioItem'
 import { portfolioItems } from '../config/constants'
 
 const portfolioMessage = `
