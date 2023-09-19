@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import FadeInLogo from '../components/fadeInLogo'
-import SocialIcon from '../components/socialIcon'
+import FadeInLogo from '../components/reusable/LogoFadeIn'
+import SocialIcon from '../components/reusable/SocialIcon'
 import { careerItems, technicalProficiencies, socialLinks } from '../config/constants'
 import matter from 'gray-matter';
 import ReactMarkdown from 'react-markdown';

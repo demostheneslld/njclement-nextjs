@@ -1,7 +1,7 @@
 /// <reference lib="dom" />
 import React, { useCallback, useEffect, useState } from "react";
-import { ContentItem } from "../types/pdf/ContentItem";
-import { FileExtension, FileName } from "../types/FileName";
+import { ContentItem } from "../../types/pdf/ContentItem";
+import { FileExtension, FileName } from "../../types/FileName";
 
 type props = {
   fileName: FileName;
