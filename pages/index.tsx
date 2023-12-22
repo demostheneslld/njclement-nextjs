@@ -25,7 +25,7 @@ export default function Home(props) {
       </Head>
       <div className='flex flex-col items-center gap-y-6'>
         <div className='max-w-3xl w-full rounded flex flex-col gap-y-8'>
-          <img alt='Profile Image' className='max-w-xs w-full rounded-full m-auto' src='/profile.png' />
+          <img alt='Profile Image' className='max-w-xs w-full rounded-full m-auto filter grayscale hover:filter-none transition-all duration-500' src='/profile.jpeg' />
           <div className='max-w-sm w-full text-gray-400 px-8 italic text-center m-auto'>The Measure of a Man is not who he is, nor is it who he ought to be. It is the percentage of who he ought to be that he is.</div>
           <div className='bg-gray-100 text-gray-600 w-full p-2 text-center rounded flex flex-col gap-2'>
             <div className='text-4xl'>Nathaniel J. Clement</div>

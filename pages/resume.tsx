@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import Head from 'next/head'
 import React, { ChangeEvent, ChangeEventHandler, MouseEvent, MouseEventHandler, useRef, useState } from "react";
 import { defaultResumeItems } from "../config/constants";
 import { ContentItem } from "../types/pdf/ContentItem";
@@ -107,6 +108,9 @@ const Resume =()=>{
 
   return(
   <div className="main flex flex-col gap-2">
+    <Head>
+      <title>Resume | Nathaniel J. Clement</title>
+    </Head>
     <div className='flex flex-col sm:flex-row gap-2'>
       <Button variants={[ButtonVariants.PRIMARY]} onClick={toggleEditMode}>
         <div className="flex gap-2">
