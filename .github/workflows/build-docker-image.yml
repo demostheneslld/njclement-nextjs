@@ -16,4 +16,4 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
     - name: Build the Docker image
-      run: ./scripts/docker_build.sh ${{ github.ref_name }}
+      run: ./scripts/docker_build.sh ${{ github.head_ref || github.ref_name }}
