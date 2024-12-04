@@ -1,0 +1,16 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@layer base {
+
+  p {
+    @apply mb-2;
+  }
+
+  input, textarea {
+    @apply px-3 py-2 border rounded;
+  }
+}
