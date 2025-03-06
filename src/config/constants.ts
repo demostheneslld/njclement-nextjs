@@ -35,7 +35,7 @@ interface SocialLink {
 export const socialLinks: SocialLink[] = [
   { name: "GitHub", href: "https://github.com/demostheneslld", imageUrl: "/social/github.png" },
   { name: "Twitter", href: "https://twitter.com/NathanJClement", imageUrl: "/social/twitter.png" },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/nathanieljclement", imageUrl: "/social/linkedin.png" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/njclement/", imageUrl: "/social/linkedin.png" },
   {
     name: "StackOverflow",
     href: "https://stackoverflow.com/users/4005915/nathan-clement",
