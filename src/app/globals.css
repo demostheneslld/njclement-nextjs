@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lexend:wght@100..900&family=Fira+Code:wght@300..700&display=swap');
+
 @tailwind base;
 
 @tailwind components;
@@ -5,12 +7,135 @@
 @tailwind utilities;
 
 @layer base {
-
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-white text-gray-900 antialiased;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl font-display font-bold mb-6 text-gray-900 tracking-tight;
+  }
+  
+  h2 {
+    @apply text-2xl md:text-3xl font-display font-semibold mb-4 text-gray-900 tracking-tight;
+  }
+  
+  h3 {
+    @apply text-xl md:text-2xl font-display font-medium mb-3 text-gray-900 tracking-tight;
+  }
+  
   p {
-    @apply mb-2;
+    @apply mb-4 text-gray-700 leading-relaxed;
   }
 
   input, textarea {
-    @apply px-3 py-2 border rounded;
+    @apply px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
   }
+}
+
+@layer components {
+  .hero-gradient {
+    @apply bg-gradient-to-r from-primary-600 via-secondary-500 to-accent-500 animate-gradient-x;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300;
+  }
+  
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 focus:ring-primary-500;
+  }
+  
+  .btn-accent {
+    @apply bg-accent-500 hover:bg-accent-600 text-white focus:ring-accent-500;
+  }
+  
+  .stripe-section {
+    @apply py-16 md:py-24 relative overflow-hidden;
+  }
+  
+  .stripe-container {
+    @apply container mx-auto px-6 relative z-10;
+  }
+  
+  .stripe-card {
+    @apply rounded-2xl bg-white p-8 shadow-stripe-sm hover:shadow-stripe-md transition-all duration-300;
+  }
+  
+  .stripe-gradient-bg {
+    @apply absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-secondary-50 -z-10;
+  }
+  
+  .stripe-header {
+    @apply text-center mx-auto max-w-4xl mb-16;
+  }
+  
+  .stripe-header h2 {
+    @apply text-4xl md:text-5xl font-bold mb-6;
+  }
+  
+  .stripe-header p {
+    @apply text-xl text-gray-600 mx-auto max-w-3xl;
+  }
+  
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-lg rounded-2xl border border-gray-200/30 shadow-stripe-sm hover:shadow-stripe-md transition-all duration-300;
+  }
+  
+  .stripe-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8;
+  }
+  
+  .stripe-feature {
+    @apply flex flex-col p-6 rounded-xl bg-white shadow-stripe-sm hover:shadow-stripe-md transition-all duration-300;
+  }
+  
+  .stripe-feature-icon {
+    @apply w-12 h-12 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center mb-4;
+  }
+  
+  .stripe-feature-title {
+    @apply text-xl font-semibold mb-2;
+  }
+  
+  .stripe-feature-description {
+    @apply text-gray-600;
+  }
+  
+  .stripe-button {
+    @apply inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-all duration-200 shadow-sm;
+  }
+}
+
+/* Stripe-inspired custom utilities */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500;
+}
+
+.bg-stripe-gradient {
+  @apply bg-gradient-to-r from-primary-500 to-secondary-500;
+}
+
+.bg-stripe-grid {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23a3a8c3' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }

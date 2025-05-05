@@ -1,12 +1,26 @@
-import { ReactElement } from 'react';
+import Section from '@/components/ui/Section';
+import { siteConfig } from '@/config/constants';
 import { ContactForm } from './contact-form';
 
-const ContactView = (): ReactElement => {
+export default function ContactView() {
   return (
-    <div className="flex flex-col gap-4 min-w-[300px]">
-      <ContactForm />
-    </div>
+    <Section
+      title="Contact Me"
+      subtitle="Have a question or want to collaborate? Send me a message!"
+      background="white"
+    >
+      <div className="max-w-xl mx-auto">
+        <ContactForm />
+      </div>
+      <div className="mt-12 text-center">
+        <p className="text-gray-600">You can also reach me directly at:</p>
+        <a 
+          href={`mailto:${siteConfig.email}`}
+          className="text-lg font-medium text-primary-600 hover:text-primary-800 transition-colors duration-200 hover:underline"
+        >
+          {siteConfig.email}
+        </a>
+      </div>
+    </Section>
   )
 }
-
-export default ContactView;
