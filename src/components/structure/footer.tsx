@@ -20,7 +20,11 @@ export default function Footer() {
                 className="text-gray-400 hover:text-gray-300 transition-colors duration-200"
                 aria-label={item.name}
               >
-                <div className="h-6 w-6 bg-contain bg-no-repeat bg-center" style={{ backgroundImage: `url(${item.imageUrl})` }} />
+                {item.icon ? (
+                  <item.icon className="h-6 w-6" />
+                ) : (
+                  <div className="h-6 w-6 bg-contain bg-no-repeat bg-center" style={{ backgroundImage: item.imageUrl ? `url(${item.imageUrl})` : 'none' }} />
+                )}
               </a>
             ))}
           </div>

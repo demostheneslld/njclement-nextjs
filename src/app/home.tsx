@@ -20,7 +20,7 @@ export default function HomeView() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="lg:w-1/2 text-center lg:text-left">
               <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
-                <span className="text-gradient">{hero.title}</span> <br />{hero.subtitle}
+                <span className="text-gradient min-h-[60px]">{hero.title}</span> <br />{hero.subtitle}
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0">
                 {hero.description}
@@ -64,6 +64,7 @@ export default function HomeView() {
                   key={`social_${item.name}`} 
                   name={item.name} 
                   link={item.href} 
+                  icon={item.icon} 
                   backgroundImageUrl={item.imageUrl}
                 />
               ))}
@@ -95,7 +96,12 @@ export default function HomeView() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
             {careerItems.map((item) => (
-              <FadeInLogo key={`career_${item.name}`} name={item.name} backgroundImageUrl={item.href} />
+              <FadeInLogo 
+                key={`career_${item.name}`} 
+                name={item.name} 
+                backgroundImageUrl={item.href} 
+                description={item.description}
+              />
             ))}
           </div>
         </div>
@@ -156,7 +162,7 @@ export default function HomeView() {
         <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_50%,rgba(112,112,245,0.1)_0%,rgba(0,0,0,0)_100%)]"></div>
         <div className="stripe-container text-center">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">{cta.title}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 min-h-[60px] text-gradient">{cta.title}</h2>
             <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
               {cta.description}
             </p>

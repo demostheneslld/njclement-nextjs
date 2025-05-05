@@ -1,11 +1,11 @@
-
 interface SocialIconProps {
   name: string;
   link: string;
-  backgroundImageUrl: string;
+  backgroundImageUrl?: string;
+  icon?: React.ComponentType<{ className?: string }>;
 }
 
-const SocialIcon = ({ name, link, backgroundImageUrl }: SocialIconProps) => {
+const SocialIcon = ({ name, link, backgroundImageUrl, icon: IconComponent }: SocialIconProps) => {
   return (
     <a
       href={link}
@@ -18,10 +18,14 @@ const SocialIcon = ({ name, link, backgroundImageUrl }: SocialIconProps) => {
       <div
         className="relative w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-110 overflow-hidden"
       >
-        <div 
-          className="w-6 h-6 bg-center bg-contain bg-no-repeat"
-          style={{ backgroundImage: `url(${backgroundImageUrl})` }}
-        ></div>
+        {IconComponent ? (
+          <IconComponent className="w-6 h-6 text-gray-600 group-hover:text-primary-600 transition-colors" />
+        ) : (
+          <div 
+            className="w-6 h-6 bg-center bg-contain bg-no-repeat"
+            style={{ backgroundImage: backgroundImageUrl ? `url(${backgroundImageUrl})` : 'none' }}
+          ></div>
+        )}
       </div>
     </a>
   );

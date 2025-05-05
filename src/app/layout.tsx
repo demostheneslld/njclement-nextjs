@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Footer from "@/components/structure/footer";
 import Navigation from "@/components/structure/navigation";
-import Button from "@/components/ui/button";
+import Button from "@/components/ui/Button";
 import { siteConfig } from "@/config/constants";
 import type { Metadata } from "next";
 import Link from "next/link";
