@@ -2,31 +2,45 @@ import { ContentRendererTypes } from "@/config/pdf-setup";
 import { ContentItem } from "@/types/pdf/ContentItem";
 import { ExperienceItem } from "@/types/pdf/ExperienceItem";
 
-interface NavigationPage {
+// ===========================
+// Site Configuration
+// ===========================
+
+export const siteConfig = {
+  name: "Nathaniel J. Clement",
+  title: "Software Engineer & Architect",
+  description: "Full-stack developer and application architect specialized in building scaled SaaS platforms.",
+  email: "contact@njclement.com",
+  github: "https://github.com/demostheneslld",
+  domain: "njclement.com",
+  openGraph: {
+    image: "/logo.png",
+  },
+  analytics: {
+    // Add analytics providers config if needed
+  },
+  baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "https://njclement.com",
+};
+
+// ===========================
+// Navigation & Links
+// ===========================
+
+export interface NavigationPage {
   name: string;
   href: string;
   current: boolean | null;
   target?: string;
 }
 
-export const bio = `I love solving problems...
-
-During college, I discovered the power of automation during a final project for a class in Government. After spending hours filling a giant spreadsheet with data about social media footprints for hundreds of members of Congress, my hands were hurting from all the clicking, copying, and pasting. I knew there must be a better way. A few Google searches later, I built my first macro, changing the way I thought about work forever. I've spent the years since learning to code from the ground up, one project at a time.
-
-I learned Full Stack Development while automating my first job, eventually building web applications, automating data processes, and creating interactive visualizations of information. Over time, I started working with a team of developers, and took a leadership role in more projects, until I eventually grew to manage a small engineering team: running sprint meetings, planning out architectural decisions, and coordinating tasks between developers.
-
-Few things on Earth satisfy the soul like watching a vision come to life in the hands of a talented and engaged team. I crave that feeling and the fulfillment that comes with it, especially when pursuing objectives that inspire postive, meaningful change in the world, and in the lives of people.
-`
-
 export const navigationPages: NavigationPage[] = [
-  { name: "About", href: "/", current: null },
+  { name: "Home", href: "/", current: null },
   { name: "Articles", href: "https://articles.njclement.com/", current: null, target: '_blank' },
   { name: "Resume", href: "/resume", current: null },
   { name: "Portfolio", href: "/portfolio", current: null },
-  { name: "Contact", href: "/contact", current: null },
 ];
 
-interface SocialLink {
+export interface SocialLink {
   name: string;
   href: string;
   imageUrl: string;
@@ -36,14 +50,81 @@ export const socialLinks: SocialLink[] = [
   { name: "GitHub", href: "https://github.com/demostheneslld", imageUrl: "/social/github.png" },
   { name: "Twitter", href: "https://twitter.com/NathanJClement", imageUrl: "/social/twitter.png" },
   { name: "LinkedIn", href: "https://www.linkedin.com/in/njclement/", imageUrl: "/social/linkedin.png" },
-  {
-    name: "StackOverflow",
-    href: "https://stackoverflow.com/users/4005915/nathan-clement",
-    imageUrl: "/social/stackoverflow.png"
-  },
+  { name: "StackOverflow", href: "https://stackoverflow.com/users/4005915/nathan-clement", imageUrl: "/social/stackoverflow.png" },
 ];
 
-interface CareerItem {
+// ===========================
+// Homepage Content
+// ===========================
+
+export const homepageContent = {
+  hero: {
+    title: "Software Engineering",
+    titleHighlight: true,
+    subtitle: "Leader & Architect",
+    description: "Building scaled SaaS platforms and leading engineering teams to deliver exceptional products.",
+    primaryButton: {
+      text: "View Resume",
+      href: "/resume",
+    },
+    secondaryButton: {
+      text: "Explore Portfolio",
+      href: "/portfolio",
+    },
+  },
+  about: {
+    title: "Biography",
+    subtitle: "My journey and approach to software engineering and leadership",
+  },
+  career: {
+    title: "Career Journey",
+    subtitle: "Organizations that have shaped my professional experience",
+  },
+  education: {
+    title: "Education",
+    subtitle: "Academic foundation and credentials",
+    university: "Harvard University",
+    graduation: "Class of 2014",
+    degree: "A.B. Degree in Government with Secondary in Psychology",
+    highlights: [
+      "Coursework in Computer Science including Data Science and Statistics",
+      "3 Years Varsity Water Polo",
+      "GPA: 3.56/4.00",
+    ],
+  },
+  skills: {
+    title: "Technical Expertise",
+    subtitle: "Tools, languages, and technologies I specialize in",
+  },
+  cta: {
+    title: "Ready to work together?",
+    description: "I'm always interested in new challenges and opportunities to build amazing products.",
+    primaryButton: {
+      text: "Get in Touch",
+      href: "/contact",
+    },
+    secondaryButton: {
+      text: "See My Work",
+      href: "/portfolio",
+    },
+  },
+  quote: "The Measure of a Man is not who he is, nor is it who he ought to be. It is the percentage of who he ought to be that he is.",
+};
+
+export const bio = `I love solving problems...
+
+During college, I discovered the power of automation during a final project for a class in Government. After spending hours filling a giant spreadsheet with data about social media footprints for hundreds of members of Congress, my hands were hurting from all the clicking, copying, and pasting. I knew there must be a better way. A few Google searches later, I built my first macro, changing the way I thought about work forever. I've spent the years since learning to code from the ground up, one project at a time.
+
+I learned Full Stack Development while automating my first job, eventually building web applications, automating data processes, and creating interactive visualizations of information. Over time, I started working with a team of developers, and took a leadership role in more projects, until I eventually grew to manage a small engineering team: running sprint meetings, planning out architectural decisions, and coordinating tasks between developers.
+
+Few things on Earth satisfy the soul like watching a vision come to life in the hands of a talented and engaged team. I crave that feeling and the fulfillment that comes with it, especially when pursuing objectives that inspire positive, meaningful change in the world, and in the lives of people.
+`;
+
+// ===========================
+// Career & Experience
+// ===========================
+
+export interface CareerItem {
   name: string;
   href: string;
 }
@@ -57,7 +138,11 @@ export const careerItems: CareerItem[] = [
   { name: "US Congress", href: "/career/congress.png" },
 ];
 
-interface TechnicalProficiency {
+// ===========================
+// Technical Proficiencies
+// ===========================
+
+export interface TechnicalProficiency {
   name: string;
   href: string;
 }
@@ -100,11 +185,17 @@ export const technicalProficiencies: Record<string, TechnicalProficiency[]> = {
   ],
 };
 
-interface PortfolioItem {
+// ===========================
+// Portfolio
+// ===========================
+
+export interface PortfolioItem {
   name: string;
   description: string;
   link: string;
   imageUrl: string;
+  technologies?: string[];
+  featured?: boolean;
 }
 
 const srcString = "src=njclement";
@@ -115,8 +206,14 @@ export const portfolioItems: PortfolioItem[] = [
     description: "Travel Blog with Integrated Maps",
     link: `https://wevebeeneverywhere.com?${srcString}`,
     imageUrl: "/portfolio/wevebeeneverywhere.png",
+    technologies: ["NextJS", "Google Maps API", "TailwindCSS"],
+    featured: true,
   },
 ];
+
+// ===========================
+// Resume Data
+// ===========================
 
 export const defaultResumeItems: ContentItem[] = [
   new ContentItem({

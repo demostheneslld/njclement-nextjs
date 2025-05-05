@@ -1,88 +1,111 @@
 "use client";
 
 import { navigationPages } from "@/config/constants";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ReactElement } from "react";
-import { HiOutlineExternalLink } from "react-icons/hi";
+import { useState } from "react";
+import { FiExternalLink } from "react-icons/fi";
 
-function classNames(...classes: string[]): string {
-  return classes.filter(Boolean).join(' ')
-}
-
-const setCurrentPath = (pathName: string) => {
-  const currentPath = pathName;
-  console.log(`currentPath ${currentPath}`);
-  for (const tab of navigationPages) {
-    if (tab.href === currentPath) {
-      tab.current = true;
-    } else {
-      tab.current = false;
-    }
-  }
-}
-
-const Navigation = (): ReactElement => {
+export default function Navigation() {
   const pathname = usePathname();
-  setCurrentPath(pathname);
-  function handleTabChange() {
-    const tabElement = document.getElementById('tabs') as HTMLSelectElement;
-    const selectedPath = tabElement.value;
-    document.location = selectedPath;
-  }
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const pageMatcher = (page: { href: string, current: boolean | null }): boolean => {
+    return pathname === page.href || (pathname === '/' && page.href === '/');
+  };
 
   return (
-    <div>
-      <div className="sm:hidden p-2 flex flex-col gap-1">
-        <div>Navigation Menu</div>
-        <label htmlFor="tabs" className="sr-only">
-          Select a tab
-        </label>
-        {/* Use an "onChange" listener to redirect the user to the selected tab URL. */}
-        <select
-          id="tabs"
-          name="tabs"
-          className="block w-full bg-gray-100 p-4 focus:ring-gray-500 focus:border-gray-500 border-gray-300 rounded-md"
-          defaultValue={(navigationPages.find((tab) => tab.current) || { href: 'unknown' }).href}
-          onChange={handleTabChange}
-        >
-          {navigationPages.map((tab) => (
-            <option key={`tab_${tab.name}`} value={tab.href}>{tab.name}</option>
-          ))}
-        </select>
-      </div>
-      <div className="hidden sm:block">
-        <nav className="relative z-0 rounded-lg shadow flex divide-x divide-gray-200" aria-label="Tabs">
-          {navigationPages.map((tab, tabIdx) => (
-            <a
-              key={tab.name}
-              href={tab.href}
-              target={tab.target}
-              className={classNames(
-                tab.current ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700',
-                tabIdx === 0 ? 'rounded-l-lg' : '',
-                tabIdx === navigationPages.length - 1 ? 'rounded-r-lg' : '',
-                'group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10 flex items-center justify-center gap-1'
-              )}
-              aria-current={tab.current ? 'page' : undefined}
+    <>
+      {/* Desktop navigation */}
+      <div className="hidden md:ml-6 md:flex md:space-x-2 lg:space-x-4">
+        {navigationPages.map((item) => {
+          const isCurrent = pageMatcher(item);
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              target={item.target}
+              className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
+                isCurrent
+                  ? "text-primary-600 bg-primary-50"
+                  : "text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+              }`}
+              aria-current={isCurrent ? "page" : undefined}
             >
-              <div className="flex items-center">
-                {tab.name}
-                
-              </div>
-              {tab.target === '_blank' && <div><HiOutlineExternalLink /></div>}
-              <span
-                aria-hidden="true"
-                className={classNames(
-                  tab.current ? 'bg-gray-500' : 'bg-transparent',
-                  'absolute inset-x-0 bottom-0 h-0.5'
+              <span className="flex items-center">
+                {item.name}
+                {item.target === '_blank' && (
+                  <FiExternalLink className="ml-1 h-4 w-4" />
                 )}
-              />
-            </a>
-          ))}
-        </nav>
+              </span>
+            </Link>
+          );
+        })}
       </div>
-    </div>
-  )
-};
 
-export default Navigation;
+      {/* Mobile menu button */}
+      <div className="md:hidden">
+        <button
+          type="button"
+          className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-primary-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          <span className="sr-only">Open main menu</span>
+          {!mobileMenuOpen ? (
+            <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          ) : (
+            <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* Mobile menu, show/hide based on menu state */}
+      {mobileMenuOpen && (
+        <div className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-50 mt-16">
+          <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
+            <div className="px-5 pt-4 pb-4 space-y-1">
+              {navigationPages.map((item) => {
+                const isCurrent = pageMatcher(item);
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    target={item.target}
+                    className={`block px-3 py-2 rounded-md text-base font-medium ${
+                      isCurrent
+                        ? "text-primary-600 bg-primary-50"
+                        : "text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    aria-current={isCurrent ? "page" : undefined}
+                  >
+                    <span className="flex items-center">
+                      {item.name}
+                      {item.target === '_blank' && (
+                        <FiExternalLink className="ml-1 h-4 w-4" />
+                      )}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="px-5 py-3 border-t border-gray-200">
+              <a
+                href="/contact"
+                className="block w-full px-4 py-2 text-center font-medium text-primary-600 bg-gray-50 hover:bg-gray-100 rounded-md"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Contact Me
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
