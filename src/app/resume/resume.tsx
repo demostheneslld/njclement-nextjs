@@ -1,7 +1,7 @@
 'use client';
 
 import GeneratePdf from "@/components/generatePdf";
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/button";
 import Section from '@/components/ui/Section';
 import { defaultResumeItems } from "@/config/constants";
 import { ContentItem } from "@/types/pdf/ContentItem";
