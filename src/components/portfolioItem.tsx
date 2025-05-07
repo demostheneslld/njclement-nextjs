@@ -1,31 +1,53 @@
-import { ReactElement } from "react";
+import { PortfolioItem as PortfolioItemType } from "@/config/constants";
+import { HiArrowTopRightOnSquare } from 'react-icons/hi2';
 
 interface PortfolioItemProps {
-  name: string;
-  description: string;
-  link: string;
-  backgroundImageUrl: string;
+  item: PortfolioItemType;
 }
 
-const PortfolioItem = (props: PortfolioItemProps): ReactElement => {
-
-  function openLinkInNewTab() {
-    window.open(props.link, '_blank');
-  }
-
+export default function PortfolioItem({ item }: PortfolioItemProps) {
   return (
-    <div onClick={openLinkInNewTab} className='p-4 bg-gray-100 rounded filter grayscale hover:filter-none transition-all duration-500 cursor-pointer'>
-      <div className='text-gray-800 font-semibold'>{props.name}</div>
-      <div className='italic'>{props.description}</div>
-      <div 
-        key={props.name} 
-        className='h-60 bg-white mt-4'
-        style={{ backgroundImage: `url(${props.backgroundImageUrl})`, backgroundPosition: 'center', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}
-        title={props.name}
-      >
+    <a
+      href={item.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group stripe-card flex flex-col justify-between h-full"
+    >
+      <div>
+        <div 
+          className="aspect-video bg-gray-100 rounded-lg mb-4 overflow-hidden"
+        >
+          <img 
+            src={item.imageUrl} 
+            alt={item.name}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+        <h3 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-primary-700 transition-colors duration-200">
+          {item.name}
+        </h3>
+        <p className="text-gray-600 mb-4 text-sm leading-relaxed">
+          {item.description}
+        </p>
       </div>
-    </div>
-  )
+      <div className="mt-auto">
+        {item.technologies && (
+          <div className="flex flex-wrap gap-1 mb-4">
+            {item.technologies.map((tech) => (
+              <span 
+                key={tech}
+                className="inline-block bg-primary-100 text-primary-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
+        <div className="flex items-center text-sm text-primary-600 group-hover:underline">
+          Visit Site
+          <HiArrowTopRightOnSquare className="ml-1 h-4 w-4" />
+        </div>
+      </div>
+    </a>
+  );
 }
-
-export default PortfolioItem;
