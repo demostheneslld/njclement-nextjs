@@ -2,7 +2,7 @@
 
 import FadeInLogo from '@/components/fadeInLogo';
 import SocialIcon from '@/components/socialIcon';
-import Button from '@/components/ui/Button';
+import Button from '@/components/ui/button';
 import Section from '@/components/ui/Section';
 import { bio, careerItems, homepageContent, socialLinks, technicalProficiencies } from '@/config/constants';
 import { HiArrowRight } from 'react-icons/hi';

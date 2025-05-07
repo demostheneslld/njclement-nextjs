@@ -1,7 +1,7 @@
 'use client';
 
 import { submitContact } from '@/app/actions/contact';
-import Button from '@/components/ui/Button';
+import Button from '@/components/ui/button';
 import { useCallback, useState, useTransition } from 'react';
 import { HiArrowRight } from 'react-icons/hi';
 
