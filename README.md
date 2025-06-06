@@ -5,7 +5,7 @@ Personal Site for Nathan Clement
 ## How to Run?
 
 - Local via docker: `./scripts/docker_local.sh` -- this simulates the deployment environment
-- Local Development via bun: `bun run dev`
+- Local Development via Node: `npm run dev` or via bun: `bun run dev`
 
 ## How to Deploy?
 
