@@ -26,7 +26,8 @@ export const siteConfig = {
     image: "/logo.png",
   },
   analytics: {
-    // Add analytics providers config if needed
+    // Google Analytics Tracking ID
+    googleAnalyticsId: "G-4TYB77T6YM",
   },
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "https://njclement.com",
 };
