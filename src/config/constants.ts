@@ -191,7 +191,7 @@ export interface TechnicalProficiency {
 
 export const technicalProficiencies: Record<string, TechnicalProficiency[]> = {
   Languages: [
-    { name: "Javascript", href: "/technical/javascript.png" },
+    { name: "JavaScript", href: "/technical/javascript.png" },
     { name: "TypeScript", href: "/technical/typescript.png" },
     { name: "Python", href: "/technical/python.png" },
     { name: "C#", href: "/technical/csharp.png" },
