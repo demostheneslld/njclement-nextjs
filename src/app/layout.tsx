@@ -4,6 +4,7 @@ import Navigation from "@/components/structure/navigation";
 import Button from "@/components/ui/button";
 import { siteConfig } from "@/config/constants";
 import type { Metadata } from "next";
+import Script from "next/script";
 import Link from "next/link";
 import './globals.css';
 
@@ -29,6 +30,18 @@ export default function RootLayout({
           content={`Personal Site for ${siteConfig.name} - ${siteConfig.title}`}
         />
         <meta property="og:image" content={siteConfig.openGraph.image} />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleAnalyticsId}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${siteConfig.analytics.googleAnalyticsId}');
+          `}
+        </Script>
       </head>
       <body
         suppressHydrationWarning={true}
