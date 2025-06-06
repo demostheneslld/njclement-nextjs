@@ -26,7 +26,8 @@ export const siteConfig = {
     image: "/logo.png",
   },
   analytics: {
-    // Add analytics providers config if needed
+    // Google Analytics Tracking ID
+    googleAnalyticsId: "G-4TYB77T6YM",
   },
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "https://njclement.com",
 };
@@ -191,7 +192,7 @@ export interface TechnicalProficiency {
 
 export const technicalProficiencies: Record<string, TechnicalProficiency[]> = {
   Languages: [
-    { name: "Javascript", href: "/technical/javascript.png" },
+    { name: "JavaScript", href: "/technical/javascript.png" },
     { name: "TypeScript", href: "/technical/typescript.png" },
     { name: "Python", href: "/technical/python.png" },
     { name: "C#", href: "/technical/csharp.png" },
