@@ -45,6 +45,7 @@ const GeneratePdf: React.FC<props> = ({ exportTrigger, currentItems }) => {
       link.download = fileName;
       document.body.appendChild(link);
       document.getElementById(link.id)?.click();
+      document.getElementById(link.id)?.remove();
     } catch (err) {
       if (err instanceof Error) {
         setErrorMessage(err.message);

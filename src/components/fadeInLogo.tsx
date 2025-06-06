@@ -21,7 +21,7 @@ const FadeInLogo = ({ name, backgroundImageUrl, description }: FadeInLogoProps):
               <div className="text-xs text-center text-gray-600 group-hover:text-primary-700 font-medium transition duration-300">{name}</div>
             )}
             {description && (
-              <div className="mt-1 text-xxs text-center text-gray-400 group-hover:text-gray-500 transition duration-300 px-1 leading-tight">
+              <div className="mt-1 text-xs text-center text-gray-400 group-hover:text-gray-500 transition duration-300 px-1 leading-tight">
                 {description}
               </div>
             )}
