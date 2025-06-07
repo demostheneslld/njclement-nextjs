@@ -53,6 +53,7 @@ export const navigationPages: NavigationPage[] = [
   },
   { name: "Resume", href: "/resume", current: null },
   { name: "Portfolio", href: "/portfolio", current: null },
+  { name: "Chat", href: "/chat", current: null },
 ];
 
 export interface SocialLink {
