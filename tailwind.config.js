@@ -1,50 +1,16 @@
 import typography from '@tailwindcss/typography';
 import colors from 'tailwindcss/colors';
 
-export default {
+const config = {
   mode: 'jit',
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f5f8ff',
-          100: '#edf2ff',
-          200: '#dee8ff',
-          300: '#c6d5f7',
-          400: '#a4b8ef',
-          500: '#7f94e6',
-          600: '#6670d9',
-          700: '#5653b7',
-          800: '#434190',
-          900: '#372f6c',
-          950: '#232046',
-        },
-        secondary: {
-          50: '#f6f6f9',
-          100: '#edecf5',
-          200: '#dad9eb',
-          300: '#bcb9db',
-          400: '#9993c6',
-          500: '#7c74b2',
-          600: '#64599a',
-          700: '#51487d',
-          800: '#433d67',
-          900: '#393556',
-        },
-        accent: {
-          50: '#f0fbf8',
-          100: '#d0f3e9',
-          200: '#a3e9d9',
-          300: '#6dd6c3',
-          400: '#38bba8',
-          500: '#25a08e',
-          600: '#1c8073',
-          700: '#1c645d',
-          800: '#1c4f4a',
-          900: '#1a433e',
-        },
+        primary: colors.orange,
+        secondary: colors.amber,
+        accent: colors.blue,
         dark: colors.gray,
       },
       fontFamily: {
@@ -112,4 +78,6 @@ export default {
   plugins: [
     typography,
   ],
-}
+};
+
+export default config;

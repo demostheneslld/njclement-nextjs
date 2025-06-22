@@ -3,7 +3,7 @@
 import GeneratePdf from "@/components/generatePdf";
 import Button from "@/components/ui/button";
 import Section from '@/components/ui/Section';
-import { defaultResumeItems } from "@/config/constants";
+import { DEFAULT_RESUME_ITEMS } from "@/config/constants";
 import { ContentItem } from "@/types/pdf/ContentItem";
 import { ChangeEvent, useState } from "react";
 import { HiDownload, HiPencil } from 'react-icons/hi';
@@ -11,8 +11,8 @@ import { HiDownload, HiPencil } from 'react-icons/hi';
 export default function ResumeView() {
   type EditModes = 'on' | 'off';
   const [editMode, setEditMode] = useState<EditModes>('off');
-  const [currentItems, setCurrentItems] = useState<ContentItem[]>(defaultResumeItems);
-  const [editTextAreaValue, setEditTextAreaValue] = useState<string>(JSON.stringify(defaultResumeItems, null, 2));
+  const [currentItems, setCurrentItems] = useState<ContentItem[]>(DEFAULT_RESUME_ITEMS);
+  const [editTextAreaValue, setEditTextAreaValue] = useState<string>(JSON.stringify(DEFAULT_RESUME_ITEMS, null, 2));
   const [exportTrigger, setExportTrigger] = useState<number>(0);
 
   const triggerExport = () => {
