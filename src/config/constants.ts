@@ -203,7 +203,7 @@ export const TECHNICAL_PROFICIENCIES: TechnicalProficiency[] = [
   },
   {
     name: "Frontier Models",
-    description: "Hands-on orchestration of GPT-4o, Claude 3 Opus, Gemini 1.5, etc.",
+    description: "Hands-on orchestration of models from OpenAI, Anthropic, Google, etc.",
     tags: ["LLM & Generative AI"],
   },
   {
@@ -218,7 +218,7 @@ export const TECHNICAL_PROFICIENCIES: TechnicalProficiency[] = [
   },
   {
     name: "Model Context Protocol (MCP)",
-    description: "Internal spec for deterministic context formatting",
+    description: "Specification for creating deterministic context for LLMs",
     tags: ["LLM & Generative AI", "Spec"],
   },
   {
@@ -230,12 +230,12 @@ export const TECHNICAL_PROFICIENCIES: TechnicalProficiency[] = [
   /* ───────── MACHINE LEARNING ───────── */
   {
     name: "Python ML Stack",
-    description: "Scikit-learn, Pandas, XGBoost",
+    description: "Scikit-learn, Pandas, etc.",
     tags: ["Traditional ML", "Python"],
   },
   {
     name: "Data Pipelines & ETL",
-    description: "Airflow, Spark, Kafka Streams",
+    description: "Managing data pipelines and ETL processes",
     tags: ["Traditional ML", "Data Engineering"],
   },
   {
@@ -263,7 +263,7 @@ export const TECHNICAL_PROFICIENCIES: TechnicalProficiency[] = [
   { name: "C#", description: "Enterprise APIs with .NET Core", tags: ["Language", ".NET"] },
   {
     name: "SQL",
-    description: "Query optimisation across Postgres & Snowflake",
+    description: "Query optimisation across Postgres and other SQL databases",
     tags: ["Language", "Database"],
   },
   {
@@ -296,9 +296,9 @@ export const TECHNICAL_PROFICIENCIES: TechnicalProficiency[] = [
     description: "Containerisation and orchestration",
     tags: ["DevOps & Cloud", "Container"],
   },
-  { name: "AWS", description: "VPC, Lambda, API Gateway, CloudWatch, S3", tags: ["DevOps & Cloud", "AWS"] },
-  { name: "Terraform", description: "Infrastructure-as-Code across multi-cloud", tags: ["DevOps & Cloud", "IaC"] },
-  { name: "Cloudflare", description: "Workers, R2, CDN, WAF", tags: ["DevOps & Cloud"] },
+  { name: "AWS", description: "VPC, Lambda, API Gateway, CloudWatch, S3, RDS, EKS, EC2, etc.", tags: ["DevOps & Cloud", "AWS"] },
+  { name: "Terraform", description: "Infrastructure-as-Code", tags: ["DevOps & Cloud", "IaC"] },
+  { name: "Cloudflare", description: "DNS, Hosting, CDN, WAF", tags: ["DevOps & Cloud"] },
   { name: "NGINX", description: "Reverse proxy & load-balancing", tags: ["DevOps & Cloud"] },
   { name: "Microsoft Azure", description: "App Services, Functions, AD B2C", tags: ["DevOps & Cloud", "Azure"] },
 

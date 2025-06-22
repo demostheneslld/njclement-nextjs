@@ -2,10 +2,6 @@ import { getModel, SYSTEM_PROMPTS } from '@/config/ai';
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 async function checkUsageLimit(): Promise<boolean> {
   const limit = parseFloat(process.env.OPENAI_USAGE_LIMIT || '0');
   if (!limit) return false;
@@ -34,6 +30,10 @@ export async function POST(req: NextRequest) {
   if (!process.env.OPENAI_API_KEY) {
     return NextResponse.json({ error: 'OpenAI not configured' }, { status: 500 });
   }
+
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
 
   const overLimit = await checkUsageLimit();
   if (overLimit) {
