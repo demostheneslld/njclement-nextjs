@@ -7,6 +7,13 @@ Personal Site for Nathan Clement
 - Local via docker: `./scripts/docker_local.sh` -- this simulates the deployment environment
 - Local Development via Node: `npm run dev` or via bun: `bun run dev`
 
+### Environment Variables
+
+Set `OPENAI_API_KEY` to an API key with a monthly spending cap. Optionally set
+`OPENAI_USAGE_LIMIT` to the monthly dollar limit. When the limit is exceeded,
+the chat endpoint will respond that too many people have been chatting this
+month.
+
 ## How to Deploy?
 
 - The provided github actions publish the docker image to the ghcr.io registry

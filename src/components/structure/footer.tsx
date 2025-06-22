@@ -1,6 +1,6 @@
 "use client";
 
-import { socialLinks } from '@/config/constants';
+import { SOCIAL_LINKS } from '@/config/constants';
 import Link from 'next/link';
 
 export default function Footer() {
@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="border-t border-gray-800">
         <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
           <div className="flex justify-center space-x-6 md:order-2">
-            {socialLinks.map((item) => (
+            {SOCIAL_LINKS.map((item) => (
               <a 
                 key={item.name} 
                 href={item.href} 
