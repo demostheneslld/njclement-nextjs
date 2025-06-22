@@ -15,12 +15,12 @@ export default function PortfolioItem({ item }: PortfolioItemProps) {
     >
       <div>
         <div 
-          className="aspect-video bg-gray-100 rounded-lg mb-4 overflow-hidden"
+          className="aspect-[4/3] bg-gray-100 rounded-lg mb-4 overflow-hidden"
         >
           <img 
             src={item.imageUrl} 
             alt={item.name}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="w-full h-full object-cover object-left transition-transform duration-300 group-hover:scale-105"
           />
         </div>
         <h3 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-primary-700 transition-colors duration-200">

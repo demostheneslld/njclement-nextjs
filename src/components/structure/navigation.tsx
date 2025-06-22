@@ -1,6 +1,6 @@
 "use client";
 
-import { navigationPages } from "@/config/constants";
+import { NAV_PAGES } from "@/config/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -18,7 +18,7 @@ export default function Navigation() {
     <>
       {/* Desktop navigation */}
       <div className="hidden md:ml-6 md:flex md:space-x-2 lg:space-x-4">
-        {navigationPages.map((item) => {
+        {NAV_PAGES.map((item) => {
           const isCurrent = pageMatcher(item);
           return (
             <Link
@@ -69,7 +69,7 @@ export default function Navigation() {
         <div className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-50 mt-16">
           <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
             <div className="px-5 pt-4 pb-4 space-y-1">
-              {navigationPages.map((item) => {
+              {NAV_PAGES.map((item) => {
                 const isCurrent = pageMatcher(item);
                 return (
                   <Link

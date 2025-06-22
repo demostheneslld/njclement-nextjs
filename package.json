@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.16",
+    "common-tags": "^1.8.2",
     "dotenv": "^16.4.5",
     "jspdf": "^2.5.2",
     "next": "15.0.3",
@@ -22,6 +23,7 @@
     "react-markdown": "^9.0.1"
   },
   "devDependencies": {
+    "@types/common-tags": "^1.8.4",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.17.9",
     "@types/nodemailer": "^6.4.17",

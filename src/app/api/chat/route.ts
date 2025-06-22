@@ -1,6 +1,6 @@
+import { getModel, SYSTEM_PROMPTS } from '@/config/ai';
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import { bio } from '@/config/constants';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -47,11 +47,14 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const messages = body.messages || [];
     const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: getModel({ requiresThinking: true, costLevel: "LOW" }),
       messages: [
         {
           role: 'system',
-          content: `You are an assistant answering questions about Nathaniel J. Clement based on the following bio: ${bio}`,
+          content: SYSTEM_PROMPTS.getChatAboutMePrompt(),
+        },{
+          role: 'assistant',
+          content: SYSTEM_PROMPTS.getChatAboutMeInitialMessage(),
         },
         ...messages,
       ],
@@ -61,6 +64,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ reply });
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ error: 'Failed to generate reply.' }, { status: 500 });
+    return NextResponse.json({ error: 'Looks like NathanBot is really popular right now. Please try again later or contact us if you want to pay for more tokens :P' }, { status: 500 });
   }
 }
