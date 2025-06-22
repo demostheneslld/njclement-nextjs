@@ -35,7 +35,11 @@ export default function ChatAboutMe() {
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     const userMessage: Message = { role: 'user', content: input };
-    setMessages((m) => [...m, userMessage]);
+    let assistantIndex = 0;
+    setMessages((m) => {
+      assistantIndex = m.length + 1;
+      return [...m, userMessage, { role: 'assistant', content: '' }];
+    });
     setInput('');
     setLoading(true);
     setError(null);
@@ -45,14 +49,27 @@ export default function ChatAboutMe() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
-      const data = await res.json();
-      if (res.ok) {
-        setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
-      } else {
-        setError(data.error || 'Unable to get reply');
+
+      if (!res.ok || !res.body) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Unable to get reply');
       }
-    } catch {
-      setError('An unexpected error occurred');
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let assistantContent = '';
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        assistantContent += decoder.decode(value);
+        setMessages((m) => {
+          const updated = [...m];
+          updated[assistantIndex] = { role: 'assistant', content: assistantContent };
+          return updated;
+        });
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
     } finally {
       setLoading(false);
     }
@@ -80,7 +97,9 @@ export default function ChatAboutMe() {
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-primary-600 text-white rounded"
+          className={`px-4 py-2 rounded text-white ${
+            loading || !input.trim() ? 'bg-gray-400 cursor-not-allowed' : 'bg-primary-600'
+          }`}
           disabled={loading || !input.trim()}
         >
           Send
