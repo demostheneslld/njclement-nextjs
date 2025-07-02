@@ -17,7 +17,7 @@ export default function Navigation() {
   return (
     <>
       {/* Desktop navigation */}
-      <div className="hidden md:ml-6 md:flex md:space-x-2 lg:space-x-4">
+      <div className="hidden md:ml-6 md:flex md:space-x-1">
         {NAV_PAGES.map((item) => {
           const isCurrent = pageMatcher(item);
           return (
@@ -25,17 +25,17 @@ export default function Navigation() {
               key={item.name}
               href={item.href}
               target={item.target}
-              className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
+              className={`px-4 py-2 text-sm font-semibold uppercase tracking-label transition-all duration-retro-hover ${
                 isCurrent
-                  ? "text-primary-600 bg-primary-50"
-                  : "text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                  ? "text-fg-primary bg-accent-rail bg-opacity-20 border-b-2 border-fg-primary"
+                  : "text-fg-secondary hover:text-fg-primary hover:bg-accent-rail hover:bg-opacity-10"
               }`}
               aria-current={isCurrent ? "page" : undefined}
             >
               <span className="flex items-center">
                 {item.name}
                 {item.target === '_blank' && (
-                  <FiExternalLink className="ml-1 h-4 w-4" />
+                  <FiExternalLink className="ml-1 h-3 w-3" />
                 )}
               </span>
             </Link>
@@ -47,7 +47,7 @@ export default function Navigation() {
       <div className="md:hidden">
         <button
           type="button"
-          className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-primary-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
+          className="inline-flex items-center justify-center p-2 rounded-retro text-fg-secondary hover:text-fg-primary hover:bg-accent-rail hover:bg-opacity-20 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-rail transition-all duration-retro-hover"
           aria-expanded={mobileMenuOpen}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
@@ -66,8 +66,8 @@ export default function Navigation() {
 
       {/* Mobile menu, show/hide based on menu state */}
       {mobileMenuOpen && (
-        <div className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-50 mt-16">
-          <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
+        <div className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-50 mt-12">
+          <div className="rounded-retro shadow-retro bg-bg-console border border-border-muted overflow-hidden">
             <div className="px-5 pt-4 pb-4 space-y-1">
               {NAV_PAGES.map((item) => {
                 const isCurrent = pageMatcher(item);
@@ -76,10 +76,10 @@ export default function Navigation() {
                     key={item.name}
                     href={item.href}
                     target={item.target}
-                    className={`block px-3 py-2 rounded-md text-base font-medium ${
+                    className={`block px-3 py-2 rounded-retro text-sm font-semibold uppercase tracking-label transition-all duration-retro-hover ${
                       isCurrent
-                        ? "text-primary-600 bg-primary-50"
-                        : "text-gray-700 hover:text-primary-600 hover:bg-gray-50"
+                        ? "text-fg-primary bg-accent-rail bg-opacity-20"
+                        : "text-fg-secondary hover:text-fg-primary hover:bg-accent-rail hover:bg-opacity-10"
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                     aria-current={isCurrent ? "page" : undefined}
@@ -87,17 +87,17 @@ export default function Navigation() {
                     <span className="flex items-center">
                       {item.name}
                       {item.target === '_blank' && (
-                        <FiExternalLink className="ml-1 h-4 w-4" />
+                        <FiExternalLink className="ml-1 h-3 w-3" />
                       )}
                     </span>
                   </Link>
                 );
               })}
             </div>
-            <div className="px-5 py-3 border-t border-gray-200">
+            <div className="px-5 py-3 border-t border-border-muted">
               <a
                 href="/contact"
-                className="block w-full px-4 py-2 text-center font-medium text-primary-600 bg-gray-50 hover:bg-gray-100 rounded-md"
+                className="btn btn-primary w-full text-center"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact Me

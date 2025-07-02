@@ -32,16 +32,16 @@ export default function Button({
   const variantClasses = {
     primary: "btn-primary",
     secondary: "btn-secondary",
-    accent: "btn-accent",
-    ghost: "text-primary-700 hover:bg-primary-50 hover:text-primary-800",
-    outline: "border border-gray-300 text-gray-700 hover:bg-gray-50",
+    accent: "btn-primary",
+    ghost: "btn-ghost",
+    outline: "btn-secondary",
   };
 
-  // Generate size classes
+  // Generate size classes - all sizes maintain 44px minimum for accessibility
   const sizeClasses = {
-    sm: "text-sm py-1.5 px-3",
-    md: "text-base py-2.5 px-5",
-    lg: "text-lg py-3 px-6",
+    sm: "text-sm py-2 px-4 min-h-[44px]",
+    md: "text-sm py-3 px-6 min-h-[44px]",
+    lg: "text-sm py-4 px-8 min-h-[44px]",
   };
 
   const classes = `
@@ -50,7 +50,7 @@ export default function Button({
     ${sizeClasses[size]}
     ${fullWidth ? "w-full" : ""}
     ${className}
-  `;
+  `.trim().replace(/\s+/g, ' ');
 
   // Render as link if href is provided
   if (href) {

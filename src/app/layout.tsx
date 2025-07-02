@@ -45,33 +45,33 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning={true}
-        className="antialiased font-sans text-gray-800"
+        className="antialiased font-sans text-gray-800 bg-bg-surface"
       >
-        <div className="bg-stripe-grid absolute inset-0 opacity-[0.015] -z-10"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/50 via-white to-white -z-20"></div>
+        {/* Full-screen canvas background with retro grid */}
+        <div className="bg-retro-grid fixed inset-0 opacity-[0.03] -z-10"></div>
         
         <div className="flex flex-col min-h-screen">
-          <header className="w-full py-6 sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/20 shadow-sm">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-between">
-                <div className="flex flex-shrink-0 items-center">
-                  <Link href="/">
-                    <img alt={`${siteConfig.name} Logo`} src="/logo.png" className="h-10 w-auto" />
-                  </Link>
-                </div>
-                <div className="hidden md:block">
-                  <Navigation />
-                </div>
-                <div className="hidden md:flex items-center space-x-4">
-                  <Button href="/contact" variant="secondary" size="sm">Contact</Button>
-                </div>
-                <div className="md:hidden">
-                  <Navigation />
-                </div>
+          {/* Win95-style navigation header */}
+          <header className="nav-win95">
+            <div className="flex items-center justify-between w-full max-w-none px-gutter">
+              <div className="flex flex-shrink-0 items-center">
+                <Link href="/" className="flip-logo">
+                  N ENTERPRISES
+                </Link>
+              </div>
+              <div className="hidden md:block">
+                <Navigation />
+              </div>
+              <div className="hidden md:flex items-center">
+                <Button href="/contact" variant="primary" size="sm">Contact</Button>
+              </div>
+              <div className="md:hidden">
+                <Navigation />
               </div>
             </div>
           </header>
           
+          {/* Main content area - full-screen canvas */}
           <main className="flex-grow w-full">
             {children}
           </main>

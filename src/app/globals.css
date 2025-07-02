@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lexend:wght@100..900&family=Fira+Code:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
 
 @tailwind base;
 
@@ -6,17 +6,39 @@
 
 @tailwind utilities;
 
+/* Retro-Industrial Design Tokens */
+:root {
+  --c-bg-surface: #E3E5E2;
+  --c-bg-console: #0F2022;
+  --c-fg-primary: #C7FFB8;
+  --c-fg-secondary: #FFFFFF;
+  --c-accent-orange: #FF7E26;
+  --c-accent-rail: #688572;
+  --c-border-muted: #8D968E;
+  --c-shadow: 0 6px 8px rgba(0,0,0,0.25);
+  --t-flip: 200ms cubic-bezier(.23,1,.32,1);
+  --t-hover: 150ms ease-out;
+  --t-focus: 120ms linear;
+  
+  /* Dark mode variants */
+  --c-bg-surface-dark: #141718;
+  --c-bg-console-dark: #000E10;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
   
   body {
-    @apply bg-white text-gray-900 antialiased;
+    @apply bg-bg-surface text-gray-900 antialiased font-sans;
+    font-weight: 500; /* Inter Medium */
+    line-height: 1.55;
   }
   
   h1 {
-    @apply text-4xl md:text-5xl font-display font-bold mb-6 text-gray-900 tracking-tight;
+    @apply text-flip-heading font-flip font-bold mb-6 text-gray-900 tracking-tight;
+    line-height: 1;
   }
   
   h2 {
@@ -28,37 +50,164 @@
   }
   
   p {
-    @apply mb-4 text-gray-700 leading-relaxed;
+    @apply mb-4 text-gray-700;
+    line-height: 1.55;
   }
 
   input, textarea {
-    @apply px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
+    @apply px-4 py-3 border border-border-muted rounded-retro focus:outline-none focus:ring-2 focus:ring-accent-rail focus:border-transparent;
+    transition: all var(--t-focus);
+  }
+
+  /* Retro focus ring */
+  *:focus-visible {
+    outline: 2px dashed var(--c-accent-rail);
+    outline-offset: 2px;
   }
 }
 
 @layer components {
-  .hero-gradient {
-    @apply bg-gradient-to-r from-primary-600 via-secondary-500 to-accent-500 animate-gradient-x;
+  /* Navigation Bar - Win95 Style */
+  .nav-win95 {
+    @apply h-12 bg-bg-console text-fg-secondary flex items-center justify-between px-gutter;
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
   
-  .card {
-    @apply bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300;
+  .flip-logo {
+    @apply font-flip font-bold text-fg-primary tracking-wide;
   }
   
+  /* Hero Console */
+  .hero-console {
+    @apply bg-bg-console text-fg-secondary py-section-y px-gutter relative overflow-hidden;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C7FFB8' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 0h40v40H0V0zm20 20h20v20H20V20z'/%3E%3C/svg%3E");
+  }
+  
+  /* Flip Board Heading */
+  .flip-board {
+    @apply text-flip-heading font-flip font-bold text-fg-primary mb-8 text-center;
+    line-height: 1;
+  }
+  
+  .flip-unit {
+    display: inline-block;
+    perspective: 400px;
+  }
+  
+  .flip-unit span {
+    display: inline-block;
+    transform-style: preserve-3d;
+    transition: transform var(--t-flip);
+  }
+  
+  .flip-unit.is-flipping span {
+    transform: rotateX(180deg);
+  }
+  
+  /* Avatar with Halo */
+  .avatar-halo {
+    @apply relative rounded-full;
+  }
+  
+  .avatar-halo::before {
+    content: '';
+    @apply absolute -inset-1 rounded-full;
+    background: var(--c-accent-orange);
+    filter: blur(4px);
+    z-index: -1;
+  }
+  
+  /* CTA Row - Rail Track Alignment */
+  .cta-row {
+    @apply flex flex-col sm:flex-row gap-4 justify-center items-center relative;
+  }
+  
+  .cta-row::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--c-accent-rail);
+    z-index: -1;
+    opacity: 0.3;
+  }
+  
+  /* Buttons - Retro Industrial */
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200;
+    @apply inline-flex items-center justify-center px-6 py-3 font-semibold uppercase tracking-label text-sm rounded-retro;
+    min-height: 44px;
+    min-width: 44px;
+    transition: all var(--t-hover);
+    line-height: 1.2;
   }
   
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500;
+    @apply bg-accent-orange hover:bg-opacity-90 text-white;
+    box-shadow: var(--c-shadow);
+  }
+  
+  .btn-primary:hover {
+    filter: brightness(0.98);
   }
   
   .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 focus:ring-primary-500;
+    @apply bg-bg-surface hover:bg-opacity-90 text-gray-700 border border-border-muted;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
   }
   
-  .btn-accent {
-    @apply bg-accent-500 hover:bg-accent-600 text-white focus:ring-accent-500;
+  .btn-ghost {
+    @apply text-fg-primary hover:bg-accent-rail hover:bg-opacity-20;
+  }
+  
+  /* Project Cards with Rail Indicators */
+  .project-card {
+    @apply bg-bg-surface rounded-retro p-6 relative;
+    box-shadow: var(--c-shadow);
+    border: 1px solid var(--c-border-muted);
+  }
+  
+  .rail-index {
+    @apply absolute -left-3 top-6 w-2 h-2 rounded-full bg-accent-rail;
+  }
+  
+  .rail-green .rail-index {
+    @apply bg-fg-primary;
+  }
+  
+  /* Cards */
+  .card {
+    @apply bg-bg-surface rounded-retro overflow-hidden;
+    box-shadow: var(--c-shadow);
+    border: 1px solid var(--c-border-muted);
+    transition: all var(--t-hover);
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.3);
+  }
+  
+  /* Section Styling */
+  .section-console {
+    @apply bg-bg-console text-fg-secondary;
+  }
+  
+  .section-surface {
+    @apply bg-bg-surface text-gray-900;
+  }
+  
+  /* Kicker Text */
+  .kicker {
+    @apply text-lg text-fg-secondary mb-8 max-w-2xl mx-auto text-center opacity-90;
+  }
+  
+  /* Legacy stripe components for backward compatibility */
+  .hero-gradient {
+    @apply bg-gradient-to-r from-primary-600 via-secondary-500 to-accent-500 animate-gradient-x;
   }
   
   .stripe-section {
@@ -118,13 +267,14 @@
   }
 }
 
-/* Stripe-inspired custom utilities */
+/* Retro-Industrial custom utilities */
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-secondary-500;
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, var(--c-fg-primary), var(--c-accent-orange));
 }
 
-.bg-stripe-gradient {
-  @apply bg-gradient-to-r from-primary-500 to-secondary-500;
+.bg-retro-grid {
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C7FFB8' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 0h40v40H0V0zm20 20h20v20H20V20z'/%3E%3C/svg%3E");
 }
 
 .bg-stripe-grid {
@@ -138,4 +288,16 @@
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .flip-unit span {
+    transition: none;
+  }
+  
+  .animate-flip,
+  .animate-float {
+    animation: none;
+  }
 }
