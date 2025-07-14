@@ -45,13 +45,13 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning={true}
-        className="antialiased font-sans text-gray-800"
+        className="font-body"
       >
-        <div className="bg-stripe-grid absolute inset-0 opacity-[0.015] -z-10"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-50/50 via-white to-white -z-20"></div>
+        <div className="absolute inset-0 -z-20 bg-[color:var(--c-bg-night)]"></div>
+        <div className="bg-stripe-grid absolute inset-0 opacity-[0.03] -z-10"></div>
         
         <div className="flex flex-col min-h-screen">
-          <header className="w-full py-6 sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/20 shadow-sm">
+          <header className="w-full py-6 sticky top-0 z-50 bg-glass-elev1 backdrop-blur-md border-b border-white/10 shadow-sm">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex items-center justify-between">
                 <div className="flex flex-shrink-0 items-center">

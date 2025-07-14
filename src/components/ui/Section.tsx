@@ -5,7 +5,7 @@ interface SectionProps {
   children: ReactNode;
   title?: string;
   subtitle?: string;
-  background?: "white" | "gray" | "gradient";
+  background?: "night" | "fog" | "gradient" | "transparent";
   divider?: boolean;
   className?: string;
 }
@@ -14,18 +14,20 @@ export default function Section({
   children,
   title,
   subtitle,
-  background = "white",
+  background = "transparent",
   divider = false,
   className = ""
 }: SectionProps) {
   const getBgClass = () => {
     switch (background) {
-      case "gray":
-        return "bg-gray-50";
+      case "fog":
+        return "bg-[color:var(--c-bg-fog)]";
+      case "night":
+        return "bg-[color:var(--c-bg-night)]";
       case "gradient":
-        return "bg-gradient-to-r from-primary-50 to-secondary-50";
+        return "bg-gradient-to-b from-[var(--c-bg-night)] to-[var(--c-bg-fog)]";
       default:
-        return "bg-white";
+        return "";
     }
   };
 
