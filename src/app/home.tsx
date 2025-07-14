@@ -126,8 +126,8 @@ export default function HomeView() {
             <div className="w-40 h-40 bg-contain bg-center bg-no-repeat" style={{ backgroundImage: `url(/harvard-logo.png)` }}></div>
             <div className="flex flex-col md:mt-2">
               <div className="text-2xl font-semibold mb-2">{education.university}, {education.graduation}</div>
-              <div className="text-xl text-gray-700 mb-4">{education.degree}</div>
-              <div className="grid gap-2 text-gray-600">
+              <div className="text-xl text-gray-900 mb-4">{education.degree}</div>
+              <div className="grid gap-2 text-gray-800">
                 {education.highlights.map((highlight, index) => (
                   <div key={index} className="flex items-start">
                     <div className="mr-2 text-primary-500">•</div>
