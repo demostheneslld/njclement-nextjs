@@ -150,12 +150,12 @@ export default function HomeView() {
         <div className="max-w-6xl mx-auto">
           {Object.keys(skillsByTag).sort().map((tag) => (
             <div key={`tech_category_${tag}`} className="mb-16 last:mb-0">
-              <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">{tag}</h3>
+              <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">{tag}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {skillsByTag[tag].map((item) => (
-                  <div key={`tech_item_${item.name}`} className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 p-6 border border-gray-100/50">
-                    <h4 className="text-xl font-semibold text-gray-800 mb-2">{item.name}</h4>
-                    <p className="text-gray-600">{item.description}</p>
+                  <div key={`tech_item_${item.name}`} className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 p-6 border border-gray-200/60">
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">{item.name}</h4>
+                    <p className="text-gray-700">{item.description}</p>
                   </div>
                 ))}
               </div>
