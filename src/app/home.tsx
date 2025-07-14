@@ -104,12 +104,12 @@ export default function HomeView() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {CAREER_ITEMS.map((item) => (
-              <div key={`career_${item.name}`} className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 p-6 text-center border border-gray-100/50">
+              <div key={`career_${item.name}`} className="bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 p-6 text-center border border-gray-600/50">
                 <div className="h-24 mb-4 flex items-center justify-center">
                   <img src={item.href} alt={`${item.name} logo`} className="max-h-full max-w-full" />
                 </div>
-                <h4 className="text-xl font-semibold text-gray-800 mb-2">{item.name}</h4>
-                <p className="text-gray-600">{item.description}</p>
+                <h4 className="text-xl font-semibold text-white mb-2">{item.name}</h4>
+                <p className="text-gray-300">{item.description}</p>
               </div>
             ))}
           </div>
