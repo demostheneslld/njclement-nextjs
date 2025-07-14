@@ -12,11 +12,18 @@ const config = {
         secondary: colors.amber,
         accent: colors.blue,
         dark: colors.gray,
+        ember: 'var(--c-ember)',
+        moss: 'var(--c-moss)',
+        lava: 'var(--c-lava)',
+        'glass-elev1': 'var(--c-glass-top)',
+        'glass-elev2': 'var(--c-glass-bot)',
       },
       fontFamily: {
         sans: ['"SF Pro Display"', '"SF Pro"', 'Inter', 'system-ui', 'sans-serif'],
         display: ['Lexend', 'sans-serif'],
         mono: ['"SF Mono"', 'Menlo', 'Fira Code', 'monospace'],
+        head: ['var(--font-head)'],
+        body: ['var(--font-body)'],
       },
       animation: {
         'gradient-x': 'gradient-x 15s ease infinite',
@@ -69,6 +76,9 @@ const config = {
         'stripe': '0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3)',
         'stripe-md': '0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)',
         'stripe-sm': '0 6px 12px -2px rgba(50, 50, 93, 0.25), 0 3px 7px -3px rgba(0, 0, 0, 0.3)',
+        elev1: 'var(--shadow-elev-1)',
+        elev2: 'var(--shadow-elev-2)',
+        ember: 'var(--shadow-ember)',
       },
       backdropBlur: {
         'xs': '2px',

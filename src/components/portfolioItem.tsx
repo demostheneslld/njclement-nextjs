@@ -1,5 +1,6 @@
 import { PortfolioItem as PortfolioItemType } from "@/config/constants";
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2';
+import GlassCard from './ui/GlassCard';
 
 interface PortfolioItemProps {
   item: PortfolioItemType;
@@ -7,12 +8,7 @@ interface PortfolioItemProps {
 
 export default function PortfolioItem({ item }: PortfolioItemProps) {
   return (
-    <a
-      href={item.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group stripe-card flex flex-col justify-between h-full"
-    >
+    <GlassCard as="a" href={item.link} target="_blank" rel="noopener noreferrer" className="group flex flex-col justify-between h-full p-6">
       <div>
         <div 
           className="aspect-[4/3] bg-gray-100 rounded-lg mb-4 overflow-hidden"
@@ -48,6 +44,6 @@ export default function PortfolioItem({ item }: PortfolioItemProps) {
           <HiArrowTopRightOnSquare className="ml-1 h-4 w-4" />
         </div>
       </div>
-    </a>
+    </GlassCard>
   );
 }

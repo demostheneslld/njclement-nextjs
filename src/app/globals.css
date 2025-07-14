@@ -1,4 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lexend:wght@100..900&family=Fira+Code:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..700&family=Fira+Code:wght@300..700&display=swap');
+
+:root {
+  /* neutrals */
+  --c-bg-night: #1b1f22;
+  --c-bg-fog: #2b3238;
+  --c-text-high: #ffffff;
+  --c-text-med: #c0c6ca;
+  --c-text-low: #7d868d;
+
+  /* accents */
+  --c-ember: #c97a3c;
+  --c-moss: #4a6645;
+  --c-lava: #e85f4d;
+
+  /* elevations */
+  --c-glass-top: rgba(32,38,42,0.65);
+  --c-glass-bot: rgba(19,22,26,0.85);
+
+  /* typography */
+  --font-head: 'Playfair Display', serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --fs-hero: clamp(2.2rem, 5vw, 3.4rem);
+  --fs-h1: 2rem;
+  --fs-h2: 1.5rem;
+  --fs-body-lg: 1.15rem;
+  --fs-body: 1rem;
+  --fs-mono: 0.9rem;
+  --lh-tight: 1.1;
+  --lh-body: 1.55;
+
+  /* spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+
+  /* radius & shadow */
+  --radius-card: 20px;
+  --radius-pill: 9999px;
+  --shadow-ember: 0 0 40px 0 rgba(201,122,60,0.35);
+  --shadow-elev-1: 0 2px 6px rgba(0,0,0,0.35);
+  --shadow-elev-2: 0 6px 14px rgba(0,0,0,0.45);
+}
 
 @tailwind base;
 
@@ -13,18 +58,22 @@
   
   body {
     @apply bg-white text-gray-900 antialiased;
+    font-family: var(--font-body);
   }
   
   h1 {
-    @apply text-4xl md:text-5xl font-display font-bold mb-6 text-gray-900 tracking-tight;
+    @apply text-4xl md:text-5xl font-bold mb-6 text-gray-900 tracking-tight;
+    font-family: var(--font-head);
   }
   
   h2 {
-    @apply text-2xl md:text-3xl font-display font-semibold mb-4 text-gray-900 tracking-tight;
+    @apply text-2xl md:text-3xl font-semibold mb-4 text-gray-900 tracking-tight;
+    font-family: var(--font-head);
   }
   
   h3 {
-    @apply text-xl md:text-2xl font-display font-medium mb-3 text-gray-900 tracking-tight;
+    @apply text-xl md:text-2xl font-medium mb-3 text-gray-900 tracking-tight;
+    font-family: var(--font-head);
   }
   
   p {
@@ -50,15 +99,24 @@
   }
   
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500;
+    background-color: var(--c-ember);
+    color: var(--c-text-high);
+    box-shadow: var(--shadow-elev-1);
   }
-  
+
+  .btn-primary:hover {
+    box-shadow: var(--shadow-ember);
+  }
+
   .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 focus:ring-primary-500;
+    background-color: transparent;
+    color: var(--c-ember);
+    border: 1px solid var(--c-ember);
   }
-  
+
   .btn-accent {
-    @apply bg-accent-500 hover:bg-accent-600 text-white focus:ring-accent-500;
+    background-color: var(--c-lava);
+    color: var(--c-text-high);
   }
   
   .stripe-section {
@@ -70,7 +128,16 @@
   }
   
   .stripe-card {
-    @apply rounded-2xl bg-white p-8 shadow-stripe-sm hover:shadow-stripe-md transition-all duration-300;
+    @apply p-8;
+    background-image: linear-gradient(var(--c-glass-top), var(--c-glass-bot));
+    backdrop-filter: blur(24px) saturate(160%);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-elev-1);
+    transition: all 0.5s;
+  }
+
+  .stripe-card:hover {
+    box-shadow: var(--shadow-elev-2);
   }
   
   .stripe-gradient-bg {
@@ -90,7 +157,15 @@
   }
   
   .glass-card {
-    @apply bg-white/80 backdrop-blur-lg rounded-2xl border border-gray-200/30 shadow-stripe-sm hover:shadow-stripe-md transition-all duration-300;
+    background-image: linear-gradient(var(--c-glass-top), var(--c-glass-bot));
+    backdrop-filter: blur(24px) saturate(160%);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-elev-1);
+    transition: all 0.5s;
+  }
+
+  .glass-card:hover {
+    box-shadow: var(--shadow-elev-2);
   }
   
   .stripe-grid {

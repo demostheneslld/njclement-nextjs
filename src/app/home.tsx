@@ -2,6 +2,7 @@
 
 import SocialIcon from '@/components/socialIcon';
 import Button from '@/components/ui/button';
+import GlassCard from '@/components/ui/GlassCard';
 import Section from '@/components/ui/Section';
 import { CAREER_ITEMS, SELF_SUMMARY, SOCIAL_LINKS, TECHNICAL_PROFICIENCIES } from '@/config/constants';
 import { HiArrowRight } from 'react-icons/hi';
@@ -121,7 +122,7 @@ export default function HomeView() {
         subtitle={education.subtitle}
         background="white"
       >
-        <div className="stripe-card max-w-4xl mx-auto">
+        <GlassCard as="div" className="max-w-4xl mx-auto p-8">
           <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
             <div className="w-40 h-40 bg-contain bg-center bg-no-repeat" style={{ backgroundImage: `url(/harvard-logo.png)` }}></div>
             <div className="flex flex-col md:mt-2">
@@ -137,7 +138,7 @@ export default function HomeView() {
               </div>
             </div>
           </div>
-        </div>
+        </GlassCard>
       </Section>
 
       {/* Technical Skills Section */}
