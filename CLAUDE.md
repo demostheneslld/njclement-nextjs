@@ -135,11 +135,11 @@ src/
 - **Unit Tests**: Jest with ts-jest preset for component and utility testing
 - **E2E Tests**: Playwright for comprehensive end-to-end testing
 - **Test Files**: Located in `/tests` directory
-- **Test Separation**: End to end tests are in `/tests/e2e/` and unit tests are in `/tests/unit/`
+- **Test Separation**: End-to-end tests are in `/tests/e2e/` and unit tests are in `/tests/unit/`
 - **Import Aliases**: Use `@/` alias in test files
 - **Multi-browser Testing**: Chrome, Firefox, Safari, Mobile Chrome, Mobile Safari
 - **Responsive Testing**: Desktop (1024x768) and Mobile (375x667) viewports
-- **Jest Configuration**: Excludes Playwright `.spec.ts` files from Jest runs
+- **Jest Configuration**: Configured to run unit tests only, ignoring E2E tests
 
 **Test Coverage:**
 
@@ -175,9 +175,13 @@ src/
 
 ```
 tests/
-├── navigation.spec.ts      # Navigation functionality tests
-├── biome-switching.spec.ts # Biome theme switching tests
-└── playwright.config.ts    # Playwright configuration
+├── unit/
+│   └── buildPdf.test.ts        # Unit tests for PDF generation
+├── e2e/
+│   ├── navigation.spec.ts      # Navigation functionality tests
+│   ├── biome-switching.spec.ts # Biome theme switching tests
+│   └── playwright.config.ts    # Playwright configuration
+└── shared test utilities and helpers
 ```
 
 **Key Test Scenarios:**
@@ -221,5 +225,6 @@ The application is containerized and deployed via GitHub Actions to GitHub Conta
 - Bun package manager support with automatic detection
 - Fallback to npm/yarn/pnpm for compatibility
 - Optimized for production with standalone output
-- Includes bash, curl, and unzip for Bun installation
+- Includes bash, curl, and unzip for Bun installation compatibility
 - Uses frozen lockfile for dependency consistency
+- Proper Alpine package management for containerized environments
