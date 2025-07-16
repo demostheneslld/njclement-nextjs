@@ -1,6 +1,9 @@
 "use client";
+import Button from '@/components/ui/button';
+import Textarea from '@/components/ui/Textarea';
 import { SYSTEM_PROMPTS } from '@/config/ai';
 import { useEffect, useRef, useState } from 'react';
+import { HiArrowRight } from 'react-icons/hi';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -18,7 +21,7 @@ export default function ChatAboutMe() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -26,16 +29,14 @@ export default function ChatAboutMe() {
     }
   }, [messages]);
 
-  useEffect(() => {
-    if (!loading && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [loading]);
-
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     const userMessage: Message = { role: 'user', content: input };
-    setMessages((m) => [...m, userMessage]);
+    let assistantIndex = 0;
+    setMessages((m) => {
+      assistantIndex = m.length + 1;
+      return [...m, userMessage, { role: 'assistant', content: '' }];
+    });
     setInput('');
     setLoading(true);
     setError(null);
@@ -45,48 +46,67 @@ export default function ChatAboutMe() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
-      const data = await res.json();
-      if (res.ok) {
-        setMessages((m) => [...m, { role: 'assistant', content: data.reply }]);
-      } else {
-        setError(data.error || 'Unable to get reply');
+
+      if (!res.ok || !res.body) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Unable to get reply');
       }
-    } catch {
-      setError('An unexpected error occurred');
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let assistantContent = '';
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        assistantContent += decoder.decode(value);
+        setMessages((m) => {
+          const updated = [...m];
+          updated[assistantIndex] = { role: 'assistant', content: assistantContent };
+          return updated;
+        });
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4">
-      <div ref={chatContainerRef} className="border rounded p-4 h-80 overflow-y-auto bg-white">
+    <div className="max-w-3xl mx-auto space-y-4">
+      <div ref={chatContainerRef} className="w-full border border-text-low rounded-lg p-4 h-80 overflow-y-auto bg-glass-elev1 backdrop-blur-xl">
         {messages.map((m, idx) => (
-          <div key={idx} className="mb-2">
-            <strong>{m.role === 'user' ? 'You' : 'NathanBot'}:</strong> {m.content}
+          <div key={idx} className="mb-2 text-med">
+            <strong className="text-high">{m.role === 'user' ? 'You' : 'NathanBot'}:</strong> {m.content}
           </div>
         ))}
       </div>
-      <form onSubmit={sendMessage} className="flex gap-2">
-        <input
+      <form onSubmit={sendMessage} className="space-y-4">
+        <Textarea
           ref={inputRef}
-          type="text"
-          className="flex-grow border rounded p-2"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask a question"
+          placeholder="Ask a question about Nathan's experience, skills, or projects..."
           disabled={loading}
           required
+          variant="glass"
+          fullWidth
+          rows={3}
+          resize="none"
         />
-        <button
-          type="submit"
-          className="px-4 py-2 bg-primary-600 text-white rounded"
-          disabled={loading || !input.trim()}
-        >
-          Send
-        </button>
+        <div className="flex justify-end">
+          <Button
+            type="submit"
+            variant="primary"
+            size="md"
+            disabled={loading || !input.trim()}
+            icon={<HiArrowRight />}
+          >
+            {loading ? 'Thinking...' : 'Send'}
+          </Button>
+        </div>
       </form>
-      {error && <p className="text-red-600 text-center">{error}</p>}
+      {error && <p className="text-danger text-center">{error}</p>}
     </div>
 
   );

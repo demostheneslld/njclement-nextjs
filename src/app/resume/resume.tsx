@@ -39,7 +39,7 @@ export default function ResumeView() {
     <Section
       title="Resume"
       subtitle={`Download as PDF or edit the source JSON (${editMode.toUpperCase()})`}
-      background="white"
+      background="accent"
     >
       <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
         <Button 
@@ -62,11 +62,11 @@ export default function ResumeView() {
       
       <div className='flex flex-col md:flex-row gap-8 items-start'>
         { editMode === 'on' && 
-          <div className='w-full md:w-1/2 bg-gray-50 rounded-lg p-4 border border-gray-200 shadow-sm'>
-            <h3 className="text-lg font-semibold mb-2 text-gray-700">Resume Source JSON</h3>
-            <textarea 
-              className="w-full h-[700px] p-2 border border-gray-300 rounded-md font-mono text-xs bg-white focus:ring-primary-500 focus:border-primary-500 transition"
-              value={editTextAreaValue} 
+          <div className='w-full md:w-1/2 rounded-lg p-4 border border-gray-800 bg-neutral shadow-sm'>
+            <h3 className="text-lg font-semibold mb-2" style={{color:'var(--c-text-high)'}}>Resume Source JSON</h3>
+            <textarea
+              className="w-full h-[700px] p-2 border border-gray-700 rounded-md font-mono text-xs bg-neutral-sub text-high focus:ring-primary-500 focus:border-primary-500 transition"
+              value={editTextAreaValue}
               onChange={updateEditTextAreaValue}
               aria-label="Edit Resume JSON"
             ></textarea>
@@ -74,7 +74,7 @@ export default function ResumeView() {
         }
         
         <div className={`w-full ${editMode === 'on' ? 'md:w-1/2' : 'max-w-4xl mx-auto'}`}>
-          <div className="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
+          <div className="rounded-lg overflow-hidden border border-gray-700 bg-neutral-sub shadow-lg">
             <GeneratePdf currentItems={currentItems} exportTrigger={exportTrigger}/>
           </div>
         </div>

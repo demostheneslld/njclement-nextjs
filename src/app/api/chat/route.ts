@@ -48,11 +48,13 @@ export async function POST(req: NextRequest) {
     const messages = body.messages || [];
     const completion = await openai.chat.completions.create({
       model: getModel({ requiresThinking: true, costLevel: "LOW" }),
+      stream: true,
       messages: [
         {
           role: 'system',
           content: SYSTEM_PROMPTS.getChatAboutMePrompt(),
-        },{
+        },
+        {
           role: 'assistant',
           content: SYSTEM_PROMPTS.getChatAboutMeInitialMessage(),
         },
@@ -60,8 +62,17 @@ export async function POST(req: NextRequest) {
       ],
     });
 
-    const reply = completion.choices[0]?.message?.content || '';
-    return NextResponse.json({ reply });
+    const stream = new ReadableStream<string | Uint8Array>({
+      async start(controller) {
+        for await (const chunk of completion) {
+          const token = chunk.choices[0]?.delta?.content || '';
+          if (token) controller.enqueue(token);
+        }
+        controller.close();
+      },
+    });
+
+    return new Response(stream);
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: 'Looks like NathanBot is really popular right now. Please try again later or contact us if you want to pay for more tokens :P' }, { status: 500 });

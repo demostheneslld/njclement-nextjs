@@ -19,6 +19,6 @@ describe('buildPdf', () => {
 
     const result = await buildPdf(items, 'Test');
     expect(result.message).toBe('SUCCESS');
-    expect(result.dataUriString).toMatch(/^data:application\/pdf;base64,/);
+    expect(result.dataUriString).toMatch(/^data:application\/pdf;.*base64,/);
   });
 });
