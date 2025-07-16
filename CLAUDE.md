@@ -221,3 +221,5 @@ The application is containerized and deployed via GitHub Actions to GitHub Conta
 - Bun package manager support with automatic detection
 - Fallback to npm/yarn/pnpm for compatibility
 - Optimized for production with standalone output
+- Includes bash, curl, and unzip for Bun installation
+- Uses frozen lockfile for dependency consistency
