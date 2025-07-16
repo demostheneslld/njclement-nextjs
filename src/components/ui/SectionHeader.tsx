@@ -13,7 +13,7 @@ export default function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className={`stripe-header ${centered ? 'text-center' : 'text-left'} ${className}`}>
-      <h2 className="text-gradient min-h-[60px]">{title}</h2>
+      <h2 className="text-gradient min-h-[60px] text-5xl">{title}</h2>
       {subtitle && <p>{subtitle}</p>}
     </div>
   );

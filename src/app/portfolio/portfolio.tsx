@@ -13,10 +13,10 @@ export default function PortfolioView() {
     <Section
       title="Portfolio"
       subtitle="What am I working on in my spare time?"
-      background="gray"
+      background="accent"
       divider
     >
-      <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-12 text-center">
+      <p className="text-lg max-w-3xl mx-auto mb-12 text-center" style={{color:'var(--c-text-med)'}}>
         {portfolioMessage.trim().split('\n').map((line, index) => (
           <span key={index}>{line}<br /></span>
         ))}
