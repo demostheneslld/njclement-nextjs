@@ -20,19 +20,16 @@ export default function GlassCard({
     <Tag
       {...props}
       className={clsx(
-        "backdrop-blur-xl rounded-2xl transition-all duration-500 text-[color:var(--c-text-high)] relative overflow-hidden",
+        "backdrop-blur-xl rounded-card transition-all duration-500 text-high relative overflow-hidden",
         elevation === 1 && "shadow-elev1",
         elevation === 2 && "shadow-elev2",
         className
       )}
-      style={{
-        ...props.style,
-      }}
     >
       {/* Glass overlay */}
       <div 
         className={clsx(
-          "absolute inset-0 rounded-2xl",
+          "absolute inset-0 rounded-card",
           elevation === 1 && "bg-glass-elev1",
           elevation === 2 && "bg-glass-elev2"
         )}

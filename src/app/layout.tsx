@@ -52,11 +52,11 @@ export default function RootLayout({
       >
         <BiomeProvider>
           <div className="flex flex-col min-h-screen">
-            <header className="w-full sticky top-0 z-50 backdrop-blur-xl">
+            <header className="w-full sticky top-0 z-40 backdrop-blur-xl" data-testid="main-header">
               <div className="p-6 shadow-sm section">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-shrink-0 items-center">
-                    <Link href="/" className="text-[color:var(--c-accent)]">
+                    <Link href="/" className="text-accent" aria-label="Home" data-testid="logo-link">
                       <Logo className="h-10 w-auto" />
                     </Link>
                   </div>
@@ -64,7 +64,7 @@ export default function RootLayout({
                     <Navigation />
                   </div>
                   <div className="hidden md:flex items-center space-x-4">
-                    <Button href="/contact" variant="secondary" size="sm">Contact</Button>
+                    <Button href="/contact" variant="secondary" size="sm" data-testid="desktop-contact-button">Contact</Button>
                   </div>
                   <div className="md:hidden">
                     <Navigation />

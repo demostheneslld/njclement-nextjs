@@ -8,21 +8,21 @@ const config = {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--c-primary)',
-        'primary-sub': 'var(--c-primary-sub)',
+        primary: 'rgb(from var(--c-primary) r g b / <alpha-value>)',
+        'primary-sub': 'rgb(from var(--c-primary-sub) r g b / <alpha-value>)',
         secondary: colors.amber,
         dark: colors.gray,
-        accent: 'var(--c-accent)',
-        'accent-sub': 'var(--c-accent-sub)',
-        danger: 'var(--c-danger)',
+        accent: 'rgb(from var(--c-accent) r g b / <alpha-value>)',
+        'accent-sub': 'rgb(from var(--c-accent-sub) r g b / <alpha-value>)',
+        danger: 'rgb(from var(--c-danger) r g b / <alpha-value>)',
         'glass-elev1': 'var(--c-glass-top)',
         'glass-elev2': 'var(--c-glass-bot)',
         // Design system colors
-        'text-high': 'var(--c-text-high)',
-        'text-med': 'var(--c-text-med)',
-        'text-low': 'var(--c-text-low)',
-        'neutral': 'var(--c-neutral)',
-        'neutral-sub': 'var(--c-neutral-sub)',
+        'text-high': 'rgb(from var(--c-text-high) r g b / <alpha-value>)',
+        'text-med': 'rgb(from var(--c-text-med) r g b / <alpha-value>)',
+        'text-low': 'rgb(from var(--c-text-low) r g b / <alpha-value>)',
+        'neutral': 'rgb(from var(--c-neutral) r g b / <alpha-value>)',
+        'neutral-sub': 'rgb(from var(--c-neutral-sub) r g b / <alpha-value>)',
       },
       fontFamily: {
         sans: ['"SF Pro Display"', '"SF Pro"', 'Inter', 'system-ui', 'sans-serif'],

@@ -32,7 +32,7 @@ export default function PortfolioItem({ item }: PortfolioItemProps) {
             {item.technologies.map((tech) => (
               <span 
                 key={tech}
-                className="inline-block bg-accent/20 text-accent text-xs font-medium px-2.5 py-0.5 rounded-full"
+                className="inline-block bg-glass-elev1 text-accent text-xs font-medium px-2.5 py-0.5 rounded-full border border-accent/30 backdrop-blur-sm"
               >
                 {tech}
               </span>

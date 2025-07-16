@@ -7,7 +7,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   
   return (
-      <footer className="text-white">
+      <footer className="text-high">
         {/* Social links at the top, left-aligned */}
         <div className="mx-auto max-w-7xl px-6 pt-12 pb-4 lg:px-8">
           <div className="flex space-x-6">
@@ -34,7 +34,7 @@ export default function Footer() {
         <div className="mx-auto max-w-7xl px-6 pb-4 lg:px-8">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             <div>
-              <h3 className="text-sm font-semibold leading-6 text-white">About</h3>
+              <h3 className="text-sm font-semibold leading-6 text-high">About</h3>
               <ul role="list" className="space-y-4">
                 <li>
                   <Link href="/" className="text-sm leading-6 text-med hover:text-high">Home</Link>
@@ -48,7 +48,7 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold leading-6 text-white">Contact</h3>
+              <h3 className="text-sm font-semibold leading-6 text-high">Contact</h3>
               <ul role="list" className="space-y-4">
                 <li>
                   <Link href="/contact" className="text-sm leading-6 text-med hover:text-high">Get in Touch</Link>
@@ -59,7 +59,7 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-semibold leading-6 text-white">Links</h3>
+              <h3 className="text-sm font-semibold leading-6 text-high">Links</h3>
               <ul role="list" className="space-y-4">
                 <li>
                   <a href="https://github.com/demostheneslld" target="_blank" rel="noopener noreferrer" className="text-sm leading-6 text-med hover:text-high">GitHub</a>

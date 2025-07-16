@@ -115,7 +115,7 @@ export default function Section({
     if (background === "transparent" || background === "gradient") return null;
     
     return (
-      <div className="absolute inset-0 -z-5 bg-black/5" />
+      <div className="absolute inset-0 -z-5 bg-black-5" />
     );
   };
 

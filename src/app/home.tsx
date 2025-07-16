@@ -36,7 +36,7 @@ export default function HomeView() {
               <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
                 <span className="text-gradient min-h-[60px]">{hero.title}</span> <br />{hero.subtitle}
               </h1>
-              <p className="text-xl md:text-2xl text-[var(--c-text-med)] mb-8 max-w-2xl mx-auto lg:mx-0">
+              <p className="text-xl md:text-2xl text-med mb-8 max-w-2xl mx-auto lg:mx-0">
                 {hero.description}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -101,7 +101,7 @@ export default function HomeView() {
       <Section
         title={"Chat About Me"}
         subtitle={"NathanBot is an expert - what do you want to know?"}
-        background="neutral"
+        background="transparent"
         divider
       >
         <GlassCard className="p-6">
@@ -113,7 +113,7 @@ export default function HomeView() {
       <Section
         title={career.title}
         subtitle={career.subtitle}
-        background="neutral-sub"
+        background="transparent"
         divider
       >
         <div className="max-w-5xl mx-auto">
@@ -123,8 +123,8 @@ export default function HomeView() {
                 <div className="h-24 mb-4 flex items-center justify-center">
                   <img src={item.href} alt={`${item.name} logo`} className="max-h-full max-w-full" />
                 </div>
-                <h4 className="text-xl font-semibold text-[var(--c-text-high)] mb-2">{item.name}</h4>
-                <p className="text-[var(--c-text-med)]">{item.description}</p>
+                <h4 className="text-xl font-semibold text-high mb-2">{item.name}</h4>
+                <p className="text-med">{item.description}</p>
               </GlassCard>
             ))}
           </div>
@@ -135,18 +135,18 @@ export default function HomeView() {
       <Section
         title={education.title}
         subtitle={education.subtitle}
-        background="neutral"
+        background="transparent"
       >
         <GlassCard as="div" className="max-w-4xl mx-auto p-8">
           <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
             <div className="w-40 h-40 bg-contain bg-center bg-no-repeat" style={{ backgroundImage: `url(/harvard-logo.png)` }}></div>
             <div className="flex flex-col md:mt-2">
-              <div className="text-2xl font-semibold mb-2">{education.university}, {education.graduation}</div>
-              <div className="text-xl text-gray-900 mb-4">{education.degree}</div>
-              <div className="grid gap-2 text-gray-800">
+              <div className="text-2xl font-semibold mb-2 text-high">{education.university}, {education.graduation}</div>
+              <div className="text-xl text-med mb-4">{education.degree}</div>
+              <div className="grid gap-2 text-med">
                 {education.highlights.map((highlight, index) => (
                   <div key={index} className="flex items-start">
-                    <div className="mr-2 text-primary-500">•</div>
+                    <div className="mr-2 text-accent">•</div>
                     <div>{highlight}</div>
                   </div>
                 ))}
@@ -160,18 +160,18 @@ export default function HomeView() {
       <Section
         title={skills.title}
         subtitle={skills.subtitle}
-        background="neutral-sub"
+        background="transparent"
         divider
       >
         <div className="max-w-6xl mx-auto">
           {Object.keys(skillsByTag).sort().map((tag) => (
             <div key={`tech_category_${tag}`} className="mb-16 last:mb-0">
-              <h3 className="text-3xl font-[var(--font-head)] font-bold text-[var(--c-text-high)] mb-8 text-center">{tag}</h3>
+              <h3 className="text-3xl font-head font-bold text-high mb-8 text-center">{tag}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {skillsByTag[tag].map((item) => (
                   <GlassCard key={`tech_item_${item.name}`} className="p-6">
-                    <h4 className="text-xl font-semibold text-[var(--c-text-high)] mb-2">{item.name}</h4>
-                    <p className="text-[var(--c-text-med)]">{item.description}</p>
+                    <h4 className="text-xl font-semibold text-high mb-2">{item.name}</h4>
+                    <p className="text-med">{item.description}</p>
                   </GlassCard>
                 ))}
               </div>
@@ -185,7 +185,7 @@ export default function HomeView() {
         <div className="glass-surface text-center">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 min-h-[60px] text-gradient">{cta.title}</h2>
-            <p className="text-xl text-[var(--c-text-med)] mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-med mb-10 max-w-2xl mx-auto">
               {cta.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

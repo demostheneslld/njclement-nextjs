@@ -23,8 +23,8 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({
   const baseClasses = "px-4 py-3 rounded-lg font-body text-body transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 min-h-[120px]";
   
   const variantClasses = {
-    default: "bg-fog border border-text-low text-high placeholder-text-med hover:border-text-med focus:border-accent",
-    glass: "bg-glass-elev1 backdrop-blur-xl border border-white/20 text-high placeholder-text-med hover:border-white/30 focus:border-accent shadow-elev1",
+    default: "bg-neutral-sub border border-text-low text-high placeholder-text-med hover:border-text-med focus:border-accent",
+    glass: "bg-glass-elev1 backdrop-blur-xl border border-white-20 text-high placeholder-text-med hover:border-white-30 focus:border-accent shadow-elev1",
   };
 
   const resizeClasses = {

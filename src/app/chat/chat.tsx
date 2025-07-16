@@ -1,6 +1,9 @@
 "use client";
+import Button from '@/components/ui/button';
+import Textarea from '@/components/ui/Textarea';
 import { SYSTEM_PROMPTS } from '@/config/ai';
 import { useEffect, useRef, useState } from 'react';
+import { HiArrowRight } from 'react-icons/hi';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -18,7 +21,7 @@ export default function ChatAboutMe() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -71,37 +74,39 @@ export default function ChatAboutMe() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-4">
-      <div ref={chatContainerRef} className="w-full border border-[var(--c-text-low)] rounded p-4 h-80 overflow-y-auto bg-transparent">
+      <div ref={chatContainerRef} className="w-full border border-text-low rounded-lg p-4 h-80 overflow-y-auto bg-glass-elev1 backdrop-blur-xl">
         {messages.map((m, idx) => (
-          <div key={idx} className="mb-2 text-[var(--c-text-med)]">
-            <strong className="text-[var(--c-text-high)]">{m.role === 'user' ? 'You' : 'NathanBot'}:</strong> {m.content}
+          <div key={idx} className="mb-2 text-med">
+            <strong className="text-high">{m.role === 'user' ? 'You' : 'NathanBot'}:</strong> {m.content}
           </div>
         ))}
       </div>
-      <form onSubmit={sendMessage} className="flex gap-2">
-        <input
+      <form onSubmit={sendMessage} className="space-y-4">
+        <Textarea
           ref={inputRef}
-          type="text"
-          className="flex-grow border border-[var(--c-text-low)] rounded p-2 bg-[var(--c-bg-neutral)] text-[var(--c-text-high)]"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask a question"
+          placeholder="Ask a question about Nathan's experience, skills, or projects..."
           disabled={loading}
           required
+          variant="glass"
+          fullWidth
+          rows={3}
+          resize="none"
         />
-        <button
-          type="submit"
-          className={`px-4 py-2 rounded text-high backdrop-blur-sm glass-fill transition-all duration-200 ${
-            loading || !input.trim() 
-              ? 'bg-neutral cursor-not-allowed text-med' 
-              : 'bg-accent hover:shadow-accent hover:-translate-y-0.5'
-          }`}
-          disabled={loading || !input.trim()}
-        >
-          Send
-        </button>
+        <div className="flex justify-end">
+          <Button
+            type="submit"
+            variant="primary"
+            size="md"
+            disabled={loading || !input.trim()}
+            icon={<HiArrowRight />}
+          >
+            {loading ? 'Thinking...' : 'Send'}
+          </Button>
+        </div>
       </form>
-      {error && <p className="text-[var(--c-danger)] text-center">{error}</p>}
+      {error && <p className="text-danger text-center">{error}</p>}
     </div>
 
   );
