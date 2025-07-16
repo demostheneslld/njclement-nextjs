@@ -19,10 +19,10 @@ export default function PortfolioItem({ item }: PortfolioItemProps) {
             className="w-full h-full object-cover object-left transition-transform duration-300 group-hover:scale-105"
           />
         </div>
-        <h3 className="text-xl font-semibold mb-2 group-hover:text-ember transition-colors duration-200" style={{color:'var(--c-text-high)'}}>
+        <h3 className="text-xl font-semibold mb-2 text-high group-hover:text-accent transition-colors duration-200">
           {item.name}
         </h3>
-        <p className="mb-4 text-sm leading-relaxed" style={{color:'var(--c-text-med)'}}>
+        <p className="mb-4 text-sm leading-relaxed text-med">
           {item.description}
         </p>
       </div>
@@ -32,14 +32,14 @@ export default function PortfolioItem({ item }: PortfolioItemProps) {
             {item.technologies.map((tech) => (
               <span 
                 key={tech}
-                className="inline-block bg-primary-100 text-primary-800 text-xs font-medium px-2.5 py-0.5 rounded-full"
+                className="inline-block bg-accent/20 text-accent text-xs font-medium px-2.5 py-0.5 rounded-full"
               >
                 {tech}
               </span>
             ))}
           </div>
         )}
-        <div className="flex items-center text-sm text-primary-600 group-hover:underline">
+        <div className="flex items-center text-sm text-accent group-hover:underline">
           Visit Site
           <HiArrowTopRightOnSquare className="ml-1 h-4 w-4" />
         </div>

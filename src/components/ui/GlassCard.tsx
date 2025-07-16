@@ -5,6 +5,9 @@ export interface GlassCardProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
   className?: string;
   elevation?: 1 | 2;
+  href?: string;
+  target?: string;
+  rel?: string;
 }
 
 export default function GlassCard({
@@ -17,11 +20,28 @@ export default function GlassCard({
     <Tag
       {...props}
       className={clsx(
-        "backdrop-blur-xl rounded-2xl transition-all duration-500 text-[color:var(--c-text-high)]",
-        elevation === 1 && "bg-glass-elev1 shadow-elev1",
-        elevation === 2 && "bg-glass-elev2 shadow-elev2",
+        "backdrop-blur-xl rounded-2xl transition-all duration-500 text-[color:var(--c-text-high)] relative overflow-hidden",
+        elevation === 1 && "shadow-elev1",
+        elevation === 2 && "shadow-elev2",
         className
       )}
-    />
+      style={{
+        ...props.style,
+      }}
+    >
+      {/* Glass overlay */}
+      <div 
+        className={clsx(
+          "absolute inset-0 rounded-2xl",
+          elevation === 1 && "bg-glass-elev1",
+          elevation === 2 && "bg-glass-elev2"
+        )}
+      />
+      
+      {/* Content */}
+      <div className="relative z-10">
+        {props.children}
+      </div>
+    </Tag>
   );
 }

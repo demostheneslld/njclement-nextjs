@@ -1,11 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
+import Logo from "@/components/logo";
 import Footer from "@/components/structure/footer";
 import Navigation from "@/components/structure/navigation";
 import Button from "@/components/ui/button";
+import Section from "@/components/ui/Section";
 import { siteConfig } from "@/config/constants";
+import { BiomeProvider } from "@/contexts/BiomeContext";
 import type { Metadata } from "next";
-import Script from "next/script";
 import Link from "next/link";
+import Script from "next/script";
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -47,37 +50,37 @@ export default function RootLayout({
         suppressHydrationWarning={true}
         className="font-body"
       >
-        <div className="absolute inset-0 -z-20 bg-[color:var(--c-bg-night)]"></div>
-        <div className="bg-stripe-grid absolute inset-0 opacity-[0.03] -z-10"></div>
-        
-        <div className="flex flex-col min-h-screen">
-          <header className="w-full py-6 sticky top-0 z-50 bg-glass-elev1 backdrop-blur-md border-b border-white/10 shadow-sm">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-between">
-                <div className="flex flex-shrink-0 items-center">
-                  <Link href="/">
-                    <img alt={`${siteConfig.name} Logo`} src="/logo.png" className="h-10 w-auto" />
-                  </Link>
-                </div>
-                <div className="hidden md:block">
-                  <Navigation />
-                </div>
-                <div className="hidden md:flex items-center space-x-4">
-                  <Button href="/contact" variant="secondary" size="sm">Contact</Button>
-                </div>
-                <div className="md:hidden">
-                  <Navigation />
+        <BiomeProvider>
+          <div className="flex flex-col min-h-screen">
+            <header className="w-full sticky top-0 z-50 backdrop-blur-xl">
+              <div className="p-6 shadow-sm section">
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-shrink-0 items-center">
+                    <Link href="/" className="text-[color:var(--c-accent)]">
+                      <Logo className="h-10 w-auto" />
+                    </Link>
+                  </div>
+                  <div className="hidden md:block">
+                    <Navigation />
+                  </div>
+                  <div className="hidden md:flex items-center space-x-4">
+                    <Button href="/contact" variant="secondary" size="sm">Contact</Button>
+                  </div>
+                  <div className="md:hidden">
+                    <Navigation />
+                  </div>
                 </div>
               </div>
-            </div>
-          </header>
-          
-          <main className="flex-grow w-full">
-            {children}
-          </main>
-          
-          <Footer />
-        </div>
+            </header>
+            
+            <main className="flex-grow w-full">
+              {children}
+            </main>
+            <Section background="neutral" className="py-16" divider>
+              <Footer />
+            </Section>
+          </div>
+        </BiomeProvider>
       </body>
     </html>
   );

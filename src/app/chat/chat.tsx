@@ -26,12 +26,6 @@ export default function ChatAboutMe() {
     }
   }, [messages]);
 
-  useEffect(() => {
-    if (!loading && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [loading]);
-
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     const userMessage: Message = { role: 'user', content: input };
@@ -76,11 +70,11 @@ export default function ChatAboutMe() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4">
-      <div ref={chatContainerRef} className="border rounded p-4 h-80 overflow-y-auto bg-white">
+    <div className="max-w-3xl mx-auto space-y-4">
+      <div ref={chatContainerRef} className="w-full border border-[var(--c-text-low)] rounded p-4 h-80 overflow-y-auto bg-transparent">
         {messages.map((m, idx) => (
-          <div key={idx} className="mb-2">
-            <strong>{m.role === 'user' ? 'You' : 'NathanBot'}:</strong> {m.content}
+          <div key={idx} className="mb-2 text-[var(--c-text-med)]">
+            <strong className="text-[var(--c-text-high)]">{m.role === 'user' ? 'You' : 'NathanBot'}:</strong> {m.content}
           </div>
         ))}
       </div>
@@ -88,7 +82,7 @@ export default function ChatAboutMe() {
         <input
           ref={inputRef}
           type="text"
-          className="flex-grow border rounded p-2"
+          className="flex-grow border border-[var(--c-text-low)] rounded p-2 bg-[var(--c-bg-neutral)] text-[var(--c-text-high)]"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask a question"
@@ -97,15 +91,17 @@ export default function ChatAboutMe() {
         />
         <button
           type="submit"
-          className={`px-4 py-2 rounded text-white ${
-            loading || !input.trim() ? 'bg-gray-400 cursor-not-allowed' : 'bg-primary-600'
+          className={`px-4 py-2 rounded text-high backdrop-blur-sm glass-fill transition-all duration-200 ${
+            loading || !input.trim() 
+              ? 'bg-neutral cursor-not-allowed text-med' 
+              : 'bg-accent hover:shadow-accent hover:-translate-y-0.5'
           }`}
           disabled={loading || !input.trim()}
         >
           Send
         </button>
       </form>
-      {error && <p className="text-red-600 text-center">{error}</p>}
+      {error && <p className="text-[var(--c-danger)] text-center">{error}</p>}
     </div>
 
   );

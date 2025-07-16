@@ -13,7 +13,7 @@ export default function PortfolioView() {
     <Section
       title="Portfolio"
       subtitle="What am I working on in my spare time?"
-      background="fog"
+      background="accent"
       divider
     >
       <p className="text-lg max-w-3xl mx-auto mb-12 text-center" style={{color:'var(--c-text-med)'}}>
