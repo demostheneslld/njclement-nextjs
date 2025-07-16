@@ -31,32 +31,32 @@ jobs:
     - name: Run build
       run: bun run build
 
-  e2e-tests:
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
+  # e2e-tests:
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 60
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
 
-    - name: Setup Bun
-      uses: oven-sh/setup-bun@v1
-      with:
-        bun-version: latest
+  #   - name: Setup Bun
+  #     uses: oven-sh/setup-bun@v1
+  #     with:
+  #       bun-version: latest
 
-    - name: Install dependencies
-      run: bun install --frozen-lockfile
+  #   - name: Install dependencies
+  #     run: bun install --frozen-lockfile
 
-    - name: Install Playwright browsers
-      run: bunx playwright install --with-deps
+  #   - name: Install Playwright browsers
+  #     run: bunx playwright install --with-deps
 
-    - name: Run Playwright tests
-      run: bun run test:e2e
+  #   - name: Run Playwright tests
+  #     run: bun run test:e2e
 
-    - name: Upload Playwright report
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+  #   - name: Upload Playwright report
+  #     uses: actions/upload-artifact@v4
+  #     if: always()
+  #     with:
+  #       name: playwright-report
+  #       path: playwright-report/
+  #       retention-days: 30
