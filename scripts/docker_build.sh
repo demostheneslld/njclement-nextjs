@@ -1,8 +1,8 @@
 #!/bin/bash
-# Build Docker Image
+# Build Docker Image with Bun support
 set -euo pipefail
 
-echo 'Starting Docker Build'
+echo 'Starting Docker Build with Bun support'
 ref="$1"
 echo 'Git Branch/Ref ' "$ref"
 

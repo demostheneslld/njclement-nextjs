@@ -23,7 +23,7 @@ export const siteConfig = {
   github: "https://github.com/demostheneslld",
   domain: "njclement.com",
   openGraph: {
-    image: "/logo.png",
+    image: "/logo.svg",
   },
   analytics: {
     // Google Analytics Tracking ID
