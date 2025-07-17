@@ -18,7 +18,7 @@ export default function ContactView() {
           <p className="text-med mb-4">You can also reach me directly at:</p>
           <a 
             href={`mailto:${siteConfig.email}`}
-            className="text-lg font-medium text-accent hover:text-accent-sub transition-colors duration-200 hover:underline"
+            className="text-lg font-medium text-accent hover:text-accent-contrast transition-colors duration-200 hover:underline"
           >
             {siteConfig.email}
           </a>

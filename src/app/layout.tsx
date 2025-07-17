@@ -2,7 +2,6 @@
 import Logo from "@/components/logo";
 import Footer from "@/components/structure/footer";
 import Navigation from "@/components/structure/navigation";
-import Button from "@/components/ui/button";
 import Section from "@/components/ui/Section";
 import { siteConfig } from "@/config/constants";
 import { BiomeProvider } from "@/contexts/BiomeContext";
@@ -52,23 +51,15 @@ export default function RootLayout({
       >
         <BiomeProvider>
           <div className="flex flex-col min-h-screen">
-            <header className="w-full sticky top-0 z-40 backdrop-blur-xl" data-testid="main-header">
-              <div className="p-6 shadow-sm section">
-                <div className="flex items-center justify-between">
+            <header className="w-full sticky top-0 z-40 bg-glass-elev2 backdrop-blur-xl" data-testid="main-header">
+              <div className="glass-surface ">
+                <div className="flex items-center justify-between py-4">
                   <div className="flex flex-shrink-0 items-center">
                     <Link href="/" className="text-accent" aria-label="Home" data-testid="logo-link">
                       <Logo className="h-10 w-auto" />
                     </Link>
                   </div>
-                  <div className="hidden md:block">
-                    <Navigation />
-                  </div>
-                  <div className="hidden md:flex items-center space-x-4">
-                    <Button href="/contact" variant="secondary" size="sm" data-testid="desktop-contact-button">Contact</Button>
-                  </div>
-                  <div className="md:hidden">
-                    <Navigation />
-                  </div>
+                  <Navigation />
                 </div>
               </div>
             </header>

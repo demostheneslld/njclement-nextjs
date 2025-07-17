@@ -9,17 +9,18 @@
   --c-text-low: #7d868d;
 
   /* functional accents */
-  --c-accent: #c97a3c;
-  --c-accent-sub: #4a6645;
-  --c-danger: #e85f4d;
+  --c-accent: #c97a3c;        /* primary brand/theme color */
+  --c-accent-contrast: #4a6645; /* harmonious contrast to accent */
+  --c-danger: #e85f4d;        /* error/warning states */
 
   /* primary theme colors (biome-aware) */
-  --c-primary: var(--c-accent);
-  --c-primary-sub: var(--c-accent-sub);
+  --c-primary: var(--c-accent);         /* main interactive elements */
+  --c-primary-contrast: var(--c-accent-contrast); /* secondary interactive elements */
 
-  /* elevations */
-  --c-glass-top: rgba(32, 38, 42, 0.15);
-  --c-glass-bot: rgba(19, 22, 26, 0.25);
+  /* glass morphism (biome-aware) */
+  --c-glass-top: rgba(32, 38, 42, 0.15);    /* glass overlay top */
+  --c-glass-bottom: rgba(19, 22, 26, 0.25); /* glass overlay bottom */
+  --c-glass-border: rgba(255, 255, 255, 0.2); /* glass border */
 
   /* typography */
   --font-head: 'Playfair Display', serif;
@@ -54,38 +55,166 @@
 @tailwind utilities;
 
 /* Biome System */
-.biome-desert-oasis {
-  --c-accent: #d6a354;      /* desert gold */
-  --c-accent-sub: #6bbfbd;  /* oasis turquoise */
-  --c-danger: #d9543e;      /* desert sunset */
-  --c-primary: #d6a354;     /* biome-aware primary */
-  --c-primary-sub: #6bbfbd; /* biome-aware primary-sub */
-  --c-neutral: #2a1f1a;     /* warm sandy neutral */
-  --c-neutral-sub: #3a2e25; /* lighter sand */
+
+/* Additional Biome Themes */
+.biome-giza {
+  --c-accent: #d4a574;           /* warm sandstone - can blend with pyramid colors */
+  --c-accent-contrast: #2d5366;  /* deep nile blue - HIGH CONTRAST for text over bright pyramids */
+  --c-danger: #c65d3a;           /* sunset orange - errors, warnings */
+  --c-primary: #d4a574;          /* decorative elements that harmonize with pyramids */
+  --c-primary-contrast: #2d5366; /* readable text over bright pyramid backgrounds */
+  --c-neutral: #1f1d1a;          /* dark backgrounds */
+  --c-neutral-sub: #2d2a26;      /* medium backgrounds */
+  --c-glass-top: rgba(212, 165, 116, 0.12);   /* warm sandstone glass overlay */
+  --c-glass-bottom: rgba(45, 83, 102, 0.18);  /* deep blue glass overlay */
+  --c-glass-border: rgba(212, 165, 116, 0.25); /* sandstone glass border */
 }
 
-.biome-misty-lava-forest {
-  --c-accent: #e85f4d;      /* molten lava orange-red */
-  --c-accent-sub: #c97a3c;  /* ember glow */
-  --c-danger: #ff6b4d;      /* brighter danger */
-  --c-primary: #e85f4d;     /* biome-aware primary */
-  --c-primary-sub: #c97a3c; /* biome-aware primary-sub */
-  --c-neutral: #1a1d20;     /* cool volcanic ash */
-  --c-neutral-sub: #252a2e; /* lighter ash */
+.biome-kilimanjaro {
+  --c-accent: #8fb4d4;           /* glacier blue - can blend with mountain sky */
+  --c-accent-contrast: #2f4d4f;  /* deep forest green - HIGH CONTRAST for text over snowy peaks */
+  --c-danger: #d67352;           /* african sunset - errors, warnings */
+  --c-primary: #8fb4d4;          /* decorative elements that harmonize with mountain colors */
+  --c-primary-contrast: #2f484f; /* readable text over bright mountain backgrounds */
+  --c-neutral: #1a1d20;          /* dark backgrounds */
+  --c-neutral-sub: #252a2e;      /* medium backgrounds */
+  --c-glass-top: rgba(143, 180, 212, 0.12);   /* glacier blue glass overlay */
+  --c-glass-bottom: rgba(47, 79, 47, 0.18);   /* deep forest glass overlay */
+  --c-glass-border: rgba(143, 180, 212, 0.25); /* glacier blue glass border */
+}
+
+.biome-malibu {
+  --c-accent: #5fbcd3;           /* ocean blue - can blend with water and sky */
+  --c-accent-contrast: #af0202;  /* rich brown - HIGH CONTRAST for text over bright beach/ocean */
+  --c-danger: #ff6b6b;           /* sunset coral - errors, warnings */
+  --c-primary: #5fbcd3;          /* decorative elements that harmonize with ocean colors */
+  --c-primary-contrast: #e22320; /* readable text over bright beach backgrounds */
+  --c-neutral: #1b2028;          /* dark backgrounds */
+  --c-neutral-sub: #262c36;      /* medium backgrounds */
+  --c-glass-top: rgba(95, 188, 211, 0.12);    /* ocean blue glass overlay */
+  --c-glass-bottom: rgba(139, 69, 19, 0.18);  /* rich brown glass overlay */
+  --c-glass-border: rgba(95, 188, 211, 0.25); /* ocean blue glass border */
+}
+
+.biome-namibia {
+  --c-accent: #e8a447;           /* dune gold - can blend with sand colors */
+  --c-accent-contrast: #4a2c17;  /* deep desert brown - HIGH CONTRAST for text over bright sand */
+  --c-danger: #d64545;           /* red sand - errors, warnings */
+  --c-primary: #e8a447;          /* decorative elements that harmonize with dunes */
+  --c-primary-contrast: #4a2c17; /* readable text over bright desert backgrounds */
+  --c-neutral: #1c1815;          /* dark backgrounds */
+  --c-neutral-sub: #292420;      /* medium backgrounds */
+  --c-glass-top: rgba(232, 164, 71, 0.12);    /* dune gold glass overlay */
+  --c-glass-bottom: rgba(74, 44, 23, 0.18);   /* deep brown glass overlay */
+  --c-glass-border: rgba(232, 164, 71, 0.25); /* dune gold glass border */
+}
+
+.biome-oahu {
+  --c-accent: #4ecdc4;           /* tropical turquoise - can blend with lagoon colors */
+  --c-accent-contrast: #e85190;  /* deep tropical green - HIGH CONTRAST for text over bright beaches */
+  --c-danger: #ff6b9d;           /* hibiscus pink - errors, warnings */
+  --c-primary: #4ecdc4;          /* decorative elements that harmonize with tropical colors */
+  --c-primary-contrast: #26cbf8; /* readable text over bright tropical backgrounds */
+  --c-neutral: #1a2124;          /* dark backgrounds */
+  --c-neutral-sub: #252d31;      /* medium backgrounds */
+  --c-glass-top: rgba(78, 205, 196, 0.12);    /* turquoise glass overlay */
+  --c-glass-bottom: rgba(26, 71, 42, 0.18);   /* deep green glass overlay */
+  --c-glass-border: rgba(78, 205, 196, 0.25);  /* turquoise glass border */
+}
+
+.biome-verona {
+  --c-accent: #d4a373;           /* italian terracotta - can blend with warm stone architecture */
+  --c-accent-contrast: #2d1810;  /* deep walnut brown - HIGH CONTRAST for text over warm stone */
+  --c-danger: #c65353;           /* venetian red - errors, warnings */
+  --c-primary: #d4a373;          /* decorative elements that harmonize with architecture */
+  --c-primary-contrast: #2d1810; /* readable text over warm architectural backgrounds */
+  --c-neutral: #1d1a18;          /* dark backgrounds */
+  --c-neutral-sub: #2a2622;      /* medium backgrounds */
+  --c-glass-top: rgba(212, 163, 115, 0.12);   /* terracotta glass overlay */
+  --c-glass-bottom: rgba(45, 24, 16, 0.18);   /* deep walnut glass overlay */
+  --c-glass-border: rgba(212, 163, 115, 0.25); /* terracotta glass border */
+}
+
+.biome-washington-dc {
+  --c-accent: #b8cddb;           /* monument marble - can blend with white marble monuments */
+  --c-accent-contrast: #1e3a5f;  /* deep federal blue - HIGH CONTRAST for text over bright monuments */
+  --c-danger: #d65f5f;           /* capitol red - errors, warnings */
+  --c-primary: #b8cddb;          /* decorative elements that harmonize with monuments */
+  --c-primary-contrast: #1e3a5f; /* readable text over bright monument backgrounds */
+  --c-neutral: #1a1c1e;          /* dark backgrounds */
+  --c-neutral-sub: #252729;      /* medium backgrounds */
+  --c-glass-top: rgba(184, 205, 219, 0.12);   /* marble glass overlay */
+  --c-glass-bottom: rgba(30, 58, 95, 0.18);   /* deep federal blue glass overlay */
+  --c-glass-border: rgba(184, 205, 219, 0.25); /* marble glass border */
+}
+
+.biome-yosemite {
+  --c-accent: #7fb069;           /* forest green - can blend with natural forest colors */
+  --c-accent-contrast: #2c3e2d;  /* deep forest shadow - HIGH CONTRAST for text over bright granite/sky */
+  --c-danger: #d67c5c;           /* granite orange - errors, warnings */
+  --c-primary: #7fb069;          /* decorative elements that harmonize with nature */
+  --c-primary-contrast: #2c3e2d; /* readable text over bright natural backgrounds */
+  --c-neutral: #1a1d1b;          /* dark backgrounds */
+  --c-neutral-sub: #252927;      /* medium backgrounds */
+  --c-glass-top: rgba(127, 176, 105, 0.12);   /* forest green glass overlay */
+  --c-glass-bottom: rgba(44, 62, 45, 0.18);   /* deep forest glass overlay */
+  --c-glass-border: rgba(127, 176, 105, 0.25); /* forest green glass border */
+}
+
+.biome-zanzibar {
+  --c-accent: #4fc3c7;           /* indian ocean - can blend with tropical ocean colors */
+  --c-accent-contrast: #8b4513;  /* rich spice brown - HIGH CONTRAST for text over bright tropical scenes */
+  --c-danger: #ef5350;           /* coral red - errors, warnings */
+  --c-primary: #4fc3c7;          /* decorative elements that harmonize with ocean */
+  --c-primary-contrast: #8b4513; /* readable text over bright tropical backgrounds */
+  --c-neutral: #1a2125;          /* dark backgrounds */
+  --c-neutral-sub: #252c31;      /* medium backgrounds */
+  --c-glass-top: rgba(79, 195, 199, 0.12);    /* ocean glass overlay */
+  --c-glass-bottom: rgba(139, 69, 19, 0.18);  /* rich spice glass overlay */
+  --c-glass-border: rgba(79, 195, 199, 0.25);  /* ocean glass border */
 }
 
 /* Background Images */
-.biome-misty-lava-forest body {
-  background: url('/biomes/misty-lava-forest.png') center/cover fixed no-repeat var(--c-neutral) !important;
+
+.biome-giza body {
+  background: url('/biomes/giza.png') center/cover fixed no-repeat var(--c-neutral) !important;
+}
+
+.biome-kilimanjaro body {
+  background: url('/biomes/kilimanjaro.png') center/cover fixed no-repeat var(--c-neutral) !important;
+}
+
+.biome-malibu body {
+  background: url('/biomes/malibu.png') center/cover fixed no-repeat var(--c-neutral) !important;
+}
+
+.biome-namibia body {
+  background: url('/biomes/namibia.png') center/cover fixed no-repeat var(--c-neutral) !important;
+}
+
+.biome-oahu body {
+  background: url('/biomes/oahu.png') center/cover fixed no-repeat var(--c-neutral) !important;
+}
+
+.biome-verona body {
+  background: url('/biomes/verona.png') center/cover fixed no-repeat var(--c-neutral) !important;
+}
+
+.biome-washington-dc body {
+  background: url('/biomes/washington-dc.png') center/cover fixed no-repeat var(--c-neutral) !important;
+}
+
+.biome-yosemite body {
+  background: url('/biomes/yosemite.png') center/cover fixed no-repeat var(--c-neutral) !important;
+}
+
+.biome-zanzibar body {
+  background: url('/biomes/zanzibar.png') center/cover fixed no-repeat var(--c-neutral) !important;
 }
 
 /* Default fallback for SSR - will be immediately replaced by BiomeProvider */
 html:not([class*="biome-"]) body {
   background: var(--c-neutral) !important;
-}
-
-.biome-desert-oasis body {
-  background: url('/biomes/desert-oasis.png') center/cover fixed no-repeat var(--c-neutral) !important;
 }
 
 body {
@@ -172,9 +301,9 @@ body {
   .form-glass input,
   .form-glass textarea,
   .form-glass select {
-    background-image: linear-gradient(var(--c-glass-top), var(--c-glass-bot));
+    background-image: linear-gradient(var(--c-glass-top), var(--c-glass-bottom));
     backdrop-filter: blur(24px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--c-glass-border);
     box-shadow: var(--shadow-elev-1);
   }
 
@@ -194,7 +323,7 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(var(--c-glass-top), var(--c-glass-bot));
+    background-image: linear-gradient(var(--c-glass-top), var(--c-glass-bottom));
     backdrop-filter: blur(12px) saturate(140%);
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -219,7 +348,7 @@ body {
 
 /* Custom Utilities */
 .text-gradient {
-  background: linear-gradient(45deg, var(--c-accent), var(--c-accent-sub));
+  background: linear-gradient(45deg, var(--c-primary-contrast), var(--c-accent-contrast));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -262,8 +391,8 @@ body {
     color: var(--c-accent);
   }
 
-  .text-accent-sub {
-    color: var(--c-accent-sub);
+  .text-accent-contrast {
+    color: var(--c-accent-contrast);
   }
 
   .text-danger {
@@ -282,16 +411,16 @@ body {
     background-color: var(--c-primary);
   }
 
-  .bg-primary-sub {
-    background-color: var(--c-primary-sub);
+  .bg-primary-contrast {
+    background-color: var(--c-primary-contrast);
   }
 
   .bg-accent {
     background-color: var(--c-accent);
   }
 
-  .bg-accent-sub {
-    background-color: var(--c-accent-sub);
+  .bg-accent-contrast {
+    background-color: var(--c-accent-contrast);
   }
 
   .bg-danger {
@@ -300,11 +429,13 @@ body {
 
   /* Glass Background Utilities */
   .bg-glass-elev1 {
-    background-image: linear-gradient(var(--c-glass-top), var(--c-glass-bot));
+    background-image: linear-gradient(var(--c-glass-top), var(--c-glass-bottom));
+    border: 1px solid var(--c-glass-border);
   }
 
   .bg-glass-elev2 {
     background-image: linear-gradient(rgba(32, 38, 42, 0.25), rgba(19, 22, 26, 0.35));
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   /* Shadow Utilities */
@@ -375,16 +506,16 @@ body {
     border-color: var(--c-accent);
   }
 
-  .border-accent-sub {
-    border-color: var(--c-accent-sub);
+  .border-accent-contrast {
+    border-color: var(--c-accent-contrast);
   }
 
   .border-primary {
     border-color: var(--c-primary);
   }
 
-  .border-primary-sub {
-    border-color: var(--c-primary-sub);
+  .border-primary-contrast {
+    border-color: var(--c-primary-contrast);
   }
 
   .border-text-low {

@@ -9,14 +9,14 @@ const config = {
     extend: {
       colors: {
         primary: 'rgb(from var(--c-primary) r g b / <alpha-value>)',
-        'primary-sub': 'rgb(from var(--c-primary-sub) r g b / <alpha-value>)',
+        'primary-contrast': 'rgb(from var(--c-primary-contrast) r g b / <alpha-value>)',
         secondary: colors.amber,
         dark: colors.gray,
         accent: 'rgb(from var(--c-accent) r g b / <alpha-value>)',
-        'accent-sub': 'rgb(from var(--c-accent-sub) r g b / <alpha-value>)',
+        'accent-contrast': 'rgb(from var(--c-accent-contrast) r g b / <alpha-value>)',
         danger: 'rgb(from var(--c-danger) r g b / <alpha-value>)',
         'glass-elev1': 'var(--c-glass-top)',
-        'glass-elev2': 'var(--c-glass-bot)',
+        'glass-elev2': 'var(--c-glass-bottom)',
         // Design system colors
         'text-high': 'rgb(from var(--c-text-high) r g b / <alpha-value>)',
         'text-med': 'rgb(from var(--c-text-med) r g b / <alpha-value>)',
