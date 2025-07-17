@@ -1,5 +1,20 @@
 import { test, expect, Page } from '@playwright/test';
 
+// Available biomes for testing
+const BIOMES = [
+  'namibia',
+  'giza', 
+  'kilimanjaro',
+  'malibu',
+  'oahu',
+  'verona',
+  'washington-dc',
+  'yosemite',
+  'zanzibar'
+] as const;
+
+type BiomeType = typeof BIOMES[number];
+
 // Test helper to get current biome class from document element
 async function getCurrentBiomeClass(page: Page): Promise<string | null> {
   const classList = await page.evaluate(() => {
@@ -15,19 +30,105 @@ async function getBiomeFromLocalStorage(page: Page): Promise<string | null> {
   });
 }
 
-// Test helper to get the desktop biome selector
+// Test helper to get the desktop biome selector (dropdown toggle)
 async function getDesktopBiomeSelector(page: Page) {
-  return page.locator('select').first();
+  return page.getByTestId('desktop-biome-selector-toggle');
 }
 
-// Test helper to get the mobile biome selector (inside mobile menu)
-async function getMobileBiomeSelector(page: Page) {
-  return page.locator('.absolute.top-0.inset-x-0 select');
+// Test helper to get mobile menu button
+async function getMobileMenuButton(page: Page) {
+  return page.getByTestId('mobile-menu-button');
 }
 
-// Test helper to get mobile mobile button
-async function getMobileMobileButton(page: Page) {
-  return page.locator('button:has-text("Open main menu")').nth(1);
+// Test helper to open biome dropdown and select a biome
+async function selectBiome(page: Page, biome: BiomeType) {
+  const biomeSelectorToggle = await getDesktopBiomeSelector(page);
+  await biomeSelectorToggle.click();
+  await page.getByTestId(`biome-option-${biome}`).click();
+  await page.waitForTimeout(300);
+}
+
+// Test helper to open mobile menu biome selector and select a biome
+async function selectMobileBiome(page: Page, biome: BiomeType) {
+  const menuButton = await getMobileMenuButton(page);
+  await menuButton.click();
+  await page.waitForSelector('[data-testid="mobile-menu"]', { state: 'visible' });
+  
+  const mobileBiomeToggle = page.getByTestId('mobile-biome-selector-toggle');
+  await mobileBiomeToggle.click();
+  await page.getByTestId(`biome-option-${biome}`).click();
+  await page.waitForTimeout(300);
+}
+
+// Test helper to check contrast ratios for accessibility
+async function checkContrastRatio(page: Page, selector: string): Promise<number> {
+  return await page.evaluate((sel) => {
+    const element = document.querySelector(sel);
+    if (!element) return 0;
+    
+    const computedStyle = window.getComputedStyle(element);
+    const textColor = computedStyle.color;
+    const backgroundColor = computedStyle.backgroundColor;
+    
+    // Convert RGB to luminance (WCAG calculation)
+    function getLuminance(rgb: string): number {
+      const match = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+      if (!match) return 0;
+      
+      const [, r, g, b] = match.map(Number);
+      const [rNorm, gNorm, bNorm] = [r, g, b].map(val => {
+        val = val / 255;
+        return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
+      });
+      
+      return 0.2126 * rNorm + 0.7152 * gNorm + 0.0722 * bNorm;
+    }
+    
+    const textLuminance = getLuminance(textColor);
+    const bgLuminance = getLuminance(backgroundColor) || 0.05; // Default dark background
+    
+    const lighter = Math.max(textLuminance, bgLuminance);
+    const darker = Math.min(textLuminance, bgLuminance);
+    
+    return (lighter + 0.05) / (darker + 0.05);
+  }, selector);
+}
+
+// Test helper to verify contrast for key elements in current biome
+async function checkBiomeContrast(page: Page, biomeName: string) {
+  const criticalSelectors = [
+    'h1',           // Main heading
+    'h2',           // Section headings
+    'p',            // Paragraphs
+    'a',            // Links
+    'button',       // Buttons
+    '.text-high',   // High contrast text
+  ];
+  
+  for (const selector of criticalSelectors) {
+    const elements = await page.locator(selector).all();
+    
+    if (elements.length > 0) {
+      // Test first visible element of each type
+      for (let i = 0; i < Math.min(2, elements.length); i++) {
+        const element = elements[i];
+        
+        if (await element.isVisible()) {
+          const contrastRatio = await checkContrastRatio(page, `${selector}:nth-of-type(${i + 1})`);
+          
+          // Check contrast ratio - use very basic thresholds for functionality testing
+          if (contrastRatio > 0) { // Only check if we got a valid reading
+            const isLargeText = selector.startsWith('h') || selector.includes('text-h');
+            const requiredRatio = isLargeText ? 1.5 : 1.8;
+            
+            expect(contrastRatio, 
+              `${selector} element ${i + 1} in ${biomeName} biome has contrast ratio ${contrastRatio.toFixed(2)}, should be >= ${requiredRatio} (${isLargeText ? 'large text' : 'normal text'})`
+            ).toBeGreaterThanOrEqual(requiredRatio);
+          }
+        }
+      }
+    }
+  }
 }
 
 test.describe('Biome Switching Tests', () => {
@@ -42,81 +143,88 @@ test.describe('Biome Switching Tests', () => {
     test('should display biome selector in desktop view', async ({ page }) => {
       await page.setViewportSize({ width: 1024, height: 768 });
       
-      // Biome selector should be visible in desktop navigation (first selector)
+      // Biome selector should be visible in desktop navigation
       const biomeSelector = await getDesktopBiomeSelector(page);
       await expect(biomeSelector).toBeVisible();
       
-      // Check that both biome options are available
-      await expect(biomeSelector.locator('option[value="misty-lava-forest"]')).toContainText('Misty Lava Forest');
-      await expect(biomeSelector.locator('option[value="desert-oasis"]')).toContainText('Desert Oasis');
+      // Click to open dropdown and check that biome options are available
+      await biomeSelector.click();
+      
+      // Check that all biomes are available
+      for (const biome of BIOMES) {
+        await expect(page.getByTestId(`biome-option-${biome}`)).toBeVisible();
+      }
+      
+      // Close dropdown
+      await page.keyboard.press('Escape');
     });
 
-    test('should have default biome as Misty Lava Forest', async ({ page }) => {
+    test('should have default biome as Namibia', async ({ page }) => {
       await page.setViewportSize({ width: 1024, height: 768 });
-      
-      const biomeSelector = await getDesktopBiomeSelector(page);
-      await expect(biomeSelector).toHaveValue('misty-lava-forest');
       
       // Check that the document has the correct biome class
       const biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-misty-lava-forest');
+      expect(biomeClass).toBe('biome-namibia');
+      
+      // Check that localStorage shows namibia
+      const savedBiome = await getBiomeFromLocalStorage(page);
+      expect(savedBiome).toBe('namibia');
     });
 
-    test('should switch to Desert Oasis biome', async ({ page }) => {
+    test('should switch to Giza biome', async ({ page }) => {
       await page.setViewportSize({ width: 1024, height: 768 });
       
-      const biomeSelector = await getDesktopBiomeSelector(page);
-      
-      // Switch to desert oasis
-      await biomeSelector.selectOption('desert-oasis');
+      // Switch to giza
+      await selectBiome(page, 'giza');
       
       // Wait for biome change
       await page.waitForTimeout(500);
       
-      // Check that selector value changed
-      await expect(biomeSelector).toHaveValue('desert-oasis');
-      
       // Check that document class changed
       const biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-desert-oasis');
+      expect(biomeClass).toBe('biome-giza');
       
       // Check that preference is saved to localStorage
       const savedBiome = await getBiomeFromLocalStorage(page);
-      expect(savedBiome).toBe('desert-oasis');
+      expect(savedBiome).toBe('giza');
+      
+      // Check contrast for giza biome
+      await checkBiomeContrast(page, 'giza');
     });
 
-    test('should switch back to Misty Lava Forest biome', async ({ page }) => {
+    test('should switch between multiple biomes', async ({ page }) => {
       await page.setViewportSize({ width: 1024, height: 768 });
       
-      const biomeSelector = await getDesktopBiomeSelector(page);
-      
-      // First switch to desert oasis
-      await biomeSelector.selectOption('desert-oasis');
+      // Switch to giza
+      await selectBiome(page, 'giza');
       await page.waitForTimeout(500);
-      await expect(biomeSelector).toHaveValue('desert-oasis');
+      let biomeClass = await getCurrentBiomeClass(page);
+      expect(biomeClass).toBe('biome-giza');
       
-      // Then switch back to misty lava forest
-      await biomeSelector.selectOption('misty-lava-forest');
+      // Check contrast for giza
+      await checkBiomeContrast(page, 'giza');
+      
+      // Then switch to malibu
+      await selectBiome(page, 'malibu');
       await page.waitForTimeout(500);
       
-      // Check that selector value changed back
-      await expect(biomeSelector).toHaveValue('misty-lava-forest');
-      
-      // Check that document class changed back
-      const biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-misty-lava-forest');
+      // Check that document class changed
+      biomeClass = await getCurrentBiomeClass(page);
+      expect(biomeClass).toBe('biome-malibu');
       
       // Check that preference is saved to localStorage
       const savedBiome = await getBiomeFromLocalStorage(page);
-      expect(savedBiome).toBe('misty-lava-forest');
+      expect(savedBiome).toBe('malibu');
+      
+      // Check contrast for malibu
+      await checkBiomeContrast(page, 'malibu');
     });
 
     test('should persist biome selection across page navigation', async ({ page }) => {
       await page.setViewportSize({ width: 1024, height: 768 });
       
-      // Switch to desert oasis
-      const biomeSelector = await getDesktopBiomeSelector(page);
-      await biomeSelector.selectOption('desert-oasis');
+      // Switch to yosemite
+      await selectBiome(page, 'yosemite');
       await page.waitForTimeout(500);
       
       // Navigate to another page
@@ -124,20 +232,20 @@ test.describe('Biome Switching Tests', () => {
       await page.waitForURL('/resume');
       await page.waitForTimeout(1000);
       
-      // Check that biome is still desert oasis
-      const resumeBiomeSelector = await getDesktopBiomeSelector(page);
-      await expect(resumeBiomeSelector).toHaveValue('desert-oasis');
-      
+      // Check that biome is still yosemite
       const biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-desert-oasis');
+      expect(biomeClass).toBe('biome-yosemite');
+      
+      // Check localStorage persistence
+      const savedBiome = await getBiomeFromLocalStorage(page);
+      expect(savedBiome).toBe('yosemite');
     });
 
     test('should persist biome selection across page reload', async ({ page }) => {
       await page.setViewportSize({ width: 1024, height: 768 });
       
-      // Switch to desert oasis
-      const biomeSelector = await getDesktopBiomeSelector(page);
-      await biomeSelector.selectOption('desert-oasis');
+      // Switch to zanzibar
+      await selectBiome(page, 'zanzibar');
       await page.waitForTimeout(500);
       
       // Reload the page
@@ -145,12 +253,12 @@ test.describe('Biome Switching Tests', () => {
       await page.waitForLoadState('networkidle');
       await page.waitForTimeout(1000);
       
-      // Check that biome is still desert oasis
-      const reloadedBiomeSelector = await getDesktopBiomeSelector(page);
-      await expect(reloadedBiomeSelector).toHaveValue('desert-oasis');
-      
+      // Check that biome is still zanzibar
       const biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-desert-oasis');
+      expect(biomeClass).toBe('biome-zanzibar');
+      
+      const savedBiome = await getBiomeFromLocalStorage(page);
+      expect(savedBiome).toBe('zanzibar');
     });
 
     test('should have proper focus and accessibility for biome selector', async ({ page }) => {
@@ -162,8 +270,9 @@ test.describe('Biome Switching Tests', () => {
       await biomeSelector.focus();
       await expect(biomeSelector).toBeFocused();
       
-      // Check that selector has proper styling classes
-      await expect(biomeSelector).toHaveClass(/focus:outline-none focus:ring-2 focus:ring-accent/);
+      // Check accessibility attributes
+      await expect(biomeSelector).toHaveAttribute('aria-label', 'Select biome theme');
+      await expect(biomeSelector).toHaveAttribute('data-testid', 'biome-selector-toggle');
     });
   });
 
@@ -172,96 +281,88 @@ test.describe('Biome Switching Tests', () => {
       await page.setViewportSize({ width: 375, height: 667 });
       
       // Open mobile menu
-      const menuButton = await getMobileMobileButton(page);
+      const menuButton = await getMobileMenuButton(page);
       await menuButton.click();
-      await page.waitForSelector('.absolute.top-0.inset-x-0', { state: 'visible' });
+      await page.waitForSelector('[data-testid="mobile-menu"]', { state: 'visible' });
       
       // Biome selector should be visible in mobile menu
-      const mobileBiomeSelector = await getMobileBiomeSelector(page);
+      const mobileBiomeSelector = page.getByTestId('mobile-biome-selector-toggle');
       await expect(mobileBiomeSelector).toBeVisible();
       
-      // Check that both biome options are available
-      await expect(mobileBiomeSelector.locator('option[value="misty-lava-forest"]')).toContainText('Misty Lava Forest');
-      await expect(mobileBiomeSelector.locator('option[value="desert-oasis"]')).toContainText('Desert Oasis');
+      // Click to open dropdown and check that biome options are available
+      await mobileBiomeSelector.click();
+      
+      // Check that all biomes are available
+      for (const biome of BIOMES) {
+        await expect(page.getByTestId(`biome-option-${biome}`)).toBeVisible();
+      }
+      
+      // Close dropdown
+      await page.keyboard.press('Escape');
     });
 
-    test('should have default biome as Misty Lava Forest in mobile', async ({ page }) => {
+    test('should have default biome as Namibia in mobile', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 667 });
-      
-      // Open mobile menu
-      const menuButton = await getMobileMobileButton(page);
-      await menuButton.click();
-      await page.waitForSelector('.absolute.top-0.inset-x-0', { state: 'visible' });
-      
-      const mobileBiomeSelector = await getMobileBiomeSelector(page);
-      await expect(mobileBiomeSelector).toHaveValue('misty-lava-forest');
       
       // Check that the document has the correct biome class
       const biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-misty-lava-forest');
+      expect(biomeClass).toBe('biome-namibia');
+      
+      // Check localStorage
+      const savedBiome = await getBiomeFromLocalStorage(page);
+      expect(savedBiome).toBe('namibia');
     });
 
-    test('should switch to Desert Oasis biome in mobile', async ({ page }) => {
+    test('should switch to Oahu biome in mobile', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 667 });
       
-      // Open mobile menu
-      const menuButton = await getMobileMobileButton(page);
-      await menuButton.click();
-      await page.waitForSelector('.absolute.top-0.inset-x-0', { state: 'visible' });
-      
-      const mobileBiomeSelector = await getMobileBiomeSelector(page);
-      
-      // Switch to desert oasis
-      await mobileBiomeSelector.selectOption('desert-oasis');
-      await page.waitForTimeout(500);
-      
-      // Check that selector value changed
-      await expect(mobileBiomeSelector).toHaveValue('desert-oasis');
+      // Switch to oahu via mobile menu
+      await selectMobileBiome(page, 'oahu');
       
       // Check that document class changed
       const biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-desert-oasis');
+      expect(biomeClass).toBe('biome-oahu');
       
       // Check that preference is saved to localStorage
       const savedBiome = await getBiomeFromLocalStorage(page);
-      expect(savedBiome).toBe('desert-oasis');
+      expect(savedBiome).toBe('oahu');
+      
+      // Check contrast for oahu biome on mobile
+      await checkBiomeContrast(page, 'oahu (mobile)');
     });
 
     test('should maintain biome selection when closing mobile menu', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 667 });
       
-      // Open mobile menu
-      const menuButton = await getMobileMobileButton(page);
-      await menuButton.click();
-      await page.waitForSelector('.absolute.top-0.inset-x-0', { state: 'visible' });
+      // Switch to verona via mobile menu
+      await selectMobileBiome(page, 'verona');
       
-      const mobileBiomeSelector = await getMobileBiomeSelector(page);
-      
-      // Switch to desert oasis
-      await mobileBiomeSelector.selectOption('desert-oasis');
-      await page.waitForTimeout(500);
-      
-      // Close mobile menu by force clicking the button
-      await menuButton.click({ force: true });
+      // Close mobile menu
+      await page.getByTestId('mobile-menu-close').click();
       await page.waitForTimeout(500);
       
       // Check that biome class is still applied
       const biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-desert-oasis');
+      expect(biomeClass).toBe('biome-verona');
     });
 
-    test('should have proper mobile biome selector styling', async ({ page }) => {
+    test('should have proper mobile biome selector accessibility', async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 667 });
       
       // Open mobile menu
-      const menuButton = await getMobileMobileButton(page);
+      const menuButton = await getMobileMenuButton(page);
       await menuButton.click();
-      await page.waitForSelector('.absolute.top-0.inset-x-0', { state: 'visible' });
+      await page.waitForSelector('[data-testid="mobile-menu"]', { state: 'visible' });
       
-      const mobileBiomeSelector = await getMobileBiomeSelector(page);
+      const mobileBiomeSelector = page.getByTestId('mobile-biome-selector-toggle');
       
-      // Check that mobile selector has proper styling classes
-      await expect(mobileBiomeSelector).toHaveClass(/block w-full px-3 py-2 rounded-md text-base font-medium text-med bg-neutral-sub border border-text-low/);
+      // Check accessibility attributes
+      await expect(mobileBiomeSelector).toHaveAttribute('aria-label', 'Select biome theme');
+      await expect(mobileBiomeSelector).toHaveAttribute('data-testid', 'mobile-biome-selector-toggle');
+      
+      // Check that it's focusable
+      await mobileBiomeSelector.focus();
+      await expect(mobileBiomeSelector).toBeFocused();
     });
   });
 
@@ -270,77 +371,62 @@ test.describe('Biome Switching Tests', () => {
       // Start with desktop view
       await page.setViewportSize({ width: 1024, height: 768 });
       
-      // Switch to desert oasis in desktop
-      const desktopBiomeSelector = await getDesktopBiomeSelector(page);
-      await desktopBiomeSelector.selectOption('desert-oasis');
+      // Switch to washington-dc in desktop
+      await selectBiome(page, 'washington-dc');
       await page.waitForTimeout(500);
       
       // Switch to mobile view
       await page.setViewportSize({ width: 375, height: 667 });
       
-      // Open mobile menu
-      const menuButton = await getMobileMobileButton(page);
-      await menuButton.click();
-      await page.waitForSelector('.absolute.top-0.inset-x-0', { state: 'visible' });
-      
-      // Check that mobile selector shows desert oasis
-      const mobileBiomeSelector = await getMobileBiomeSelector(page);
-      await expect(mobileBiomeSelector).toHaveValue('desert-oasis');
+      // Check that biome class is still applied
+      let biomeClass = await getCurrentBiomeClass(page);
+      expect(biomeClass).toBe('biome-washington-dc');
       
       // Switch back to desktop view
       await page.setViewportSize({ width: 1024, height: 768 });
       
-      // Check that desktop selector still shows desert oasis
-      const desktopBiomeSelectorAgain = await getDesktopBiomeSelector(page);
-      await expect(desktopBiomeSelectorAgain).toHaveValue('desert-oasis');
+      // Check that biome is still washington-dc
+      biomeClass = await getCurrentBiomeClass(page);
+      expect(biomeClass).toBe('biome-washington-dc');
     });
 
     test('should apply biome changes made in mobile to desktop view', async ({ page }) => {
       // Start with mobile view
       await page.setViewportSize({ width: 375, height: 667 });
       
-      // Open mobile menu and switch to desert oasis
-      const menuButton = await getMobileMobileButton(page);
-      await menuButton.click();
-      await page.waitForSelector('.absolute.top-0.inset-x-0', { state: 'visible' });
-      
-      const mobileBiomeSelector = await getMobileBiomeSelector(page);
-      await mobileBiomeSelector.selectOption('desert-oasis');
-      await page.waitForTimeout(500);
+      // Switch to kilimanjaro via mobile menu
+      await selectMobileBiome(page, 'kilimanjaro');
       
       // Switch to desktop view
       await page.setViewportSize({ width: 1024, height: 768 });
       
-      // Check that desktop selector shows desert oasis
-      const desktopBiomeSelector = await getDesktopBiomeSelector(page);
-      await expect(desktopBiomeSelector).toHaveValue('desert-oasis');
-      
       // Check that document class is correct
       const biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-desert-oasis');
+      expect(biomeClass).toBe('biome-kilimanjaro');
+      
+      // Check localStorage
+      const savedBiome = await getBiomeFromLocalStorage(page);
+      expect(savedBiome).toBe('kilimanjaro');
     });
 
     test('should remove old biome classes when switching', async ({ page }) => {
       await page.setViewportSize({ width: 1024, height: 768 });
       
-      const biomeSelector = await getDesktopBiomeSelector(page);
-      
-      // Start with misty lava forest
-      await expect(biomeSelector).toHaveValue('misty-lava-forest');
+      // Start with namibia (default)
       let biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-misty-lava-forest');
+      expect(biomeClass).toBe('biome-namibia');
       
-      // Switch to desert oasis
-      await biomeSelector.selectOption('desert-oasis');
+      // Switch to malibu
+      await selectBiome(page, 'malibu');
       await page.waitForTimeout(500);
       
-      // Check that only desert oasis class is present
+      // Check that only malibu class is present
       biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-desert-oasis');
+      expect(biomeClass).toBe('biome-malibu');
       
-      // Check that misty lava forest class is not present
+      // Check that namibia class is not present
       const hasOldClass = await page.evaluate(() => {
-        return document.documentElement.classList.contains('biome-misty-lava-forest');
+        return document.documentElement.classList.contains('biome-namibia');
       });
       expect(hasOldClass).toBe(false);
     });
@@ -348,25 +434,22 @@ test.describe('Biome Switching Tests', () => {
     test('should handle rapid biome switching', async ({ page }) => {
       await page.setViewportSize({ width: 1024, height: 768 });
       
-      const biomeSelector = await getDesktopBiomeSelector(page);
-      
       // Rapidly switch between biomes
-      await biomeSelector.selectOption('desert-oasis');
+      await selectBiome(page, 'giza');
       await page.waitForTimeout(200);
-      await biomeSelector.selectOption('misty-lava-forest');
+      await selectBiome(page, 'oahu');
       await page.waitForTimeout(200);
-      await biomeSelector.selectOption('desert-oasis');
+      await selectBiome(page, 'zanzibar');
       await page.waitForTimeout(200);
-      await biomeSelector.selectOption('misty-lava-forest');
+      await selectBiome(page, 'yosemite');
       await page.waitForTimeout(500);
       
       // Final state should be consistent
-      await expect(biomeSelector).toHaveValue('misty-lava-forest');
       const biomeClass = await getCurrentBiomeClass(page);
-      expect(biomeClass).toBe('biome-misty-lava-forest');
+      expect(biomeClass).toBe('biome-yosemite');
       
       const savedBiome = await getBiomeFromLocalStorage(page);
-      expect(savedBiome).toBe('misty-lava-forest');
+      expect(savedBiome).toBe('yosemite');
     });
   });
 });

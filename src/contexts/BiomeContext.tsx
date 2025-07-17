@@ -2,7 +2,16 @@
 
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
-type BiomeType = 'misty-lava-forest' | 'desert-oasis';
+type BiomeType = 
+  | 'namibia'
+  | 'giza' 
+  | 'kilimanjaro' 
+  | 'malibu' 
+  | 'oahu' 
+  | 'verona' 
+  | 'washington-dc' 
+  | 'yosemite' 
+  | 'zanzibar';
 
 interface BiomeContextType {
   currentBiome: BiomeType;
@@ -17,9 +26,9 @@ export function BiomeProvider({ children }: { children: ReactNode }) {
   const [currentBiome, setCurrentBiome] = useState<BiomeType>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('biome-preference');
-      return (saved as BiomeType) || 'misty-lava-forest';
+      return (saved as BiomeType) || 'namibia';
     }
-    return 'misty-lava-forest';
+    return 'namibia';
   });
   const [isInitialized, setIsInitialized] = useState(false);
 
@@ -27,7 +36,12 @@ export function BiomeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Get saved preference
     const savedBiome = localStorage.getItem('biome-preference') as BiomeType;
-    const biomeToUse = savedBiome || 'misty-lava-forest';
+    const biomeToUse = savedBiome || 'namibia';
+    
+    // Ensure localStorage has the default value if empty
+    if (!savedBiome) {
+      localStorage.setItem('biome-preference', 'namibia');
+    }
     
     // Remove all existing biome classes
     Array.from(document.documentElement.classList)
@@ -61,14 +75,7 @@ export function BiomeProvider({ children }: { children: ReactNode }) {
   };
 
   const getBiomeBackgroundImage = () => {
-    switch (currentBiome) {
-      case 'misty-lava-forest':
-        return '/biomes/misty-lava-forest.png';
-      case 'desert-oasis':
-        return '/biomes/desert-oasis.png';
-      default:
-        return '/biomes/misty-lava-forest.png';
-    }
+    return `/biomes/${currentBiome}.png`;
   };
 
   return (
