@@ -242,69 +242,69 @@
   }
 }
 
-/* Mobile: Scrolling backgrounds (no fixed attachment) */
+/* Mobile: Constrained backgrounds (fit within 100vh) */
 @media (max-width: 767px) {
   .biome-giza body {
     background: 
-      linear-gradient(to bottom, transparent 0%, transparent 100vh, var(--c-neutral) 100vh),
-      url('/biomes/giza.png') center top/cover no-repeat var(--c-neutral) !important;
-    background-size: cover, cover;
+      url('/biomes/giza.png') center top no-repeat,
+      var(--c-neutral) !important;
+    background-size: 100vw 100vh;
   }
 
   .biome-kilimanjaro body {
     background: 
-      linear-gradient(to bottom, transparent 0%, transparent 100vh, var(--c-neutral) 100vh),
-      url('/biomes/kilimanjaro.png') center top/cover no-repeat var(--c-neutral) !important;
-    background-size: cover, cover;
+      url('/biomes/kilimanjaro.png') center top no-repeat,
+      var(--c-neutral) !important;
+    background-size: 100vw 100vh;
   }
 
   .biome-malibu body {
     background: 
-      linear-gradient(to bottom, transparent 0%, transparent 100vh, var(--c-neutral) 100vh),
-      url('/biomes/malibu.png') center top/cover no-repeat var(--c-neutral) !important;
-    background-size: cover, cover;
+      url('/biomes/malibu.png') center top no-repeat,
+      var(--c-neutral) !important;
+    background-size: 100vw 100vh;
   }
 
   .biome-namibia body {
     background: 
-      linear-gradient(to bottom, transparent 0%, transparent 100vh, var(--c-neutral) 100vh),
-      url('/biomes/namibia.png') center top/cover no-repeat var(--c-neutral) !important;
-    background-size: cover, cover;
+      url('/biomes/namibia.png') center top no-repeat,
+      var(--c-neutral) !important;
+    background-size: 100vw 100vh;
   }
 
   .biome-oahu body {
     background: 
-      linear-gradient(to bottom, transparent 0%, transparent 100vh, var(--c-neutral) 100vh),
-      url('/biomes/oahu.png') center top/cover no-repeat var(--c-neutral) !important;
-    background-size: cover, cover;
+      url('/biomes/oahu.png') center top no-repeat,
+      var(--c-neutral) !important;
+    background-size: 100vw 100vh;
   }
 
   .biome-verona body {
     background: 
-      linear-gradient(to bottom, transparent 0%, transparent 100vh, var(--c-neutral) 100vh),
-      url('/biomes/verona.png') center top/cover no-repeat var(--c-neutral) !important;
-    background-size: cover, cover;
+      url('/biomes/verona.png') center top no-repeat,
+      var(--c-neutral) !important;
+    background-size: 100vw 100vh;
   }
 
   .biome-washington-dc body {
     background: 
-      linear-gradient(to bottom, transparent 0%, transparent 100vh, var(--c-neutral) 100vh),
-      url('/biomes/washington-dc.png') center top/cover no-repeat var(--c-neutral) !important;
-    background-size: cover, cover;
+      url('/biomes/washington-dc.png') center top no-repeat,
+      var(--c-neutral) !important;
+    background-size: 100vw 100vh;
   }
 
   .biome-yosemite body {
     background: 
-      linear-gradient(to bottom, transparent 0%, transparent 100vh, var(--c-neutral) 100vh),
-      url('/biomes/yosemite.png') center top/cover no-repeat var(--c-neutral) !important;
-    background-size: cover, cover;
+      url('/biomes/yosemite.png') center top no-repeat,
+      var(--c-neutral) !important;
+    background-size: 100vw 100vh;
   }
 
   .biome-zanzibar body {
     background: 
-      linear-gradient(to bottom, transparent 0%, transparent 100vh, var(--c-neutral) 100vh),
-      url('/biomes/zanzibar.png') center top/cover no-repeat var(--c-neutral) !important;
-    background-size: cover, cover;
+      url('/biomes/zanzibar.png') center top no-repeat,
+      var(--c-neutral) !important;
+    background-size: 100vw 100vh;
   }
 }
 
