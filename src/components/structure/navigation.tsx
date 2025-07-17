@@ -19,7 +19,7 @@ export default function Navigation() {
     <>
       {/* Desktop navigation */}
       <div className="hidden md:flex md:space-x-2 lg:space-x-3 items-center">
-        {NAV_PAGES.map((item) => {
+        {NAV_PAGES.filter(item => item.name !== 'Contact').map((item) => {
           const isCurrent = pageMatcher(item);
           return (
             <Button
@@ -42,13 +42,28 @@ export default function Navigation() {
             </Button>
           );
         })}
-        {/* Biome selector */}
-        <BiomeSelector testIdPrefix="desktop-" />
       </div>
       
-      {/* Desktop contact button */}
-      <div className="hidden md:flex items-center space-x-4">
-        <Button href="/contact" variant="secondary" size="sm" data-testid="desktop-contact-button">Contact</Button>
+      {/* Desktop theme and contact section */}
+      <div className="hidden md:flex md:space-x-2 lg:space-x-3 items-center">
+        {/* Contact button with accent styling */}
+        <Button 
+          href="/contact" 
+          variant="primary" 
+          size="sm" 
+          data-testid="desktop-contact-button"
+          className={`
+            ${pageMatcher({ href: '/contact', current: null }) 
+              ? 'bg-accent/90 text-high' 
+              : ''
+            }
+          `}
+        >
+          Contact
+        </Button>
+        
+        {/* Biome selector */}
+        <BiomeSelector testIdPrefix="desktop-" />
       </div>
 
       {/* Mobile menu button */}
@@ -105,7 +120,7 @@ export default function Navigation() {
           style={{ backgroundColor: 'rgba(27, 31, 34, 0.8)' }}
           data-testid="mobile-menu"
         >
-          <div className="h-full flex flex-col">
+          <div className="flex flex-col max-h-full">
             {/* Mobile navbar header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-sub bg-neutral">
               <h2 className="text-h2 font-head text-accent">Menu</h2>
@@ -134,7 +149,7 @@ export default function Navigation() {
             </div>
 
             {/* Mobile navigation links */}
-            <div className="flex-1 px-6 py-6 space-y-3 bg-neutral backdrop-blur-xl">
+            <div className="px-6 py-6 space-y-3 bg-neutral backdrop-blur-xl">
               {NAV_PAGES.map((item) => {
                 const isCurrent = pageMatcher(item);
                 return (
@@ -166,7 +181,10 @@ export default function Navigation() {
               <div className="pt-6 mt-6 border-t border-neutral-sub">
                 <div className="flex items-center justify-between">
                   <span className="text-body font-body text-med">Theme</span>
-                  <BiomeSelector testIdPrefix="mobile-" />
+                  <BiomeSelector 
+                    testIdPrefix="mobile-" 
+                    onBiomeChange={() => setMobileMenuOpen(false)}
+                  />
                 </div>
               </div>
             </div>

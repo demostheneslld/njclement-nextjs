@@ -23,7 +23,10 @@ export const siteConfig = {
   github: "https://github.com/demostheneslld",
   domain: "njclement.com",
   openGraph: {
-    image: "/logo.svg",
+    image: "/og.png",
+    imageAlt: "Nathaniel J. Clement - Software Engineering Leader & Architect",
+    imageWidth: 1200,
+    imageHeight: 630,
   },
   analytics: {
     // Google Analytics Tracking ID
@@ -48,6 +51,7 @@ export const NAV_PAGES: NavigationPage[] = [
   { name: "Home", href: "/", current: null },
   { name: "Resume", href: "/resume", current: null },
   { name: "Portfolio", href: "/portfolio", current: null },
+  { name: "Contact", href: "/contact", current: null },
 ];
 
 export interface SocialLink {
@@ -197,177 +201,235 @@ export interface TechnicalProficiency {
 export const TECHNICAL_PROFICIENCIES: TechnicalProficiency[] = [
   /* ───────── AI & GENERATIVE MODELS ───────── */
   {
+    name: "Claude Code",
+    description: "AI-powered CLI for pair-programming and code generation",
+    tags: ["AI & ML", "Developer Tools"],
+  },
+  {
     name: "Cursor",
     description: "AI-powered IDE for pair-programming with frontier models",
-    tags: ["LLM & Generative AI", "DevTool"],
+    tags: ["AI & ML", "Developer Tools"],
+  },
+  {
+    name: "OpenAI",
+    description: "GPT models, embeddings, and API integration for production systems",
+    tags: ["AI & ML", "APIs"],
   },
   {
     name: "Frontier Models",
     description: "Hands-on orchestration of models from OpenAI, Anthropic, Google, etc.",
-    tags: ["LLM & Generative AI"],
+    tags: ["AI & ML"],
   },
   {
     name: "Agentic Workflows",
     description: "Designing multi-step agents that call tools and hit prod SLAs",
-    tags: ["LLM & Generative AI", "Architecture"],
+    tags: ["AI & ML", "Architecture"],
   },
   {
     name: "Multi-modal Prompt Engineering",
     description: "Blending text, vision, and structured data in a single prompt",
-    tags: ["LLM & Generative AI"],
+    tags: ["AI & ML"],
   },
   {
     name: "Model Context Protocol (MCP)",
     description: "Specification for creating deterministic context for LLMs",
-    tags: ["LLM & Generative AI", "Spec"],
+    tags: ["AI & ML", "Protocols"],
   },
   {
     name: "Structured Outputs",
     description: "JSON-schema / type-guard techniques for reliable LLM responses",
-    tags: ["LLM & Generative AI"],
+    tags: ["AI & ML"],
   },
 
   /* ───────── MACHINE LEARNING ───────── */
   {
     name: "Python ML Stack",
     description: "Scikit-learn, Pandas, etc.",
-    tags: ["Traditional ML", "Python"],
+    tags: ["AI & ML", "Python"],
   },
   {
     name: "Data Pipelines & ETL",
     description: "Managing data pipelines and ETL processes",
-    tags: ["Traditional ML", "Data Engineering"],
+    tags: ["AI & ML", "Data Engineering"],
   },
   {
     name: "LLM-Enhanced Pipelines",
     description: "Generative preprocessing steps feeding feature stores",
-    tags: ["Traditional ML", "LLM & Generative AI"],
+    tags: ["AI & ML", "Data Engineering"],
   },
   {
     name: "AWS SageMaker",
     description: "Training, tuning, and hosting at scale",
-    tags: ["Traditional ML", "AWS"],
+    tags: ["AI & ML", "Cloud Platforms"],
   },
 
   /* ───────── PROGRAMMING LANGUAGES ───────── */
   {
     name: "TypeScript / JavaScript",
     description: "Full-stack apps, Node.js services, browser UIs",
-    tags: ["Language", "Frontend", "Backend"],
+    tags: ["Languages", "Frontend", "Backend"],
   },
   {
     name: "Python",
     description: "Data science, automation, backend APIs",
-    tags: ["Language", "Backend"],
+    tags: ["Languages", "Backend"],
   },
-  { name: "C#", description: "Enterprise APIs with .NET Core", tags: ["Language", ".NET"] },
+  { name: "C#", description: "Enterprise APIs with .NET Core", tags: ["Languages", "Backend"] },
   {
     name: "SQL",
     description: "Query optimisation across Postgres and other SQL databases",
-    tags: ["Language", "Database"],
+    tags: ["Languages", "Database"],
   },
   {
     name: "HTML & CSS (LESS / SCSS)",
     description: "Responsive layouts, utility-first methodologies",
-    tags: ["Language", "Frontend"],
+    tags: ["Languages", "Frontend"],
+  },
+  {
+    name: "Shell / Bash",
+    description: "Unix shell scripting, automation, and system administration",
+    tags: ["Languages", "DevOps"],
   },
 
   /* ───────── BACKEND FRAMEWORKS ───────── */
   {
     name: "Node.js (Express / Fastify)",
     description: "High-throughput REST & event-driven services",
-    tags: ["Backend Framework", "JavaScript"],
+    tags: ["Backend", "JavaScript"],
   },
-  { name: "Django", description: "Opinionated Python framework for rapid CRUD", tags: ["Backend Framework", "Python"] },
-  { name: ".NET Core", description: "Cross-platform APIs & background workers", tags: ["Backend Framework", ".NET"] },
+  { name: "Django", description: "Opinionated Python framework for rapid CRUD", tags: ["Backend", "Python"] },
+  { name: ".NET Core", description: "Cross-platform APIs & background workers", tags: ["Backend", ".NET"] },
+  {
+    name: "TypeORM",
+    description: "TypeScript ORM for SQL databases with decorators and migrations",
+    tags: ["Backend", "Database", "TypeScript"],
+  },
+  {
+    name: "Prisma",
+    description: "Next-generation ORM with type-safe database access",
+    tags: ["Backend", "Database", "TypeScript"],
+  },
 
   /* ───────── FRONTEND FRAMEWORKS ───────── */
   {
     name: "React & Next.js",
     description: "SSR / SSG apps with TypeScript and React Query",
-    tags: ["Frontend Framework", "React", "Next.js"],
+    tags: ["Frontend", "React"],
   },
-  { name: "Vue 3", description: "Composition API & Pinia state management", tags: ["Frontend Framework", "Vue"] },
-  { name: "Angular", description: "Enterprise dashboards & admin portals", tags: ["Frontend Framework", "Angular"] },
+  { name: "Vue 3", description: "Composition API & Pinia state management", tags: ["Frontend", "Vue"] },
+  { name: "Angular", description: "Enterprise dashboards & admin portals", tags: ["Frontend", "Angular"] },
 
   /* ───────── DEVOPS & CLOUD ───────── */
   {
     name: "Docker & Kubernetes",
     description: "Containerisation and orchestration",
-    tags: ["DevOps & Cloud", "Container"],
+    tags: ["DevOps", "Containers"],
   },
-  { name: "AWS", description: "VPC, Lambda, API Gateway, CloudWatch, S3, RDS, EKS, EC2, etc.", tags: ["DevOps & Cloud", "AWS"] },
-  { name: "Terraform", description: "Infrastructure-as-Code", tags: ["DevOps & Cloud", "IaC"] },
-  { name: "Cloudflare", description: "DNS, Hosting, CDN, WAF", tags: ["DevOps & Cloud"] },
-  { name: "NGINX", description: "Reverse proxy & load-balancing", tags: ["DevOps & Cloud"] },
-  { name: "Microsoft Azure", description: "App Services, Functions, AD B2C", tags: ["DevOps & Cloud", "Azure"] },
+  { name: "AWS", description: "VPC, Lambda, API Gateway, CloudWatch, S3, RDS, EKS, EC2, etc.", tags: ["DevOps", "Cloud Platforms"] },
+  { name: "Microsoft Azure", description: "App Services, Functions, AD B2C, Key Vault", tags: ["DevOps", "Cloud Platforms"] },
+  { name: "Terraform", description: "Infrastructure-as-Code", tags: ["DevOps", "Infrastructure"] },
+  { name: "Cloudflare", description: "DNS, Hosting, CDN, WAF", tags: ["DevOps", "Cloud Platforms"] },
+  { name: "NGINX", description: "Reverse proxy & load-balancing", tags: ["DevOps", "Infrastructure"] },
 
   /* ───────── CI/CD & TESTING ───────── */
-  { name: "Git & GitHub", description: "Branch strategies & code-review workflows", tags: ["CI/CD & Testing"] },
-  { name: "GitHub Actions & CircleCI", description: "Automated build-test-deploy pipelines", tags: ["CI/CD & Testing"] },
-  { name: "Playwright", description: "Cross-browser end-to-end testing", tags: ["CI/CD & Testing", "Testing"] },
-  { name: "Artillery", description: "Load testing & performance baselining", tags: ["CI/CD & Testing", "Testing"] },
-  { name: "Jest", description: "Unit and integration tests for TS/JS codebases", tags: ["CI/CD & Testing", "Testing"] },
+  { name: "Git & GitHub", description: "Branch strategies & code-review workflows", tags: ["DevOps", "Developer Tools"] },
+  { name: "GitHub Actions & CircleCI", description: "Automated build-test-deploy pipelines", tags: ["DevOps", "CI/CD"] },
+  { name: "Playwright", description: "Cross-browser end-to-end testing", tags: ["Testing", "Quality Assurance"] },
+  { name: "Artillery", description: "Load testing & performance baselining", tags: ["Testing", "Performance"] },
+  { name: "Jest", description: "Unit and integration tests for TS/JS codebases", tags: ["Testing", "JavaScript"] },
 
   /* ───────── DATABASES & MESSAGING ───────── */
-  { name: "PostgreSQL", description: "ACID-compliant relational database", tags: ["Database", "Databases & Messaging"] },
-  { name: "Cassandra", description: "Wide-column NoSQL for multi-region writes", tags: ["Database", "Databases & Messaging"] },
-  { name: "Redis", description: "In-memory cache, pub/sub, ephemeral queues", tags: ["Database", "Databases & Messaging"] },
-  { name: "RabbitMQ", description: "AMQP broker for reliable event delivery", tags: ["Messaging", "Databases & Messaging"] },
+  { name: "PostgreSQL", description: "ACID-compliant relational database", tags: ["Database", "SQL"] },
+  { name: "Cassandra", description: "Wide-column NoSQL for multi-region writes", tags: ["Database", "NoSQL"] },
+  { name: "Redis", description: "In-memory cache, pub/sub, ephemeral queues", tags: ["Database", "Caching"] },
+  { name: "RabbitMQ", description: "AMQP broker for reliable event delivery", tags: ["Database", "Messaging"] },
+  { name: "Apache Kafka", description: "Distributed event streaming platform for high-throughput data pipelines", tags: ["Database", "Messaging", "Distributed Systems"] },
+  { name: "Apache Zookeeper", description: "Centralized coordination service for distributed systems", tags: ["Database", "Distributed Systems"] },
 
   /* ───────── OBSERVABILITY & INCIDENT RESPONSE ───────── */
-  { name: "Datadog", description: "APM, metrics, and logs for full-stack observability", tags: ["Observability & IR"] },
-  { name: "Sentry", description: "Real-time error tracking with commit insights", tags: ["Observability & IR"] },
-  { name: "PagerDuty", description: "On-call scheduling and incident orchestration", tags: ["Observability & IR"] },
+  { name: "Datadog", description: "APM, metrics, and logs for full-stack observability", tags: ["Observability", "Monitoring"] },
+  { name: "Sentry", description: "Real-time error tracking with commit insights", tags: ["Observability", "Error Tracking"] },
+  { name: "PagerDuty", description: "On-call scheduling and incident orchestration", tags: ["Observability", "Incident Response"] },
 
   /* ───────── SECURITY & AUTH ───────── */
-  { name: "OAuth 2.0", description: "Authorization framework for delegated access", tags: ["Security & Auth"] },
-  { name: "Auth0", description: "Identity-as-a-Service with enterprise SSO", tags: ["Security & Auth"] },
+  { name: "OAuth 2.0", description: "Authorization framework for delegated access", tags: ["Security", "Authentication"] },
+  { name: "Auth0", description: "Identity-as-a-Service with enterprise SSO", tags: ["Security", "Authentication"] },
+  { name: "JWT Tokens", description: "JSON Web Tokens for stateless authentication and authorization", tags: ["Security", "Authentication"] },
+  { name: "Session Authentication", description: "Traditional server-side session management and cookies", tags: ["Security", "Authentication"] },
   {
     name: "Key Vaults",
     description: "Managed secrets storage (AWS Secrets Mgr, Azure Key Vault)",
-    tags: ["Security & Auth"],
+    tags: ["Security", "Infrastructure"],
   },
 
   /* ───────── DESIGN & VISUALIZATION ───────── */
-  { name: "Inkscape", description: "Vector illustration & SVG asset creation", tags: ["Design & Visualization"] },
-  { name: "GIMP", description: "Raster editing & photo compositing", tags: ["Design & Visualization"] },
+  { name: "Inkscape", description: "Vector illustration & SVG asset creation", tags: ["Design", "Creative Tools"] },
+  { name: "GIMP", description: "Raster editing & photo compositing", tags: ["Design", "Creative Tools"] },
+  { name: "Canva", description: "Cloud-based design platform for marketing materials and presentations", tags: ["Design", "Creative Tools"] },
+
+  /* ───────── PLATFORM DEVELOPMENT ───────── */
+  { name: "Shopify App Development", description: "Building apps for Shopify ecosystem with App Bridge and APIs", tags: ["Platform Development", "E-commerce"] },
 
   /* ───────── ARCHITECTURE & DESIGN PRINCIPLES ───────── */
   {
     name: "SOLID Principles",
     description: "SRP, OCP, LSP, ISP, DIP for maintainable OO design",
-    tags: ["Architecture & Design Principles"],
+    tags: ["Architecture", "Best Practices"],
   },
   {
     name: "Design Patterns",
     description: "GoF creational / structural / behavioral patterns",
-    tags: ["Architecture & Design Principles"],
+    tags: ["Architecture", "Best Practices"],
+  },
+  {
+    name: "Singleton Pattern",
+    description: "Ensuring single instance creation with global access point",
+    tags: ["Architecture", "Design Patterns"],
+  },
+  {
+    name: "Decorator Pattern",
+    description: "Adding behavior to objects dynamically without altering structure",
+    tags: ["Architecture", "Design Patterns"],
+  },
+  {
+    name: "Repository Pattern",
+    description: "Data access abstraction layer for domain-driven design",
+    tags: ["Architecture", "Design Patterns"],
   },
   {
     name: "Microservices Architecture",
     description: "Service decomposition, bounded contexts, cross-cutting concerns",
-    tags: ["Architecture & Design Principles"],
+    tags: ["Architecture", "Distributed Systems"],
+  },
+  {
+    name: "Monolithic Architecture",
+    description: "Single-tier software architecture with unified codebase",
+    tags: ["Architecture", "System Design"],
   },
   {
     name: "Modular Monoliths",
     description: "Single deployable with strict internal domain boundaries",
-    tags: ["Architecture & Design Principles"],
+    tags: ["Architecture", "System Design"],
   },
   {
     name: "Systemic Refactoring",
     description: "Incremental improvements guided by tests and metrics",
-    tags: ["Architecture & Design Principles"],
+    tags: ["Architecture", "Code Quality"],
   },
   {
     name: "Enterprise-Grade Strategies",
     description: "Scalability, resilience, compliance for mission-critical SaaS",
-    tags: ["Architecture & Design Principles"],
+    tags: ["Architecture", "Enterprise"],
   },
   {
     name: "CAP Theorem",
     description: "Consistency–Availability–Partition-tolerance trade-offs",
-    tags: ["Architecture & Design Principles"],
+    tags: ["Architecture", "Distributed Systems"],
+  },
+  {
+    name: "Data Migration",
+    description: "Strategic data movement between systems with minimal downtime",
+    tags: ["Architecture", "Database", "Data Engineering"],
   },
 ];
 

@@ -4,22 +4,13 @@ import SocialIcon from '@/components/socialIcon';
 import Button from '@/components/ui/button';
 import GlassCard from '@/components/ui/GlassCard';
 import Section from '@/components/ui/Section';
-import { CAREER_ITEMS, SELF_SUMMARY, SOCIAL_LINKS, TECHNICAL_PROFICIENCIES, TechnicalProficiency } from '@/config/constants';
+import TechnicalExpertise from '@/components/TechnicalExpertise';
+import { CAREER_ITEMS, SELF_SUMMARY, SOCIAL_LINKS } from '@/config/constants';
 import { HiArrowRight } from 'react-icons/hi';
 import ChatAboutMe from './chat/chat';
 
 export default function HomeView() {
   const { hero, career, education, skills, cta } = SELF_SUMMARY;
-  
-  const skillsByTag = TECHNICAL_PROFICIENCIES.reduce((acc: Record<string, TechnicalProficiency[]>, skill) => {
-    skill.tags.forEach(tag => {
-      if (!acc[tag]) {
-        acc[tag] = [];
-      }
-      acc[tag].push(skill);
-    });
-    return acc;
-  }, {});
   
   return (
     <>
@@ -163,21 +154,7 @@ export default function HomeView() {
         background="transparent"
         divider
       >
-        <div className="max-w-6xl mx-auto">
-          {Object.keys(skillsByTag).sort().map((tag) => (
-            <div key={`tech_category_${tag}`} className="mb-16 last:mb-0">
-              <h3 className="text-3xl font-head font-bold text-high mb-8 text-center">{tag}</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {skillsByTag[tag].map((item) => (
-                  <GlassCard key={`tech_item_${item.name}`} className="p-6">
-                    <h4 className="text-xl font-semibold text-high mb-2">{item.name}</h4>
-                    <p className="text-med">{item.description}</p>
-                  </GlassCard>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        <TechnicalExpertise />
       </Section>
 
       {/* CTA Section */}
