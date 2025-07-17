@@ -51,11 +51,11 @@ export default function RootLayout({
       >
         <BiomeProvider>
           <div className="flex flex-col min-h-screen">
-            <header className="w-full sticky top-0 z-40 backdrop-blur-xl" data-testid="main-header">
-              <div className="glass-surface">
+            <header className="w-full sticky top-0 z-40 bg-glass-elev2 backdrop-blur-xl" data-testid="main-header">
+              <div className="glass-surface ">
                 <div className="flex items-center justify-between py-4">
                   <div className="flex flex-shrink-0 items-center">
-                    <Link href="/" className="text-accent-contrast" aria-label="Home" data-testid="logo-link">
+                    <Link href="/" className="text-accent" aria-label="Home" data-testid="logo-link">
                       <Logo className="h-10 w-auto" />
                     </Link>
                   </div>

@@ -72,10 +72,10 @@
 
 .biome-kilimanjaro {
   --c-accent: #8fb4d4;           /* glacier blue - can blend with mountain sky */
-  --c-accent-contrast: #2f4f2f;  /* deep forest green - HIGH CONTRAST for text over snowy peaks */
+  --c-accent-contrast: #2f4d4f;  /* deep forest green - HIGH CONTRAST for text over snowy peaks */
   --c-danger: #d67352;           /* african sunset - errors, warnings */
   --c-primary: #8fb4d4;          /* decorative elements that harmonize with mountain colors */
-  --c-primary-contrast: #2f4f2f; /* readable text over bright mountain backgrounds */
+  --c-primary-contrast: #2f484f; /* readable text over bright mountain backgrounds */
   --c-neutral: #1a1d20;          /* dark backgrounds */
   --c-neutral-sub: #252a2e;      /* medium backgrounds */
   --c-glass-top: rgba(143, 180, 212, 0.12);   /* glacier blue glass overlay */
@@ -85,10 +85,10 @@
 
 .biome-malibu {
   --c-accent: #5fbcd3;           /* ocean blue - can blend with water and sky */
-  --c-accent-contrast: #8b4513;  /* rich brown - HIGH CONTRAST for text over bright beach/ocean */
+  --c-accent-contrast: #af0202;  /* rich brown - HIGH CONTRAST for text over bright beach/ocean */
   --c-danger: #ff6b6b;           /* sunset coral - errors, warnings */
   --c-primary: #5fbcd3;          /* decorative elements that harmonize with ocean colors */
-  --c-primary-contrast: #8b4513; /* readable text over bright beach backgrounds */
+  --c-primary-contrast: #e22320; /* readable text over bright beach backgrounds */
   --c-neutral: #1b2028;          /* dark backgrounds */
   --c-neutral-sub: #262c36;      /* medium backgrounds */
   --c-glass-top: rgba(95, 188, 211, 0.12);    /* ocean blue glass overlay */
@@ -111,10 +111,10 @@
 
 .biome-oahu {
   --c-accent: #4ecdc4;           /* tropical turquoise - can blend with lagoon colors */
-  --c-accent-contrast: #1a472a;  /* deep tropical green - HIGH CONTRAST for text over bright beaches */
+  --c-accent-contrast: #e85190;  /* deep tropical green - HIGH CONTRAST for text over bright beaches */
   --c-danger: #ff6b9d;           /* hibiscus pink - errors, warnings */
   --c-primary: #4ecdc4;          /* decorative elements that harmonize with tropical colors */
-  --c-primary-contrast: #1a472a; /* readable text over bright tropical backgrounds */
+  --c-primary-contrast: #26cbf8; /* readable text over bright tropical backgrounds */
   --c-neutral: #1a2124;          /* dark backgrounds */
   --c-neutral-sub: #252d31;      /* medium backgrounds */
   --c-glass-top: rgba(78, 205, 196, 0.12);    /* turquoise glass overlay */
