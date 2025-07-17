@@ -16,7 +16,7 @@ const getAllTagsWithCounts = () => {
   
   // Filter out tags with only 1 item and sort alphabetically
   return Array.from(tagCounts.entries())
-    .filter(([_, count]) => count > 1)
+    .filter(([, count]) => count > 1)
     .sort(([a], [b]) => a.localeCompare(b));
 };
 
