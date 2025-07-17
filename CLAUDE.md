@@ -65,6 +65,8 @@ This is a Next.js 15 personal portfolio site with a sophisticated design system 
 - Sections with `background="transparent"` allow biome backgrounds to show through
 - Logo component uses SVG masking with accent color inheritance
 - Form components have both standard and glass variants
+- Navigation uses Button components with custom glass morphism states
+- BiomeSelector replaces HTML select with glass dropdown component
 
 ## Important Implementation Details
 
@@ -86,10 +88,14 @@ For proper glass blur effects:
 
 ### Biome Theming
 
-- Available biomes: `misty-lava-forest` (default), `desert-oasis`
+- Available biomes: 9 total including `namibia` (default), `giza`, `kilimanjaro`, `malibu`, `oahu`, `verona`, `washington-dc`, `yosemite`, `zanzibar`
 - Each biome has unique accent colors and background images
 - Biome classes are applied to document element by `BiomeProvider`
 - Background images located in `/public/biomes/`
+- BiomeSelector component handles theme switching with hydration safety
+- Prevents SSR/client mismatches with mounted state pattern
+- BiomeContext uses union type for all biome names
+- Background images follow naming pattern: `/biomes/{biome-name}.png`
 
 ### OpenAI Integration
 
@@ -129,6 +135,8 @@ src/
 - CSS custom properties support alpha values through Tailwind config
 - Form components use glass variants for better contrast and visual cohesion
 - Chat and contact forms both use Textarea components for multi-line input
+- Navigation uses Button components with custom className overrides for glass states
+- Client components that render differently on server/client use mounted state pattern
 
 **Testing:**
 
@@ -180,6 +188,7 @@ tests/
 ├── e2e/
 │   ├── navigation.spec.ts      # Navigation functionality tests
 │   ├── biome-switching.spec.ts # Biome theme switching tests
+│   ├── biome-contrast.spec.ts  # Accessibility and contrast tests
 │   └── playwright.config.ts    # Playwright configuration
 └── shared test utilities and helpers
 ```
@@ -187,14 +196,16 @@ tests/
 **Key Test Scenarios:**
 
 1. **Navigation Tests**: Desktop and mobile navigation, page routing, external links
-2. **Biome Tests**: Theme switching, persistence, cross-viewport synchronization
+2. **Biome Tests**: Theme switching, persistence, cross-viewport synchronization for all 9 biomes
 3. **Responsive Tests**: Mobile menu toggle, viewport switching, responsive design
 4. **Accessibility Tests**: ARIA attributes, keyboard navigation, focus management
+5. **Contrast Tests**: WCAG AA compliance (4.5:1 ratio) for all biomes and critical text elements
+6. **Biome Accessibility**: Focus states, color consistency, mobile readability across all themes
 
 **Test Data:**
 
 - **Navigation Pages**: Home (`/`), Resume (`/resume`), Portfolio (`/portfolio`), Contact (`/contact`), Chat (`/chat`)
-- **Biome Themes**: "Misty Lava Forest" (default), "Desert Oasis"
+- **Biome Themes**: 9 total including Namibia (default), Giza, Kilimanjaro, Malibu, Oahu, Verona, Washington DC, Yosemite, Zanzibar
 - **Viewports**: Desktop (1024x768), Mobile (375x667)
 - **Browsers**: Chromium, Firefox, Safari, Mobile Chrome, Mobile Safari
 

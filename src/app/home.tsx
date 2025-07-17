@@ -26,7 +26,7 @@ export default function HomeView() {
       {/* Hero Section */}
       <Section 
         background="gradient" 
-        gradientColors={["primary", "neutral", "primary-sub"]}
+        gradientColors={["primary", "neutral", "accent"]}
         className="pt-20 pb-20 md:pt-32 md:pb-32"
         divider
       >
@@ -61,12 +61,12 @@ export default function HomeView() {
               <div className="relative">
                 <div className="absolute -inset-1 rounded-full blur opacity-30"
                      style={{
-                       background: `linear-gradient(135deg, var(--c-accent), var(--c-accent-sub))`
+                       background: `linear-gradient(135deg, var(--c-accent), var(--c-accent-contrast))`
                      }}></div>
                 <div className="relative overflow-hidden rounded-full border-2 border-accent shadow-accent">
                   <div className="absolute inset-0 rounded-full"
                        style={{
-                         background: `linear-gradient(135deg, var(--c-accent), var(--c-accent-sub))`,
+                         background: `linear-gradient(135deg, var(--c-accent), var(--c-accent-contrast))`,
                          opacity: 0.15,
                          mixBlendMode: 'overlay'
                        }}></div>

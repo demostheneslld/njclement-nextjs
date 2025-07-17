@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import SectionHeader from "./SectionHeader";
 
-type BackgroundColor = "primary" | "primary-sub" | "accent" | "accent-sub" | "neutral" | "neutral-sub";
+type BackgroundColor = "primary" | "primary-contrast" | "accent" | "accent-contrast" | "neutral" | "neutral-sub";
 
 interface SectionProps {
   children: ReactNode;
@@ -32,12 +32,12 @@ export default function Section({
     switch (background) {
       case "primary":
         return "bg-primary";
-      case "primary-sub":
-        return "bg-primary-sub";
+      case "primary-contrast":
+        return "bg-primary-contrast";
       case "accent":
         return "bg-accent";
-      case "accent-sub":
-        return "bg-accent-sub";
+      case "accent-contrast":
+        return "bg-accent-contrast";
       case "neutral":
         return "bg-neutral";
       case "neutral-sub":
@@ -52,9 +52,9 @@ export default function Section({
   const getColorVar = (color: BackgroundColor): string => {
     switch (color) {
       case "primary": return "var(--c-primary)";
-      case "primary-sub": return "var(--c-primary-sub)";
+      case "primary-contrast": return "var(--c-primary-contrast)";
       case "accent": return "var(--c-accent)";
-      case "accent-sub": return "var(--c-accent-sub)";
+      case "accent-contrast": return "var(--c-accent-contrast)";
       case "neutral": return "var(--c-neutral)";
       case "neutral-sub": return "var(--c-neutral-sub)";
       default: return "var(--c-accent)";
@@ -86,7 +86,7 @@ export default function Section({
           : `linear-gradient(${direction}, ${colors})`;
       } else {
         // Default gradient
-        gradientStyle = `linear-gradient(135deg, var(--c-accent), var(--c-accent-sub))`;
+        gradientStyle = `linear-gradient(135deg, var(--c-accent), var(--c-accent-contrast))`;
       }
       return (
         <div 
