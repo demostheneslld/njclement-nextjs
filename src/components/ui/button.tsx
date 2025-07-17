@@ -30,11 +30,11 @@ export default function Button({
 }: ButtonProps) {
   // Generate variant classes
   const variantClasses = {
-    primary: "bg-accent text-high shadow-elev1 hover:shadow-accent hover:-translate-y-0.5 transition-all duration-200",
-    secondary: "bg-neutral text-accent border border-accent glass-fill backdrop-blur-sm hover:text-high transition-all duration-200",
-    accent: "bg-danger text-high shadow-elev1 hover:shadow-elev2 hover:-translate-y-0.5 transition-all duration-200", 
-    ghost: "bg-transparent text-accent glass-fill backdrop-blur-sm hover:text-high transition-all duration-200",
-    outline: "bg-transparent border border-text-low text-med glass-fill backdrop-blur-sm hover:text-high hover:border-text-med transition-all duration-200",
+    primary: "bg-glass-elev2 backdrop-blur-xl text-high border border-accent shadow-elev1 hover:shadow-accent hover:-translate-y-0.5 transition-all duration-200",
+    secondary: "bg-glass-elev1 backdrop-blur-sm text-high border border-accent hover:bg-glass-elev2 transition-all duration-200",
+    accent: "bg-glass-elev2 backdrop-blur-xl text-high border border-danger shadow-elev1 hover:shadow-elev2 hover:-translate-y-0.5 transition-all duration-200", 
+    ghost: "bg-transparent text-med hover:bg-glass-elev1 hover:backdrop-blur-sm hover:text-high transition-all duration-200",
+    outline: "bg-transparent border border-text-low text-med hover:bg-glass-elev1 hover:backdrop-blur-sm hover:text-high hover:border-text-med transition-all duration-200",
   };
 
   // Generate size classes
