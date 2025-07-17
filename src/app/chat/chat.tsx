@@ -74,7 +74,7 @@ export default function ChatAboutMe() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-4">
-      <div ref={chatContainerRef} className="w-full border border-text-low rounded-lg p-4 h-80 overflow-y-auto bg-glass-elev1 backdrop-blur-xl">
+      <div ref={chatContainerRef} className="w-full border border-text-low rounded-lg p-4 h-80 overflow-y-auto bg-glass-elev2 backdrop-blur-xl">
         {messages.map((m, idx) => (
           <div key={idx} className="mb-2 text-med">
             <strong className="text-high">{m.role === 'user' ? 'You' : 'NathanBot'}:</strong> {m.content}

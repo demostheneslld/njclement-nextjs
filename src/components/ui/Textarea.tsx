@@ -24,7 +24,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({
   
   const variantClasses = {
     default: "bg-neutral-sub border border-text-low text-high placeholder-text-med hover:border-text-med focus:border-accent",
-    glass: "bg-glass-elev1 backdrop-blur-xl border border-white-20 text-high placeholder-text-med hover:border-white-30 focus:border-accent shadow-elev1",
+    glass: "bg-glass-elev2 backdrop-blur-xl border border-white-20 text-high placeholder-text-med hover:border-white-30 focus:border-accent shadow-elev1",
   };
 
   const resizeClasses = {

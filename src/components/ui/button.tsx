@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode, MouseEventHandler } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "accent" | "ghost" | "outline";
 type ButtonSize = "sm" | "md" | "lg";
@@ -59,13 +59,13 @@ export default function Button({
       : {};
 
     return isExternal ? (
-      <a href={href} className={classes} {...linkProps}>
+      <a href={href} className={classes} {...linkProps} onClick={rest.onClick as unknown as MouseEventHandler<HTMLAnchorElement>}>
         {iconPosition === "left" && icon && <span className="mr-2">{icon}</span>}
         {children}
         {iconPosition === "right" && icon && <span className="ml-2">{icon}</span>}
       </a>
     ) : (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} onClick={rest.onClick as unknown as MouseEventHandler<HTMLAnchorElement>}>
         {iconPosition === "left" && icon && <span className="mr-2">{icon}</span>}
         {children}
         {iconPosition === "right" && icon && <span className="ml-2">{icon}</span>}

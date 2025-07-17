@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 
 interface BiomeSelectorProps {
   testIdPrefix?: string;
+  onBiomeChange?: () => void;
 }
 
-export default function BiomeSelector({ testIdPrefix = "" }: BiomeSelectorProps) {
+export default function BiomeSelector({ testIdPrefix = "", onBiomeChange }: BiomeSelectorProps) {
   const { currentBiome, setCurrentBiome } = useBiome();
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -57,19 +58,20 @@ export default function BiomeSelector({ testIdPrefix = "" }: BiomeSelectorProps)
         <>
           {/* Backdrop to close on outside click */}
           <div 
-            className="fixed inset-0 z-10" 
+            className="fixed inset-0 z-[10000]" 
             onClick={() => setIsOpen(false)}
             aria-hidden="true"
           />
           
           {/* Options */}
-          <div className="absolute right-0 mt-2 w-48 rounded-card bg-glass-elev2 backdrop-blur-xl border border-neutral-sub shadow-elev2 z-20">
+          <div className="absolute right-0 mt-2 w-48 max-h-64 overflow-y-auto rounded-card bg-glass-elev2 backdrop-blur-xl border border-neutral-sub shadow-elev2 z-[10001]">
             {BIOMES.map((biome) => (
               <button
                 key={biome.id}
                 onClick={() => {
                   setCurrentBiome(biome.id as typeof BIOMES[number]['id']);
                   setIsOpen(false);
+                  onBiomeChange?.();
                 }}
                 className={`
                   w-full px-4 py-3 flex items-center gap-3 text-left rounded-card
