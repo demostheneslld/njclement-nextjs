@@ -1,17 +1,7 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-
-type BiomeType = 
-  | 'namibia'
-  | 'giza' 
-  | 'kilimanjaro' 
-  | 'malibu' 
-  | 'oahu' 
-  | 'verona' 
-  | 'washington-dc' 
-  | 'yosemite' 
-  | 'zanzibar';
+import { BiomeType, DEFAULT_BIOME } from '@/config/biomes';
 
 interface BiomeContextType {
   currentBiome: BiomeType;
@@ -26,9 +16,9 @@ export function BiomeProvider({ children }: { children: ReactNode }) {
   const [currentBiome, setCurrentBiome] = useState<BiomeType>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('biome-preference');
-      return (saved as BiomeType) || 'namibia';
+      return (saved as BiomeType) || DEFAULT_BIOME;
     }
-    return 'namibia';
+    return DEFAULT_BIOME;
   });
   const [isInitialized, setIsInitialized] = useState(false);
 
@@ -36,11 +26,11 @@ export function BiomeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Get saved preference
     const savedBiome = localStorage.getItem('biome-preference') as BiomeType;
-    const biomeToUse = savedBiome || 'namibia';
+    const biomeToUse = savedBiome || DEFAULT_BIOME;
     
     // Ensure localStorage has the default value if empty
     if (!savedBiome) {
-      localStorage.setItem('biome-preference', 'namibia');
+      localStorage.setItem('biome-preference', DEFAULT_BIOME);
     }
     
     // Remove all existing biome classes

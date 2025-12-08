@@ -42,6 +42,7 @@ This is a Next.js 15 personal portfolio site with a sophisticated design system 
 - **Biome Theming**: Dynamic theme switching with React Context
 - **Server Actions**: Located in `/src/actions/` for server-side functionality
 - **Type Safety**: Strict TypeScript with interfaces in `/src/types/`
+- **Centralized Configuration**: All customizable values in `/src/config/` for easy personalization
 
 ### Core Systems
 
@@ -70,6 +71,36 @@ This is a Next.js 15 personal portfolio site with a sophisticated design system 
 
 ## Important Implementation Details
 
+### Configuration Management (Open Source Friendly)
+
+**IMPORTANT: Keep all configurable values in `/src/config/`** - This is an open source project designed for easy customization by other developers.
+
+**Current configuration files:**
+- `constants.ts` - Site metadata, navigation, social links, portfolio items, career info, technical skills
+- `ai.ts` - OpenAI configuration and prompts
+- `pdf-setup.ts` - PDF generation settings
+- `biomes.ts` - All biome themes with colors, images, and descriptions
+- `tags.ts` - Technical skill tag categories and color mappings
+
+**Configuration principles:**
+- All personal/customizable data should live in `/src/config/` files
+- Avoid hardcoding values in components - reference config imports instead
+- This allows users to fork the project and customize by editing only `/src/config/`
+- Biome definitions are now centralized in `/src/config/biomes.ts` for easy customization
+- New biomes can be added by simply editing the BIOMES array in biomes.ts
+
+**Example usage:**
+```typescript
+// Good - customizable
+import { siteConfig } from '@/config/constants';
+import { getTagColor } from '@/config/tags';
+<h1>{siteConfig.name}</h1>
+
+// Bad - hardcoded
+<h1>Nathaniel J. Clement</h1>
+<span className="bg-accent/20 text-accent">AI & ML</span>
+```
+
 ### Design System Integration
 
 - All design tokens are CSS variables exposed to Tailwind
@@ -88,14 +119,16 @@ For proper glass blur effects:
 
 ### Biome Theming
 
-- Available biomes: 9 total including `namibia` (default), `giza`, `kilimanjaro`, `malibu`, `oahu`, `verona`, `washington-dc`, `yosemite`, `zanzibar`
-- Each biome has unique accent colors and background images
+- Available biomes: 9 total (configured in `/src/config/biomes.ts`)
+- Default biome: `namibia` (configurable via `DEFAULT_BIOME` export)
+- Each biome has unique accent colors, contrast colors, and background images
 - Biome classes are applied to document element by `BiomeProvider`
 - Background images located in `/public/biomes/`
 - BiomeSelector component handles theme switching with hydration safety
 - Prevents SSR/client mismatches with mounted state pattern
-- BiomeContext uses union type for all biome names
-- Background images follow naming pattern: `/biomes/{biome-name}.png`
+- BiomeContext imports types from config for type safety
+- Background images follow naming pattern: `/biomes/{biome-id}.png`
+- Photo-aware color strategy: accent colors blend with photos, contrast colors ensure readability
 
 ### OpenAI Integration
 

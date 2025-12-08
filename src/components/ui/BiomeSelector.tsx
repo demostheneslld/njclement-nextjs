@@ -1,25 +1,15 @@
 "use client";
 
 import { useBiome } from "@/contexts/BiomeContext";
+import { BIOMES } from "@/config/biomes";
 import { useEffect, useState } from "react";
-
-const BIOMES = [
-  { value: "namibia", label: "Namibia", icon: "🦌" },
-  { value: "giza", label: "Giza", icon: "🏜️" },
-  { value: "kilimanjaro", label: "Kilimanjaro", icon: "⛰️" },
-  { value: "malibu", label: "Malibu", icon: "🏄" },
-  { value: "oahu", label: "Oahu", icon: "🌺" },
-  { value: "verona", label: "Verona", icon: "🏞️" },
-  { value: "washington-dc", label: "Washington DC", icon: "🏛️" },
-  { value: "yosemite", label: "Yosemite", icon: "🏔️" },
-  { value: "zanzibar", label: "Zanzibar", icon: "🏝️" }
-] as const;
 
 interface BiomeSelectorProps {
   testIdPrefix?: string;
+  onBiomeChange?: () => void;
 }
 
-export default function BiomeSelector({ testIdPrefix = "" }: BiomeSelectorProps) {
+export default function BiomeSelector({ testIdPrefix = "", onBiomeChange }: BiomeSelectorProps) {
   const { currentBiome, setCurrentBiome } = useBiome();
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -48,10 +38,10 @@ export default function BiomeSelector({ testIdPrefix = "" }: BiomeSelectorProps)
         data-testid={`${testIdPrefix}biome-selector-toggle`}
       >
         <span className="text-lg">
-          {BIOMES.find(b => b.value === currentBiome)?.icon}
+          {BIOMES.find(b => b.id === currentBiome)?.emoji}
         </span>
         <span className="hidden sm:inline text-sm">
-          {BIOMES.find(b => b.value === currentBiome)?.label}
+          {BIOMES.find(b => b.id === currentBiome)?.name}
         </span>
         <svg
           className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
@@ -68,32 +58,33 @@ export default function BiomeSelector({ testIdPrefix = "" }: BiomeSelectorProps)
         <>
           {/* Backdrop to close on outside click */}
           <div 
-            className="fixed inset-0 z-10" 
+            className="fixed inset-0 z-[10000]" 
             onClick={() => setIsOpen(false)}
             aria-hidden="true"
           />
           
           {/* Options */}
-          <div className="absolute right-0 mt-2 w-48 rounded-card bg-glass-elev2 backdrop-blur-xl border border-neutral-sub shadow-elev2 z-20">
+          <div className="absolute right-0 mt-2 w-48 max-h-64 overflow-y-auto rounded-card bg-glass-elev2 backdrop-blur-xl border border-neutral-sub shadow-elev2 z-[10001]">
             {BIOMES.map((biome) => (
               <button
-                key={biome.value}
+                key={biome.id}
                 onClick={() => {
-                  setCurrentBiome(biome.value as typeof BIOMES[number]['value']);
+                  setCurrentBiome(biome.id as typeof BIOMES[number]['id']);
                   setIsOpen(false);
+                  onBiomeChange?.();
                 }}
                 className={`
                   w-full px-4 py-3 flex items-center gap-3 text-left rounded-card
                   transition-all duration-200
-                  ${currentBiome === biome.value 
+                  ${currentBiome === biome.id 
                     ? 'bg-accent/20 text-accent' 
                     : 'text-med hover:text-high hover:bg-glass-elev1'
                   }
                 `}
-                data-testid={`biome-option-${biome.value}`}
+                data-testid={`biome-option-${biome.id}`}
               >
-                <span className="text-xl">{biome.icon}</span>
-                <span className="text-body font-body">{biome.label}</span>
+                <span className="text-xl">{biome.emoji}</span>
+                <span className="text-body font-body">{biome.name}</span>
               </button>
             ))}
           </div>

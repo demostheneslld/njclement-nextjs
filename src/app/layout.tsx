@@ -13,8 +13,65 @@ import './globals.css';
 export const metadata: Metadata = {
   title: `${siteConfig.name} - ${siteConfig.title}`,
   description: siteConfig.description,
+  keywords: [
+    "Software Engineer",
+    "Full Stack Developer", 
+    "Application Architect",
+    "SaaS Platforms",
+    "TypeScript",
+    "React",
+    "Node.js",
+    "Python",
+    "Engineering Leadership",
+    "AI Development",
+    "Portland",
+    "Remote"
+  ],
+  authors: [{ name: siteConfig.name, url: siteConfig.baseUrl }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL(siteConfig.baseUrl),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
+    title: `${siteConfig.name} - ${siteConfig.title}`,
+    description: siteConfig.description,
+    url: siteConfig.baseUrl,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.openGraph.image,
+        width: siteConfig.openGraph.imageWidth,
+        height: siteConfig.openGraph.imageHeight,
+        alt: siteConfig.openGraph.imageAlt,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} - ${siteConfig.title}`,
+    description: siteConfig.description,
+    creator: "@NathanJClement",
     images: [siteConfig.openGraph.image],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -31,7 +88,6 @@ export default function RootLayout({
           name="description"
           content={`Personal Site for ${siteConfig.name} - ${siteConfig.title}`}
         />
-        <meta property="og:image" content={siteConfig.openGraph.image} />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleAnalyticsId}`}
           strategy="afterInteractive"
