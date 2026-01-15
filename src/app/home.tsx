@@ -1,11 +1,10 @@
-"use client";
-
 import SocialIcon from '@/components/socialIcon';
 import Button from '@/components/ui/button';
 import GlassCard from '@/components/ui/GlassCard';
 import Section from '@/components/ui/Section';
 import TechnicalExpertise from '@/components/TechnicalExpertise';
 import { CAREER_ITEMS, SELF_SUMMARY, SOCIAL_LINKS } from '@/config/constants';
+import Image from 'next/image';
 import { HiArrowRight } from 'react-icons/hi';
 import ChatAboutMe from './chat/chat';
 
@@ -61,10 +60,14 @@ export default function HomeView() {
                          opacity: 0.15,
                          mixBlendMode: 'overlay'
                        }}></div>
-                  <img 
-                    alt="Nathan Clement" 
+                  <Image
+                    alt="Nathan Clement"
                     className="w-64 h-64 md:w-80 md:h-80 object-cover relative z-10"
-                    src="/profile.png" 
+                    src="/profile.png"
+                    width={320}
+                    height={320}
+                    priority
+                    sizes="(min-width: 768px) 320px, 256px"
                   />
                 </div>
               </div>
@@ -112,7 +115,14 @@ export default function HomeView() {
             {CAREER_ITEMS.map((item) => (
               <GlassCard key={`career_${item.name}`} className="p-6 text-center transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-2xl">
                 <div className="h-24 mb-4 flex items-center justify-center">
-                  <img src={item.href} alt={`${item.name} logo`} className="max-h-full max-w-full" />
+                  <Image
+                    src={item.href}
+                    alt={`${item.name} logo`}
+                    className="max-h-full max-w-full object-contain"
+                    width={160}
+                    height={96}
+                    sizes="(min-width: 1024px) 160px, 120px"
+                  />
                 </div>
                 <h4 className="text-xl font-semibold text-high mb-2">{item.name}</h4>
                 <p className="text-med">{item.description}</p>

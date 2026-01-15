@@ -200,7 +200,7 @@ export const BIOMES: BiomeConfig[] = [
 export type BiomeType = typeof BIOMES[number]['id'];
 
 // Export default biome
-export const DEFAULT_BIOME: BiomeType = 'namibia';
+export const DEFAULT_BIOME: BiomeType = 'kilimanjaro';
 
 // Helper to get biome by ID
 export const getBiomeById = (id: string): BiomeConfig | undefined => {

@@ -1,12 +1,21 @@
 'use client';
 
-import GeneratePdf from "@/components/generatePdf";
+import dynamic from "next/dynamic";
 import Button from "@/components/ui/button";
 import Section from '@/components/ui/Section';
 import { DEFAULT_RESUME_ITEMS } from "@/config/constants";
 import { ContentItem } from "@/types/pdf/ContentItem";
 import { ChangeEvent, useState } from "react";
 import { HiDownload, HiPencil } from 'react-icons/hi';
+
+const GeneratePdf = dynamic(() => import("@/components/generatePdf"), {
+  ssr: false,
+  loading: () => (
+    <div className="rounded w-full sm:w-[800px] h-[500px] sm:h-[745px] bg-neutral-sub border border-gray-700 flex items-center justify-center">
+      <div className="text-med">Loading PDF...</div>
+    </div>
+  ),
+});
 
 export default function ResumeView() {
   type EditModes = 'on' | 'off';
@@ -75,7 +84,11 @@ export default function ResumeView() {
         
         <div className={`w-full ${editMode === 'on' ? 'md:w-1/2' : 'max-w-4xl mx-auto'}`}>
           <div className="rounded-lg overflow-hidden border border-gray-700 bg-neutral-sub shadow-lg">
-            <GeneratePdf currentItems={currentItems} exportTrigger={exportTrigger}/>
+            <GeneratePdf
+              currentItems={currentItems}
+              exportTrigger={exportTrigger}
+              onExportComplete={() => setExportTrigger(0)}
+            />
           </div>
         </div>
       </div>
