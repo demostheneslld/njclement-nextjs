@@ -143,11 +143,8 @@ export default async function RootLayout({
           `}
         </Script>
       </head>
-      <body
-        suppressHydrationWarning={true}
-        className="font-body"
-      >
-        <BiomeProvider>
+      <body className="font-body">
+        <BiomeProvider initialBiome={await getBiomeFromCookie()}>
           <div className="flex flex-col min-h-screen">
             <header className="w-full sticky top-0 z-40 bg-glass-elev2 backdrop-blur-xl" data-testid="main-header">
               <div className="glass-surface ">

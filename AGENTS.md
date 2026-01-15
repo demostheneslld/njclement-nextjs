@@ -22,6 +22,13 @@ This repo standardizes on Bun. Use Bun for all installs and scripts.
 
 Node version: use `.nvmrc` (currently Node 22). Example: `nvm use`.
 
+When to run:
+- Run `bun run lint` and `bun run build` before opening a PR or after dependency/framework upgrades.
+- CI runs lint, tests, and build; keep the local run clean to avoid CI surprises.
+
+Build note:
+- Next 16 uses Turbopack. Local builds may require permission to bind a port (environment/sandbox dependent).
+
 ## Coding Style & Naming Conventions
 - TypeScript + React with functional components.
 - Use existing Tailwind utility patterns and design tokens in `src/app/globals.css`.

@@ -25,19 +25,25 @@ const setBiomeCookie = (biome: BiomeType) => {
   document.cookie = `biome-preference=${encodeURIComponent(biome)}; path=/; max-age=31536000; samesite=lax`;
 };
 
-export function BiomeProvider({ children }: { children: ReactNode }) {
+export function BiomeProvider({
+  children,
+  initialBiome,
+}: {
+  children: ReactNode;
+  initialBiome?: BiomeType;
+}) {
   // Initialize state with localStorage value or default, but only on client
   const [currentBiome, setCurrentBiome] = useState<BiomeType>(() => {
+    if (initialBiome) return initialBiome;
     if (typeof window === 'undefined') return DEFAULT_BIOME;
     const cookieBiome = getCookieBiome();
-    if (cookieBiome) return cookieBiome;
-    return DEFAULT_BIOME;
+    return cookieBiome || DEFAULT_BIOME;
   });
 
   // Initialize and apply biome immediately on mount
   useEffect(() => {
     const cookieBiome = getCookieBiome();
-    const biomeToUse = cookieBiome || DEFAULT_BIOME;
+    const biomeToUse = cookieBiome || initialBiome || DEFAULT_BIOME;
     if (!cookieBiome) setBiomeCookie(biomeToUse);
     
     const root = document.documentElement;
@@ -46,9 +52,7 @@ export function BiomeProvider({ children }: { children: ReactNode }) {
       .filter((cls) => cls && !cls.startsWith('biome-'))
       .join(' ');
     root.classList.add(`biome-${biomeToUse}`);
-
-    setCurrentBiome((prev) => (prev === biomeToUse ? prev : biomeToUse));
-  }, []);
+  }, [initialBiome]);
 
   // Handle biome changes and persist to localStorage
   const handleSetCurrentBiome = (biome: BiomeType) => {

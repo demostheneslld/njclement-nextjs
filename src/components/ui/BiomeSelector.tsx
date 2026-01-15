@@ -2,7 +2,7 @@
 
 import { useBiome } from "@/contexts/BiomeContext";
 import { BIOMES } from "@/config/biomes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface BiomeSelectorProps {
   testIdPrefix?: string;
@@ -12,21 +12,6 @@ interface BiomeSelectorProps {
 export default function BiomeSelector({ testIdPrefix = "", onBiomeChange }: BiomeSelectorProps) {
   const { currentBiome, setCurrentBiome } = useBiome();
   const [isOpen, setIsOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
-    return (
-      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-card bg-glass-elev1 backdrop-blur-sm">
-        <span className="w-5 h-5 rounded animate-pulse bg-text-low/20" />
-        <span className="w-16 h-4 rounded animate-pulse bg-text-low/20 hidden sm:block" />
-      </div>
-    );
-  }
 
   return (
     <div className="relative">
