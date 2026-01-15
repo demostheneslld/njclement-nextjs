@@ -1,5 +1,3 @@
-"use client";
-
 import PortfolioItem from '@/components/portfolioItem';
 import Section from '@/components/ui/Section';
 import { PORTFOLIO_ITEMS } from '@/config/constants';

@@ -1,9 +1,9 @@
-import { ExperienceContent, SectionContent, TitleContent } from "@/types/pdf/ContentItem";
-import { ContentRenderer } from "@/types/pdf/ContentRenderer";
-import { Cursor } from "@/types/pdf/Cursor";
-import { ExperienceItem } from "@/types/pdf/ExperienceItem";
-import { SpacerContent, SpacerSize } from "@/types/pdf/Spacer";
-import jsPDF, { jsPDFOptions } from "jspdf";
+import type { ExperienceContent, SectionContent, TitleContent } from "@/types/pdf/ContentItem";
+import type { ContentRenderer } from "@/types/pdf/ContentRenderer";
+import type { Cursor } from "@/types/pdf/Cursor";
+import type { ExperienceItem } from "@/types/pdf/ExperienceItem";
+import type { SpacerContent, SpacerSize } from "@/types/pdf/Spacer";
+import type { jsPDF, jsPDFOptions } from "jspdf";
 
 const pageWidth = 8.4;
 const lineHeight = 1.1;
