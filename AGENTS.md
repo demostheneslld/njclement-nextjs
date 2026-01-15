@@ -29,6 +29,10 @@ When to run:
 Build note:
 - Next 16 uses Turbopack. Local builds may require permission to bind a port (environment/sandbox dependent).
 
+E2E tests:
+- CI runs a smoke-only Playwright suite (single Chromium project) capped at ~2 minutes.
+- Full E2E scenarios live in `tests/e2e/extended/` for manual runs.
+
 ## Coding Style & Naming Conventions
 - TypeScript + React with functional components.
 - Use existing Tailwind utility patterns and design tokens in `src/app/globals.css`.
