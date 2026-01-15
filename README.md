@@ -16,6 +16,14 @@ Restart your terminal, then verify with:
 bun --version
 ```
 
+## Node Version
+
+Use the Node version in `.nvmrc` (currently Node 22).
+
+```sh
+nvm use
+```
+
 ## How to Run?
 
 - Local via docker: `./scripts/docker_local.sh` -- this simulates the deployment environment

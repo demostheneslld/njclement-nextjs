@@ -20,6 +20,8 @@ This repo standardizes on Bun. Use Bun for all installs and scripts.
 - `bun run test`: Unit tests (Jest).
 - `bun run test:e2e`: Playwright E2E tests via `bunx`.
 
+Node version: use `.nvmrc` (currently Node 22). Example: `nvm use`.
+
 ## Coding Style & Naming Conventions
 - TypeScript + React with functional components.
 - Use existing Tailwind utility patterns and design tokens in `src/app/globals.css`.
