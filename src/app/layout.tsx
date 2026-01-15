@@ -87,8 +87,9 @@ const validBiomes = new Set([
   "zanzibar",
 ]);
 
-const getBiomeFromCookie = () => {
-  const value = cookies().get("biome-preference")?.value;
+const getBiomeFromCookie = async () => {
+  const cookieStore = await cookies();
+  const value = cookieStore.get("biome-preference")?.value;
   return value && validBiomes.has(value) ? value : "kilimanjaro";
 };
 
@@ -113,13 +114,13 @@ const biomeInitScript = `
 })();
 `;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`biome-${getBiomeFromCookie()}`}>
+    <html lang="en" className={`biome-${await getBiomeFromCookie()}`}>
       <head>
         <link rel="icon" href="/favicon.png" />
         <meta
