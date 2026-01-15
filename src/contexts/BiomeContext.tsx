@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
-import { BiomeType, DEFAULT_BIOME } from '@/config/biomes';
+import { BiomeType, DEFAULT_BIOME, BIOMES } from '@/config/biomes';
 
 interface BiomeContextType {
   currentBiome: BiomeType;
@@ -11,48 +11,48 @@ interface BiomeContextType {
 
 const BiomeContext = createContext<BiomeContextType | undefined>(undefined);
 
+const getValidBiome = (value?: string | null): BiomeType | null => {
+  if (!value) return null;
+  return BIOMES.some((biome) => biome.id === value) ? (value as BiomeType) : null;
+};
+
+const getCookieBiome = (): BiomeType | null => {
+  const match = document.cookie.match(/(?:^|; )biome-preference=([^;]+)/);
+  return getValidBiome(match ? decodeURIComponent(match[1]) : null);
+};
+
+const setBiomeCookie = (biome: BiomeType) => {
+  document.cookie = `biome-preference=${encodeURIComponent(biome)}; path=/; max-age=31536000; samesite=lax`;
+};
+
 export function BiomeProvider({ children }: { children: ReactNode }) {
   // Initialize state with localStorage value or default, but only on client
   const [currentBiome, setCurrentBiome] = useState<BiomeType>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('biome-preference');
-      return (saved as BiomeType) || DEFAULT_BIOME;
-    }
+    if (typeof window === 'undefined') return DEFAULT_BIOME;
+    const cookieBiome = getCookieBiome();
+    if (cookieBiome) return cookieBiome;
     return DEFAULT_BIOME;
   });
-  const [isInitialized, setIsInitialized] = useState(false);
 
   // Initialize and apply biome immediately on mount
   useEffect(() => {
-    // Get saved preference
-    const savedBiome = localStorage.getItem('biome-preference') as BiomeType;
-    const biomeToUse = savedBiome || DEFAULT_BIOME;
+    const cookieBiome = getCookieBiome();
+    const biomeToUse = cookieBiome || DEFAULT_BIOME;
+    if (!cookieBiome) setBiomeCookie(biomeToUse);
     
-    // Ensure localStorage has the default value if empty
-    if (!savedBiome) {
-      localStorage.setItem('biome-preference', DEFAULT_BIOME);
-    }
-    
-    // Remove all existing biome classes
-    Array.from(document.documentElement.classList)
-      .filter((cls) => cls.startsWith('biome-'))
-      .forEach((cls) => document.documentElement.classList.remove(cls));
-    
-    // Add current biome class immediately
-    document.documentElement.classList.add(`biome-${biomeToUse}`);
-    
-    // Update state if different from saved preference
-    if (biomeToUse !== currentBiome) {
-      setCurrentBiome(biomeToUse);
-    }
-    
-    setIsInitialized(true);
-  }, [isInitialized, currentBiome]);
+    const root = document.documentElement;
+    root.className = root.className
+      .split(' ')
+      .filter((cls) => cls && !cls.startsWith('biome-'))
+      .join(' ');
+    root.classList.add(`biome-${biomeToUse}`);
+
+    setCurrentBiome((prev) => (prev === biomeToUse ? prev : biomeToUse));
+  }, []);
 
   // Handle biome changes and persist to localStorage
   const handleSetCurrentBiome = (biome: BiomeType) => {
-    // Save to localStorage
-    localStorage.setItem('biome-preference', biome);
+    setBiomeCookie(biome);
     
     // Update DOM immediately
     Array.from(document.documentElement.classList)

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Logo from "@/components/logo";
 import Footer from "@/components/structure/footer";
 import Navigation from "@/components/structure/navigation";
@@ -6,6 +5,7 @@ import Section from "@/components/ui/Section";
 import { siteConfig } from "@/config/constants";
 import { BiomeProvider } from "@/contexts/BiomeContext";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import Script from "next/script";
 import './globals.css';
@@ -75,19 +75,60 @@ export const metadata: Metadata = {
   },
 };
 
+const validBiomes = new Set([
+  "namibia",
+  "giza",
+  "kilimanjaro",
+  "malibu",
+  "oahu",
+  "verona",
+  "washington-dc",
+  "yosemite",
+  "zanzibar",
+]);
+
+const getBiomeFromCookie = () => {
+  const value = cookies().get("biome-preference")?.value;
+  return value && validBiomes.has(value) ? value : "kilimanjaro";
+};
+
+const biomeInitScript = `
+(function () {
+  try {
+    var defaultBiome = 'kilimanjaro';
+    var cookieMatch = document.cookie.match(/(?:^|; )biome-preference=([^;]+)/);
+    var cookieBiome = cookieMatch ? decodeURIComponent(cookieMatch[1]) : null;
+    var biome = cookieBiome || defaultBiome;
+    if (!cookieBiome && biome) {
+      document.cookie = 'biome-preference=' + encodeURIComponent(biome) + '; path=/; max-age=31536000; samesite=lax';
+    }
+
+    var root = document.documentElement;
+    root.className = root.className
+      .split(' ')
+      .filter(function (cls) { return cls && cls.indexOf('biome-') !== 0; })
+      .join(' ');
+    root.classList.add('biome-' + biome);
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`biome-${getBiomeFromCookie()}`}>
       <head>
         <link rel="icon" href="/favicon.png" />
         <meta
           name="description"
           content={`Personal Site for ${siteConfig.name} - ${siteConfig.title}`}
         />
+        <Script id="biome-init" strategy="beforeInteractive">
+          {biomeInitScript}
+        </Script>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.googleAnalyticsId}`}
           strategy="afterInteractive"

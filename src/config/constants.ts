@@ -51,6 +51,7 @@ export const NAV_PAGES: NavigationPage[] = [
   { name: "Home", href: "/", current: null },
   { name: "Resume", href: "/resume", current: null },
   { name: "Portfolio", href: "/portfolio", current: null },
+  { name: "Team", href: "/team", current: null },
   { name: "Contact", href: "/contact", current: null },
 ];
 

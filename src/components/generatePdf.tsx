@@ -1,20 +1,28 @@
 import { buildPdf } from "@/actions/build-pdf";
 import { ContentItem } from "@/types/pdf/ContentItem";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 type props = {
   currentItems?: ContentItem[];
   exportTrigger?: number;
+  autoGenerate?: boolean;
+  onExportComplete?: () => void;
 };
 
 const fileName = `Clement_Resume_${new Date().toISOString().substring(0, 10)}`;
-const GeneratePdf: React.FC<props> = ({ exportTrigger, currentItems }) => {
+const GeneratePdf: React.FC<props> = ({
+  exportTrigger,
+  currentItems,
+  autoGenerate = true,
+  onExportComplete,
+}) => {
 
   const [pdfBlobUrl, setPdfBlobUrl] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [isPendingUpdates, setIsPendingUpdates] = useState<boolean>(false);
+  const lastExportTriggerRef = useRef<number | undefined>(undefined);
 
-  const generatePdf = useCallback(async () => {
+  const generatePdf = useCallback(async (): Promise<string | undefined> => {
     try {
       setIsPendingUpdates(true);
       setErrorMessage(undefined);
@@ -36,27 +44,30 @@ const GeneratePdf: React.FC<props> = ({ exportTrigger, currentItems }) => {
         }
         return blobUrl;
       });
+      return blobUrl;
     } catch (err) {
       if (err instanceof Error) {
         setErrorMessage(err.message);
       } else {
         setErrorMessage('UNKNOWN ERROR');
       }
+      return undefined;
     } finally {
       setIsPendingUpdates(false);
     }
   }, [currentItems, setErrorMessage]);
 
-  const exportPdf = useCallback(async () => {
+  const exportPdf = useCallback(async (url?: string) => {
     try {
-      if (!pdfBlobUrl) {
+      const pdfUrl = url ?? pdfBlobUrl;
+      if (!pdfUrl) {
         throw new Error('No PDF data to export');
       }
       
       // Use blob URL for better Safari compatibility
       const link = document.createElement('a');
       link.id = 'exportedPdfLink';
-      link.href = pdfBlobUrl;
+      link.href = pdfUrl;
       link.download = `${fileName}.pdf`;
       link.style.display = 'none';
       
@@ -83,15 +94,28 @@ const GeneratePdf: React.FC<props> = ({ exportTrigger, currentItems }) => {
 
   // Export PDF on export trigger increment
   useEffect(() => {
-    if ((exportTrigger ?? 0) > 0) {
-      exportPdf();
+    if (!exportTrigger || exportTrigger === lastExportTriggerRef.current) {
+      return;
     }
-  }, [exportTrigger, exportPdf]);
+    lastExportTriggerRef.current = exportTrigger;
+    if (exportTrigger > 0) {
+      const exportWithFreshPdf = async () => {
+        const url = await generatePdf();
+        if (url) {
+          await exportPdf(url);
+        }
+        onExportComplete?.();
+      };
+      exportWithFreshPdf();
+    }
+  }, [exportTrigger, exportPdf, generatePdf, onExportComplete]);
 
   // Generate PDF on currentItems change
   useEffect(() => {
-    generatePdf();
-  }, [currentItems, generatePdf]);
+    if (autoGenerate) {
+      generatePdf();
+    }
+  }, [autoGenerate, currentItems, generatePdf]);
   
   // Cleanup blob URL on unmount
   useEffect(() => {

@@ -1,4 +1,5 @@
 import { PortfolioItem as PortfolioItemType } from "@/config/constants";
+import Image from "next/image";
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2';
 import GlassCard from './ui/GlassCard';
 
@@ -10,13 +11,15 @@ export default function PortfolioItem({ item }: PortfolioItemProps) {
   return (
     <GlassCard as="a" href={item.link} target="_blank" rel="noopener noreferrer" className="group flex flex-col justify-between h-full p-6">
       <div>
-        <div 
-          className="aspect-[4/3] bg-gray-100 rounded-lg mb-4 overflow-hidden"
+        <div
+          className="relative aspect-[4/3] bg-gray-100 rounded-lg mb-4 overflow-hidden"
         >
-          <img 
-            src={item.imageUrl} 
+          <Image
+            src={item.imageUrl}
             alt={item.name}
-            className="w-full h-full object-cover object-left transition-transform duration-300 group-hover:scale-105"
+            fill
+            sizes="(min-width: 1024px) 320px, (min-width: 768px) 45vw, 90vw"
+            className="object-cover object-left transition-transform duration-300 group-hover:scale-105"
           />
         </div>
         <h3 className="text-xl font-semibold mb-2 text-high group-hover:text-accent transition-colors duration-200">
