@@ -2,10 +2,26 @@
 
 Personal Site for Nathan Clement
 
+## How to Install Bun
+
+We standardize on Bun for this repo.
+
+```sh
+curl -fsSL https://bun.sh/install | bash
+```
+
+Restart your terminal, then verify with:
+
+```sh
+bun --version
+```
+
 ## How to Run?
 
 - Local via docker: `./scripts/docker_local.sh` -- this simulates the deployment environment
-- Local Development via Node: `npm run dev` or via bun: `bun run dev`
+- Local Development via Bun: `bun install` then `bun run dev`
+
+Other Bun commands: `bun run build`, `bun run lint`, `bun run test`.
 
 ### Environment Variables
 

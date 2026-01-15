@@ -11,12 +11,14 @@ This is a Next.js 15 app using the App Router.
 - Tests live in `tests/unit/` and `tests/e2e/`.
 
 ## Build, Test, and Development Commands
-- `npm run dev`: Start local dev server.
-- `npm run build`: Production build (static + server output).
-- `npm run start`: Run the production server from `.next`.
-- `npm run lint`: ESLint checks (Next.js config).
-- `npm run test`: Unit tests (Jest).
-- `npm run test:e2e`: Playwright E2E tests via `bunx`.
+This repo standardizes on Bun. Use Bun for all installs and scripts.
+- `bun install`: Install dependencies from `package.json`.
+- `bun run dev`: Start local dev server.
+- `bun run build`: Production build (static + server output).
+- `bun run start`: Run the production server from `.next`.
+- `bun run lint`: ESLint checks (Next.js config).
+- `bun run test`: Unit tests (Jest).
+- `bun run test:e2e`: Playwright E2E tests via `bunx`.
 
 ## Coding Style & Naming Conventions
 - TypeScript + React with functional components.
