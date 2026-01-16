@@ -10,13 +10,8 @@ interface Message {
   content: string;
 }
 
-const initialMessage: Message = {
-  role: 'assistant',
-  content: SYSTEM_PROMPTS.getChatAboutMeInitialMessage(),
-};
-
 export default function ChatAboutMe() {
-  const [messages, setMessages] = useState<Message[]>([initialMessage]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -74,19 +69,22 @@ export default function ChatAboutMe() {
 
   return (
     <div className="max-w-3xl mx-auto space-y-4">
-      <div ref={chatContainerRef} className="w-full border border-text-low rounded-lg p-4 h-80 overflow-y-auto bg-glass-elev2 backdrop-blur-xl">
-        {messages.map((m, idx) => (
-          <div key={idx} className="mb-2 text-med">
-            <strong className="text-high">{m.role === 'user' ? 'You' : 'NathanBot'}:</strong> {m.content}
-          </div>
-        ))}
-      </div>
+      {messages.length > 0 && (
+        <div ref={chatContainerRef} className="w-full border border-text-low rounded-lg p-4 h-80 overflow-y-auto bg-glass-elev2 backdrop-blur-xl">
+          {messages.map((m, idx) => (
+            <div key={idx} className="mb-2 text-med">
+              <strong className="text-high">{m.role === 'user' ? 'You' : 'NJCbot'}:</strong> {m.content}
+            </div>
+          ))}
+        </div>
+      )}
       <form onSubmit={sendMessage} className="space-y-4">
+        <p className="text-med text-center">NJCbot is an expert - what do you want to know?</p>
         <Textarea
           ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask a question about Nathan's experience, skills, or projects..."
+          placeholder="Ask a question about our experience, skills, or projects..."
           disabled={loading}
           required
           variant="glass"

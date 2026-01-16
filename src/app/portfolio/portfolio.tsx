@@ -3,18 +3,17 @@ import Section from '@/components/ui/Section';
 import { PORTFOLIO_ITEMS } from '@/config/constants';
 
 const portfolioMessage = `
-My best work is usually done for private companies, and I am unable to share those projects publicly. That being said, I have created a few projects in my spare time that I am able to list here!
+Our best work is usually done for private companies; however, here are some places Nathan has been featured: sharing his work, journey, and perspective.
 `;
 
 export default function PortfolioView() {
   return (
     <Section
-      title="Portfolio"
-      subtitle="What am I working on in my spare time?"
+      title="Media"
       background="accent"
       divider
     >
-      <p className="text-lg max-w-3xl mx-auto mb-12 text-center" style={{color:'var(--c-text-med)'}}>
+      <p className="text-lg max-w-3xl mx-auto mb-12 text-center text-white">
         {portfolioMessage.trim().split('\n').map((line, index) => (
           <span key={index}>{line}<br /></span>
         ))}

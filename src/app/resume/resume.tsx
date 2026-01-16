@@ -1,97 +1,99 @@
 'use client';
 
-import dynamic from "next/dynamic";
-import Button from "@/components/ui/button";
 import Section from '@/components/ui/Section';
-import { DEFAULT_RESUME_ITEMS } from "@/config/constants";
-import { ContentItem } from "@/types/pdf/ContentItem";
-import { ChangeEvent, useState } from "react";
-import { HiDownload, HiPencil } from 'react-icons/hi';
+import GlassCard from '@/components/ui/GlassCard';
+import Link from 'next/link';
+import Image from 'next/image';
+import { HiArrowRight } from 'react-icons/hi';
+import TechnicalExpertise from '@/components/TechnicalExpertise';
+import { SELF_SUMMARY, CAREER_ITEMS } from '@/config/constants';
 
-const GeneratePdf = dynamic(() => import("@/components/generatePdf"), {
-  ssr: false,
-  loading: () => (
-    <div className="rounded w-full sm:w-[800px] h-[500px] sm:h-[745px] bg-neutral-sub border border-gray-700 flex items-center justify-center">
-      <div className="text-med">Loading PDF...</div>
-    </div>
-  ),
-});
+const { skills, career } = SELF_SUMMARY;
 
 export default function ResumeView() {
-  type EditModes = 'on' | 'off';
-  const [editMode, setEditMode] = useState<EditModes>('off');
-  const [currentItems, setCurrentItems] = useState<ContentItem[]>(DEFAULT_RESUME_ITEMS);
-  const [editTextAreaValue, setEditTextAreaValue] = useState<string>(JSON.stringify(DEFAULT_RESUME_ITEMS, null, 2));
-  const [exportTrigger, setExportTrigger] = useState<number>(0);
-
-  const triggerExport = () => {
-    setExportTrigger(Date.now()); // Use timestamp to trigger
-  }
-
-  const toggleEditMode = () => {
-    setEditMode(prevMode => prevMode === 'on' ? 'off' : 'on');
-  }
-
-  const updateEditTextAreaValue = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const valueToUse = event.target.value;
-    setEditTextAreaValue(valueToUse);
-    try {
-      const parsedItems = JSON.parse(valueToUse);
-      setCurrentItems(parsedItems);
-    } catch (err) {
-      // Handle JSON parse error more gracefully, maybe show a warning?
-      console.warn("Invalid JSON format:", err instanceof Error ? err.message : err);
+  const teamMembers = [
+    {
+      name: "Nathan Clement",
+      title: "Founder & Senior Software Engineer",
+      image: "/profile.png",
+      href: "/team/nathan",
+      description: "Full-stack application architect specializing in enterprise fraud prevention, payment orchestration, and scalable SaaS platforms."
+    },
+    {
+      name: "Molly Voorhees",
+      title: "Owner & Software Engineer/Designer",
+      image: "/molly-photo.png",
+      href: "/team/molly",
+      description: "Software engineer and designer with 14 years of healthcare experience, bringing a unique perspective to building intuitive systems."
     }
-  }
+  ];
 
   return (
-    <Section
-      title="Resume"
-      subtitle={`Download as PDF or edit the source JSON (${editMode.toUpperCase()})`}
-      background="accent"
-    >
-      <div className="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
-        <Button 
-          variant="secondary" 
-          onClick={toggleEditMode}
-          icon={<HiPencil className='w-5 h-5' />}
-          iconPosition="left"
-        >
-          {editMode === 'on' ? 'View Resume' : 'Edit Source'}
-        </Button>
-        <Button 
-          variant="primary" 
-          onClick={triggerExport}
-          icon={<HiDownload className='w-5 h-5' />}
-          iconPosition="left"
-        >
-          Export as PDF
-        </Button>
-      </div>
-      
-      <div className='flex flex-col md:flex-row gap-8 items-start'>
-        { editMode === 'on' && 
-          <div className='w-full md:w-1/2 rounded-lg p-4 border border-gray-800 bg-neutral shadow-sm'>
-            <h3 className="text-lg font-semibold mb-2" style={{color:'var(--c-text-high)'}}>Resume Source JSON</h3>
-            <textarea
-              className="w-full h-[700px] p-2 border border-gray-700 rounded-md font-mono text-xs bg-neutral-sub text-high focus:ring-primary-500 focus:border-primary-500 transition"
-              value={editTextAreaValue}
-              onChange={updateEditTextAreaValue}
-              aria-label="Edit Resume JSON"
-            ></textarea>
-          </div>
-        }
-        
-        <div className={`w-full ${editMode === 'on' ? 'md:w-1/2' : 'max-w-4xl mx-auto'}`}>
-          <div className="rounded-lg overflow-hidden border border-gray-700 bg-neutral-sub shadow-lg">
-            <GeneratePdf
-              currentItems={currentItems}
-              exportTrigger={exportTrigger}
-              onExportComplete={() => setExportTrigger(0)}
-            />
-          </div>
+    <>
+      <Section
+        title="Portfolio"
+        subtitle="Meet our team and explore our expertise"
+        background="accent"
+      >
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {teamMembers.map((member) => (
+            <Link key={member.name} href={member.href}>
+              <GlassCard className="p-8 h-full hover:scale-[1.02] transition-transform cursor-pointer group">
+                <div className="flex flex-col items-center text-center">
+                  <div className="relative w-40 h-40 rounded-full overflow-hidden mb-6 ring-2 ring-accent/30 group-hover:ring-accent/60 transition-all">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{member.name}</h3>
+                  <p className="text-accent text-lg mb-4">{member.title}</p>
+                  <p className="text-med leading-relaxed mb-4">{member.description}</p>
+                  <span className="text-accent flex items-center gap-2 opacity-70 group-hover:opacity-100 transition-opacity">
+                    View Full Profile <HiArrowRight className="w-4 h-4" />
+                  </span>
+                </div>
+              </GlassCard>
+            </Link>
+          ))}
         </div>
-      </div>
-    </Section>
+      </Section>
+
+      {/* Trusted By Industry Leaders Section */}
+      <Section
+        title={career.title}
+        background="transparent"
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {CAREER_ITEMS.map((item, index) => (
+            <GlassCard key={index} className="p-6 text-center">
+              <div className="h-20 mb-4 flex items-center justify-center">
+                <Image 
+                  src={item.href} 
+                  alt={item.name} 
+                  width={120} 
+                  height={60} 
+                  className="object-contain max-h-16"
+                />
+              </div>
+              <h3 className="text-lg font-semibold text-high mb-2">{item.name}</h3>
+              <p className="text-sm text-med">{item.description}</p>
+            </GlassCard>
+          ))}
+        </div>
+      </Section>
+
+      {/* Technical Skills Section */}
+      <Section
+        title={skills.title}
+        subtitle={skills.subtitle}
+        background="transparent"
+        divider
+      >
+        <TechnicalExpertise />
+      </Section>
+    </>
   );
 }
