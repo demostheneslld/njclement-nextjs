@@ -5,6 +5,7 @@ import Section from '@/components/ui/Section';
 import TechnicalExpertise from '@/components/TechnicalExpertise';
 import { CAREER_ITEMS, SELF_SUMMARY, SOCIAL_LINKS } from '@/config/constants';
 import Image from 'next/image';
+import Link from 'next/link';
 import { HiArrowRight } from 'react-icons/hi';
 import ChatAboutMe from './chat/chat';
 
@@ -17,60 +18,115 @@ export default function HomeView() {
       <Section 
         background="gradient" 
         gradientColors={["primary", "neutral", "accent"]}
-        className="pt-20 pb-20 md:pt-32 md:pb-32"
+        className="pt-10 pb-16 md:pt-16 md:pb-24"
         divider
       >
         <div className="glass-surface relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="lg:w-1/2 text-center lg:text-left">
+          <div className="flex flex-col items-center gap-12">
+            <div className="text-center">
               <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
-                <span className="text-gradient min-h-[60px]">{hero.title}</span> <br />{hero.subtitle}
+                <span className="text-white min-h-[60px]">{hero.title}</span> <br />{hero.subtitle}
               </h1>
-              <p className="text-xl md:text-2xl text-med mb-8 max-w-2xl mx-auto lg:mx-0">
+              <p className="text-xl md:text-2xl text-slate-700 font-medium mb-8 max-w-2xl mx-auto">
                 {hero.description}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button 
-                  href={hero.primaryButton.href} 
-                  variant="primary"
-                  size="lg"
-                  icon={<HiArrowRight />}
-                >
-                  {hero.primaryButton.text}
-                </Button>
-                <Button 
-                  href={hero.secondaryButton.href} 
-                  variant="secondary"
-                  size="lg"
-                >
-                  {hero.secondaryButton.text}
-                </Button>
-              </div>
             </div>
-            <div className="lg:w-1/2 flex justify-center">
-              <div className="relative">
-                <div className="absolute -inset-1 rounded-full blur opacity-30"
-                     style={{
-                       background: `linear-gradient(135deg, var(--c-accent), var(--c-accent-contrast))`
-                     }}></div>
-                <div className="relative overflow-hidden rounded-full border-2 border-accent shadow-accent">
-                  <div className="absolute inset-0 rounded-full"
+            
+            {/* Two photos side by side */}
+            <div className="flex flex-col sm:flex-row justify-center gap-12 md:gap-16">
+              {/* Photo 1 - Nathan */}
+              <Link href="/team/nathan" className="group text-center">
+                <div className="relative inline-block">
+                  <div className="absolute -inset-1 rounded-full blur opacity-30 group-hover:opacity-50 transition-opacity"
                        style={{
-                         background: `linear-gradient(135deg, var(--c-accent), var(--c-accent-contrast))`,
-                         opacity: 0.15,
-                         mixBlendMode: 'overlay'
+                         background: `linear-gradient(135deg, var(--c-accent), var(--c-accent-contrast))`
                        }}></div>
-                  <Image
-                    alt="Nathan Clement"
-                    className="w-64 h-64 md:w-80 md:h-80 object-cover relative z-10"
-                    src="/profile.png"
-                    width={320}
-                    height={320}
-                    priority
-                    sizes="(min-width: 768px) 320px, 256px"
-                  />
+                  <div className="relative overflow-hidden rounded-full border-2 border-accent shadow-accent group-hover:scale-105 transition-transform duration-300">
+                    <div className="absolute inset-0 rounded-full"
+                         style={{
+                           background: `linear-gradient(135deg, var(--c-accent), var(--c-accent-contrast))`,
+                           opacity: 0.15,
+                           mixBlendMode: 'overlay'
+                         }}></div>
+                    <Image
+                      alt="Nathan Clement"
+                      className="w-64 h-64 md:w-80 md:h-80 object-cover relative z-10"
+                      src="/profile.png"
+                      width={320}
+                      height={320}
+                      priority
+                      sizes="(min-width: 768px) 320px, 256px"
+                    />
+                  </div>
                 </div>
-              </div>
+                <div className="mt-6">
+                  <h3 className="text-2xl font-bold text-white">Nathan Clement</h3>
+                  <p className="text-lg text-med mt-1">Founder & Senior Software Engineer</p>
+                </div>
+              </Link>
+              
+              {/* Photo 2 - Molly */}
+              <Link href="/team/molly" className="group text-center">
+                <div className="relative inline-block">
+                  <div className="absolute -inset-1 rounded-full blur opacity-30 group-hover:opacity-50 transition-opacity"
+                       style={{
+                         background: `linear-gradient(135deg, var(--c-accent), var(--c-accent-contrast))`
+                       }}></div>
+                  <div className="relative overflow-hidden rounded-full border-2 border-accent shadow-accent group-hover:scale-105 transition-transform duration-300">
+                    <div className="absolute inset-0 rounded-full"
+                         style={{
+                           background: `linear-gradient(135deg, var(--c-accent), var(--c-accent-contrast))`,
+                           opacity: 0.15,
+                           mixBlendMode: 'overlay'
+                         }}></div>
+                    <Image
+                      alt="Molly Voorhees"
+                      className="w-64 h-64 md:w-80 md:h-80 object-cover relative z-10"
+                      src="/molly-photo.png"
+                      width={320}
+                      height={320}
+                      priority
+                      sizes="(min-width: 768px) 320px, 256px"
+                    />
+                  </div>
+                </div>
+                <div className="mt-6">
+                  <h3 className="text-2xl font-bold text-white">Molly Voorhees</h3>
+                  <p className="text-lg text-med mt-1">Owner & Software Engineer/Designer</p>
+                </div>
+              </Link>
+            </div>
+            
+            {/* Company Bio */}
+            <div className="max-w-4xl mx-auto text-center mt-4">
+              <h2 className="text-3xl font-bold text-white mb-6">Welcome to NJC Enterprises!</h2>
+              <GlassCard className="p-8">
+                <div className="space-y-4 text-med text-lg leading-relaxed">
+                  <p>
+                    NJC Enterprises is a software engineering firm founded by Nathan Clement and Molly Voorhees—a husband and wife team with a shared passion for building technology that works beautifully.
+                  </p>
+                  <p>
+                    We specialize in custom AI software engineering and scaled SaaS platforms, crafting elegant solutions tailored to each client&apos;s unique needs. Our approach combines deep technical expertise with a commitment to intuitive design, ensuring every system we build empowers the people who use it.
+                  </p>
+                  <p>
+                    With backgrounds spanning enterprise fraud prevention, payment orchestration, healthcare technology, and aerospace manufacturing, we bring a breadth of experience to every project. We stay at the forefront of AI developments to deliver modern, intelligent solutions that help our clients work smarter.
+                  </p>
+                  <p>
+                    <strong className="text-white">What sets us apart:</strong> We believe in the luxury of custom software—systems designed specifically for you, not one-size-fits-all solutions. When you work with NJC Enterprises, you&apos;re working directly with the owners, and we treat every project with the care and attention it deserves.
+                  </p>
+                </div>
+              </GlassCard>
+            </div>
+            
+            {/* Button below bio */}
+            <div className="flex justify-center mt-8">
+              <Button 
+                href="/contact" 
+                variant="primary"
+                size="lg"
+              >
+                Contact Us
+              </Button>
             </div>
           </div>
 
@@ -93,8 +149,7 @@ export default function HomeView() {
 
       {/* Chat About Me Section */}
       <Section
-        title={"Chat About Me"}
-        subtitle={"NathanBot is an expert - what do you want to know?"}
+        title={"Ask Me Anything"}
         background="transparent"
         divider
       >
@@ -130,41 +185,6 @@ export default function HomeView() {
             ))}
           </div>
         </div>
-      </Section>
-
-      {/* Education Section */}
-      <Section
-        title={education.title}
-        subtitle={education.subtitle}
-        background="transparent"
-      >
-        <GlassCard as="div" className="max-w-4xl mx-auto p-8">
-          <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-            <div className="w-40 h-40 bg-contain bg-center bg-no-repeat" style={{ backgroundImage: `url(/harvard-logo.png)` }}></div>
-            <div className="flex flex-col md:mt-2">
-              <div className="text-2xl font-semibold mb-2 text-high">{education.university}, {education.graduation}</div>
-              <div className="text-xl text-med mb-4">{education.degree}</div>
-              <div className="grid gap-2 text-med">
-                {education.highlights.map((highlight, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="mr-2 text-accent">•</div>
-                    <div>{highlight}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </GlassCard>
-      </Section>
-
-      {/* Technical Skills Section */}
-      <Section
-        title={skills.title}
-        subtitle={skills.subtitle}
-        background="transparent"
-        divider
-      >
-        <TechnicalExpertise />
       </Section>
 
       {/* CTA Section */}

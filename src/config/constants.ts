@@ -49,8 +49,8 @@ export interface NavigationPage {
 
 export const NAV_PAGES: NavigationPage[] = [
   { name: "Home", href: "/", current: null },
-  { name: "Resume", href: "/resume", current: null },
-  { name: "Portfolio", href: "/portfolio", current: null },
+  { name: "Portfolio", href: "/resume", current: null },
+  { name: "Media", href: "/portfolio", current: null },
   { name: "Contact", href: "/contact", current: null },
 ];
 
@@ -70,7 +70,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/in/njclement/",
+    href: "https://www.linkedin.com/company/njc-enterprises/",
     icon: FaLinkedin,
   },
   {
@@ -96,11 +96,11 @@ export const SOCIAL_LINKS: SocialLink[] = [
 
 export const SELF_SUMMARY = {
   hero: {
-    title: "Software Engineering",
+    title: "Custom AI Software",
     titleHighlight: true,
-    subtitle: "Leader & Architect",
+    subtitle: "Engineering",
     description:
-      "Building scaled SaaS platforms and leading engineering teams to deliver exceptional products.",
+      "A husband and wife team, building scaled SaaS platforms and luxury AI systems.",
     primaryButton: {
       text: "View Resume",
       href: "/resume",
@@ -115,8 +115,8 @@ export const SELF_SUMMARY = {
     subtitle: "My journey and approach to software engineering and leadership",
   },
   career: {
-    title: "Career Journey",
-    subtitle: "Organizations that have shaped my professional experience",
+    title: "Trusted By Industry Leaders",
+    subtitle: "",
   },
   education: {
     title: "Education",
@@ -137,7 +137,7 @@ export const SELF_SUMMARY = {
   cta: {
     title: "Ready to work together?",
     description:
-      "I'm always interested in new challenges and opportunities to build amazing products.",
+      "We're always interested in new challenges and opportunities to build amazing products.",
     primaryButton: {
       text: "Get in Touch",
       href: "/contact",
@@ -186,6 +186,7 @@ export const CAREER_ITEMS: CareerItem[] = [
   { name: "Lockheed Martin", description: "Aerospace and Defense", href: "/career/lockheed-martin.png" },
   { name: "Facebook", description: "Social Media Platform", href: "/career/facebook.png" },
   { name: "US Congress", description: "Legislative Body", href: "/career/congress.png" },
+  { name: "KPFF", description: "Structural & Civil Engineering", href: "/kpff.png" },
 ];
 
 // ===========================

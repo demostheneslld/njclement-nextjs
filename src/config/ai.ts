@@ -13,7 +13,7 @@ import { stripIndent } from 'common-tags';
 
 export const SYSTEM_PROMPTS = {
   getChatAboutMeInitialMessage: () => {
-    return "Hey there, it's NathanBot! Chat to learn more about me? Would you like to hear about my education, technical expertise, career background, biography, or something else?";
+    return "Hey there, it's NJCbot! Chat to learn more about us? Would you like to hear about our education, technical expertise, career background, biography, or something else?";
   },
   getChatAboutMePrompt: () => {
     /* ---------- 1. Gather context ---------- */
