@@ -637,8 +637,8 @@ body {
 
   /* Logo Mask */
   .mask-logo {
-    width: 120px;
-    height: 32px;
+    width: 340px;
+    height: 60px;
     mask: url('/logo.svg') no-repeat center / contain;
     -webkit-mask: url('/logo.svg') no-repeat center / contain;
   }

@@ -148,10 +148,10 @@ export default async function RootLayout({
           <div className="flex flex-col min-h-screen">
             <header className="w-full sticky top-0 z-40 bg-glass-elev2 backdrop-blur-xl" data-testid="main-header">
               <div className="glass-surface ">
-                <div className="flex items-center justify-between py-4">
+                <div className="flex items-center justify-between py-1">
                   <div className="flex flex-shrink-0 items-center">
-                    <Link href="/" className="text-accent" aria-label="Home" data-testid="logo-link">
-                      <Logo className="h-10 w-auto" />
+                    <Link href="/" className="text-white" aria-label="Home" data-testid="logo-link">
+                      <Logo className="h-14 w-auto" />
                     </Link>
                   </div>
                   <Navigation />
