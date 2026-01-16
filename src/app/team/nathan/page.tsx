@@ -156,7 +156,7 @@ export default function NathanPage() {
               </p>
               <p>
                 A few Google searches later, I built my first macro, changing the way I thought about work forever. 
-                I've spent the years since learning to code from the ground up, one project at a time.
+                I&apos;ve spent the years since learning to code from the ground up, one project at a time.
               </p>
               <p>
                 I learned Full Stack Development while automating my first job, eventually building web applications, 
@@ -165,7 +165,7 @@ export default function NathanPage() {
               </p>
               <p>
                 Since the advent of Generative AI, I have stayed on the bleeding edge of the field, connecting with 
-                leading researchers, developers, and business leaders to build the future of AI. I'm an active 
+                leading researchers, developers, and business leaders to build the future of AI. I&apos;m an active 
                 contributor to the AI Biz Hour podcast and regularly speak and write about the evolving landscape of AI.
               </p>
             </div>
